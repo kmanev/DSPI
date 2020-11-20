@@ -1,5 +1,5 @@
 	`timescale	1ns	/	1ps
-/*	Used	for	testing	the	integrity	of	DSPI	by	adding	very	large	artificial	delays*/
+/* Used for testing the integrity of DSPI by adding very large artificial delays*/
 module ArtificialPipelineDelay#(
 	//MODULESPECIFIC
 	parameter DIR_ONE_STAGES_DATA=100,
