@@ -1,5 +1,5 @@
  `timescale 1ns / 1ps
-
+/* Used for testing the integrity of DSPI by adding very large artificial delays*/
 module ArtificialPipelineDelay #(
     //MODULE SPECIFIC
     parameter DIR_ONE_STAGES_DATA = 100,
@@ -113,7 +113,7 @@ module ArtificialPipelineDelay #(
 		for(i = 0 ; i< DIR_ONE_STAGES_DATA ; i=i+1)
 			dirOneData[i] <= 0;
 	end
-    always @ (posedge clk) begin // pass through the dir2 path
+    always @ (posedge clk) begin
 		dirOneData[0] <= {dirOneFront_Data, dirOneFront_Type, dirOneFront_Last, dirOneFront_StreamID, dirOneFront_ChunkID, dirOneFront_ChannelID, dirOneFront_State};
 		{dirOneBack_Data, dirOneBack_Type, dirOneBack_Last, dirOneBack_StreamID, dirOneBack_ChunkID, dirOneBack_ChannelID, dirOneBack_State} <= dirOneData[DIR_ONE_STAGES_DATA-1];
 		for(i = 0 ; i< DIR_ONE_STAGES_DATA-1 ; i=i+1)
@@ -125,7 +125,7 @@ module ArtificialPipelineDelay #(
 		for(i = 0 ; i< DIR_TWO_STAGES_DATA ; i=i+1)
 			dirTwoData[i] <= 0;
 	end
-    always @ (posedge clk) begin // pass through the dir2 path
+    always @ (posedge clk) begin
 		dirTwoData[0] <= {dirTwoFront_Data, dirTwoFront_Type, dirTwoFront_Last, dirTwoFront_StreamID, dirTwoFront_ChunkID, dirTwoFront_ChannelID, dirTwoFront_State};
 		{dirTwoBack_Data, dirTwoBack_Type, dirTwoBack_Last, dirTwoBack_StreamID, dirTwoBack_ChunkID, dirTwoBack_ChannelID, dirTwoBack_State} <= dirTwoData[DIR_TWO_STAGES_DATA-1];
 		for(i = 0 ; i< DIR_TWO_STAGES_DATA-1 ; i=i+1)
@@ -137,7 +137,7 @@ module ArtificialPipelineDelay #(
 		for(i = 0 ; i< DIR_ONE_STAGES_CTRL ; i=i+1)
 			dirOneCtrl[i] <= 0;
 	end
-    always @ (posedge clk) begin // pass through the dir2 path
+    always @ (posedge clk) begin
 		dirOneCtrl[0] <= {dirOneBack_InstructionType, dirOneBack_InstructionStreamID, dirOneBack_InstructionChannelID, dirOneBack_InstructionParameter};
 		{dirOneFront_InstructionType, dirOneFront_InstructionStreamID, dirOneFront_InstructionChannelID, dirOneFront_InstructionParameter} <= dirOneCtrl[DIR_ONE_STAGES_CTRL-1];
 		for(i = 0 ; i< DIR_ONE_STAGES_CTRL-1 ; i=i+1)
@@ -149,7 +149,7 @@ module ArtificialPipelineDelay #(
 		for(i = 0 ; i< DIR_TWO_STAGES_CTRL ; i=i+1)
 			dirTwoCtrl[i] <= 0;
 	end
-	always @ (posedge clk) begin // pass through the dir2 path
+	always @ (posedge clk) begin
 		dirTwoCtrl[0] <= {dirTwoBack_InstructionType, dirTwoBack_InstructionStreamID, dirTwoBack_InstructionChannelID, dirTwoBack_InstructionParameter};
 		{dirTwoFront_InstructionType, dirTwoFront_InstructionStreamID, dirTwoFront_InstructionChannelID, dirTwoFront_InstructionParameter} <= dirTwoCtrl[DIR_TWO_STAGES_CTRL-1];
 		for(i = 0 ; i< DIR_TWO_STAGES_CTRL-1 ; i=i+1)
