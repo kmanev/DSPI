@@ -38,7 +38,8 @@ module ArtificialPipelineDelay#(
 	parameter integer WIDTH_NUM_32B_FIELDS=$clog2(NUM_32B_FIELDS)
 )(
 	input	clk,
-	input	rstn,
+	input rstnIn,
+	output reg rstnOut = 1,
 	
 //DIRECTION	ONE
 	//FORWARD	INTERFACE	DATA
@@ -102,6 +103,11 @@ module ArtificialPipelineDelay#(
 	output	reg		[CHANNEL_ID_WIDTH-1:0]					dirTwoFront_InstructionChannelID,
 	output	reg		[INSTRUCTION_PARAMETER_WIDTH-1:0]		dirTwoFront_InstructionParameter
 );
+	wire rstn;
+	assign rstn = rstnOut;
+	always @ (posedge clk)
+		rstnOut <= rstnIn;
+		
 	integer i;
 	reg[DATA_WIDTH+2+1+STREAM_ID_WIDTH+CHUNK_ID_WIDTH+CHANNEL_ID_WIDTH+STATE_WIDTH-1:0]dirOneData[0:DIR_ONE_STAGES_DATA-1];
 	initial begin

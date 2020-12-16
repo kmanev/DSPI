@@ -19,7 +19,7 @@ module TurnAround#(
 	parameter integer WIDTH_NUM_32B_FIELDS = $clog2(NUM_32B_FIELDS)
 	)(
 	input clk,
-	input rstn,
+	input rstnIn,
 	
 //DIRECTION ONE
 	//FORWARD INTERFACE DATA
@@ -53,6 +53,9 @@ module TurnAround#(
     input   	[CHANNEL_ID_WIDTH-1:0] 				dirTwoBack_InstructionChannelID,
     input  		[INSTRUCTION_PARAMETER_WIDTH-1:0] 	dirTwoBack_InstructionParameter
 );
+	wire rstn;
+	assign rstn = rstnIn;
+		
     always @ (posedge clk) begin
 
 		dirTwoBack_Type <= dirOneFront_Type;
