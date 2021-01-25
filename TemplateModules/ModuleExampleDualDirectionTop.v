@@ -8,11 +8,13 @@ module ModuleExampleDualDirectionTop #(
 	parameter integer CHANNEL_ID_NUM = 1024, //number of addressable virtual channels per virtual stream
 	parameter integer STATE_WIDTH = 32, //transfers intermediate stream state for PEs and addresses for memory transactions
 	//BACKWARD PATH WIDTHS & ENCODING
-	parameter integer INSTRUCTION_WIDTH = 2,//width in bits of backward path instructions
-	parameter INSTRUCTION_CMD_IDLE = 2'd0,
-	parameter INSTRUCTION_CMD_REQUEST = 2'd1,
-	parameter INSTRUCTION_CMD_REWIND = 2'd2,
-	parameter INSTRUCTION_CMD_RESET = 2'd3,
+	parameter INSTRUCTION_WIDTH = 3,
+	parameter INSTRUCTION_CMD_IDLE = 3'd0,
+	parameter INSTRUCTION_CMD_REQUEST = 3'd2,
+	parameter INSTRUCTION_CMD_LOOKAHEAD = 3'd3,
+	parameter INSTRUCTION_CMD_REWIND = 3'd5,
+	parameter INSTRUCTION_CMD_RESTART = 3'd6,
+	parameter INSTRUCTION_CMD_FINISH = 3'd7,
 	parameter integer INSTRUCTION_PARAMETER_WIDTH = 16,
 	//CONTROL TYPE PACKETS ENCODING
 		//ABSOLUTE ADDRESSING
@@ -33,8 +35,7 @@ module ModuleExampleDualDirectionTop #(
 	parameter integer WIDTH_NUM_32B_FIELDS = $clog2(NUM_32B_FIELDS)
 )(
 	input clk,
-	input rstnIn,
-	output reg rstnOut = 1,
+	input rstn,
 	
 //DIRECTION ONE
 	//FORWARD INTERFACE DATA
@@ -98,11 +99,6 @@ module ModuleExampleDualDirectionTop #(
     output reg 	[CHANNEL_ID_WIDTH-1:0] 				dirTwoFront_InstructionChannelID,
     output reg 	[INSTRUCTION_PARAMETER_WIDTH-1:0] 	dirTwoFront_InstructionParameter
 );
-	wire rstn;
-	assign rstn = rstnOut;
-	always @ (posedge clk)
-		rstnOut <= rstnIn;
-		
 	wire controlTypePacketValid = dirOneFront_Type[1];
 	wire dataTypePacketValid = dirOneFront_Type[0];
 	

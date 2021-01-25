@@ -8,7 +8,7 @@ module TurnAround#(
 	parameter integer CHANNEL_ID_NUM = 1024, //number of addressable virtual channels per virtual stream
 	parameter integer STATE_WIDTH = 32, //transfers intermediate stream state for PEs and addresses for memory transactions
 	//BACKWARD PATH WIDTHS & ENCODING
-	parameter integer INSTRUCTION_WIDTH = 2,//width in bits of backward path instructions
+	parameter integer INSTRUCTION_WIDTH = 3,//width in bits of backward path instructions
 	parameter INSTRUCTION_CMD_IDLE = 0,
 	parameter integer INSTRUCTION_PARAMETER_WIDTH = 16,
 	//DERIVED VALUES
@@ -53,14 +53,14 @@ module TurnAround#(
     input   	[CHANNEL_ID_WIDTH-1:0] 				dirTwoBack_InstructionChannelID,
     input  		[INSTRUCTION_PARAMETER_WIDTH-1:0] 	dirTwoBack_InstructionParameter
 );
-	wire rstn;
-	assign rstn = rstnIn;
-		
     always @ (posedge clk) begin
-
-		dirTwoBack_Type <= dirOneFront_Type;
-		dirOneFront_InstructionType <= dirTwoBack_InstructionType;
-		
+		if(rstnIn == 0) begin
+			dirTwoBack_Type <= 0;
+			dirOneFront_InstructionType <= INSTRUCTION_CMD_IDLE;
+		end else begin
+			dirTwoBack_Type <= dirOneFront_Type;
+			dirOneFront_InstructionType <= dirTwoBack_InstructionType;
+		end
 		dirTwoBack_Data <= dirOneFront_Data;
 		dirTwoBack_Last <= dirOneFront_Last;
 		dirTwoBack_StreamID <= dirOneFront_StreamID;
