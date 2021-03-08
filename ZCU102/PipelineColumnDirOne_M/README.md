@@ -1,5 +1,6 @@
 
 Regular routing:
+Purple lines outline double-column border.
 Green and red wires stream from right to left (green are before pipeline stage, red are after). Blue wires stream from left to right.
 
 Zoomed out:
