@@ -13,5 +13,8 @@ Vivado should be able to route the 32 wires.
 
 ### What happened?
 
+The tools successfully route the interface wires through the holes we put in the blocker as seen by the end result in the following screenshot:
+
+(Noting that the vertial purple wire is a clock signal that is also routed through a hole in the clock blocker)
 ![The PR synthesis completes](SuccessfullyRouted.png)
 
