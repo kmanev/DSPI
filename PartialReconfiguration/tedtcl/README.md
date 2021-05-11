@@ -3,7 +3,7 @@ Developed by **Malte Vesper** (https://www.research.manchester.ac.uk/portal/file
 
 Originally publically released by **Khoa Pham** (https://github.com/khoapham/efcad).
 
-
+## Using TedTCL
 
 The easiest way to use tedtcl with Vivado is to add the following to your ~/.Xilinx/Vivado/Vivado_init.tcl
 
