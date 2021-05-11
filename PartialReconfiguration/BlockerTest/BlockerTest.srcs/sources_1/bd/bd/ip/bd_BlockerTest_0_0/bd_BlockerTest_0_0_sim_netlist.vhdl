@@ -1,0 +1,214 @@
+-- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+-- --------------------------------------------------------------------------------
+-- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
+-- Date        : Tue May 11 13:48:21 2021
+-- Host        : DESKTOP-47LU6A1 running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode funcsim
+--               d:/prruns/BlockerTest/BlockerTest.srcs/sources_1/bd/bd/ip/bd_BlockerTest_0_0/bd_BlockerTest_0_0_sim_netlist.vhdl
+-- Design      : bd_BlockerTest_0_0
+-- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
+--               synthesized. This netlist cannot be used for SDF annotated simulation.
+-- Device      : xczu9eg-ffvb1156-2-e
+-- --------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity bd_BlockerTest_0_0_BlockerTest is
+  port (
+    EtoWbusOut : out STD_LOGIC_VECTOR ( 8 downto 0 );
+    WtoEbusOut : out STD_LOGIC_VECTOR ( 8 downto 0 );
+    EtoWbusIn : in STD_LOGIC_VECTOR ( 8 downto 0 );
+    clk : in STD_LOGIC;
+    WtoEbusIn : in STD_LOGIC_VECTOR ( 8 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of bd_BlockerTest_0_0_BlockerTest : entity is "BlockerTest";
+end bd_BlockerTest_0_0_BlockerTest;
+
+architecture STRUCTURE of bd_BlockerTest_0_0_BlockerTest is
+begin
+\EtoWbusOut_reg[0]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(0),
+      Q => EtoWbusOut(0),
+      R => '0'
+    );
+\EtoWbusOut_reg[1]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(1),
+      Q => EtoWbusOut(1),
+      R => '0'
+    );
+\EtoWbusOut_reg[2]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(2),
+      Q => EtoWbusOut(2),
+      R => '0'
+    );
+\EtoWbusOut_reg[3]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(3),
+      Q => EtoWbusOut(3),
+      R => '0'
+    );
+\EtoWbusOut_reg[4]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(4),
+      Q => EtoWbusOut(4),
+      R => '0'
+    );
+\EtoWbusOut_reg[5]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(5),
+      Q => EtoWbusOut(5),
+      R => '0'
+    );
+\EtoWbusOut_reg[6]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(6),
+      Q => EtoWbusOut(6),
+      R => '0'
+    );
+\EtoWbusOut_reg[7]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(7),
+      Q => EtoWbusOut(7),
+      R => '0'
+    );
+\EtoWbusOut_reg[8]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => EtoWbusIn(8),
+      Q => EtoWbusOut(8),
+      R => '0'
+    );
+\WtoEbusOut_reg[0]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(0),
+      Q => WtoEbusOut(0),
+      R => '0'
+    );
+\WtoEbusOut_reg[1]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(1),
+      Q => WtoEbusOut(1),
+      R => '0'
+    );
+\WtoEbusOut_reg[2]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(2),
+      Q => WtoEbusOut(2),
+      R => '0'
+    );
+\WtoEbusOut_reg[3]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(3),
+      Q => WtoEbusOut(3),
+      R => '0'
+    );
+\WtoEbusOut_reg[4]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(4),
+      Q => WtoEbusOut(4),
+      R => '0'
+    );
+\WtoEbusOut_reg[5]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(5),
+      Q => WtoEbusOut(5),
+      R => '0'
+    );
+\WtoEbusOut_reg[6]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(6),
+      Q => WtoEbusOut(6),
+      R => '0'
+    );
+\WtoEbusOut_reg[7]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(7),
+      Q => WtoEbusOut(7),
+      R => '0'
+    );
+\WtoEbusOut_reg[8]\: unisim.vcomponents.FDRE
+     port map (
+      C => clk,
+      CE => '1',
+      D => WtoEbusIn(8),
+      Q => WtoEbusOut(8),
+      R => '0'
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity bd_BlockerTest_0_0 is
+  port (
+    clk : in STD_LOGIC;
+    EtoWbusIn : in STD_LOGIC_VECTOR ( 8 downto 0 );
+    EtoWbusOut : out STD_LOGIC_VECTOR ( 8 downto 0 );
+    WtoEbusIn : in STD_LOGIC_VECTOR ( 8 downto 0 );
+    WtoEbusOut : out STD_LOGIC_VECTOR ( 8 downto 0 )
+  );
+  attribute NotValidForBitStream : boolean;
+  attribute NotValidForBitStream of bd_BlockerTest_0_0 : entity is true;
+  attribute CHECK_LICENSE_TYPE : string;
+  attribute CHECK_LICENSE_TYPE of bd_BlockerTest_0_0 : entity is "bd_BlockerTest_0_0,BlockerTest,{}";
+  attribute DowngradeIPIdentifiedWarnings : string;
+  attribute DowngradeIPIdentifiedWarnings of bd_BlockerTest_0_0 : entity is "yes";
+  attribute IP_DEFINITION_SOURCE : string;
+  attribute IP_DEFINITION_SOURCE of bd_BlockerTest_0_0 : entity is "module_ref";
+  attribute X_CORE_INFO : string;
+  attribute X_CORE_INFO of bd_BlockerTest_0_0 : entity is "BlockerTest,Vivado 2020.1";
+end bd_BlockerTest_0_0;
+
+architecture STRUCTURE of bd_BlockerTest_0_0 is
+  attribute X_INTERFACE_INFO : string;
+  attribute X_INTERFACE_INFO of clk : signal is "xilinx.com:signal:clock:1.0 clk CLK";
+  attribute X_INTERFACE_PARAMETER : string;
+  attribute X_INTERFACE_PARAMETER of clk : signal is "XIL_INTERFACENAME clk, FREQ_HZ 99990005, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN bd_zynq_ultra_ps_e_0_0_pl_clk0, INSERT_VIP 0";
+begin
+inst: entity work.bd_BlockerTest_0_0_BlockerTest
+     port map (
+      EtoWbusIn(8 downto 0) => EtoWbusIn(8 downto 0),
+      EtoWbusOut(8 downto 0) => EtoWbusOut(8 downto 0),
+      WtoEbusIn(8 downto 0) => WtoEbusIn(8 downto 0),
+      WtoEbusOut(8 downto 0) => WtoEbusOut(8 downto 0),
+      clk => clk
+    );
+end STRUCTURE;

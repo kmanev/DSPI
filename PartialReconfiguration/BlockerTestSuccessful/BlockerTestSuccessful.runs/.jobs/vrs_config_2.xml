@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="bd_WestCon_0_0_synth_1" LaunchDir="D:/prruns/BlockerTestSuccessful/BlockerTestSuccessful.runs/bd_WestCon_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="bd_zynq_ultra_ps_e_0_0_synth_1" LaunchDir="D:/prruns/BlockerTestSuccessful/BlockerTestSuccessful.runs/bd_zynq_ultra_ps_e_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="bd_BlockerTestSuccessful_0_0_synth_1" LaunchDir="D:/prruns/BlockerTestSuccessful/BlockerTestSuccessful.runs/bd_BlockerTestSuccessful_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="bd_EastCon_0_0_synth_1" LaunchDir="D:/prruns/BlockerTestSuccessful/BlockerTestSuccessful.runs/bd_EastCon_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="D:/prruns/BlockerTestSuccessful/BlockerTestSuccessful.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="bd_WestCon_0_0_synth_1"/>
+		<Parent Id="bd_zynq_ultra_ps_e_0_0_synth_1"/>
+		<Parent Id="bd_BlockerTestSuccessful_0_0_synth_1"/>
+		<Parent Id="bd_EastCon_0_0_synth_1"/>
+	</Run>
+	<Parameters>
+		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
+		<Parameter Name="runs.enableClusterConf" Val="true" Type="bool"/>
+	</Parameters>
+</Runs>
+
