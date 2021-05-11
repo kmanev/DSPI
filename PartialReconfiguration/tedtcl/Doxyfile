@@ -1,0 +1,69 @@
+PROJECT_NAME           = tedtcl
+## Revision
+PROJECT_NUMBER         = 1.0
+PROJECT_BRIEF          = "tcl scripts for vivado"
+
+OUTPUT_DIRECTORY       = ./doc
+
+BRIEF_MEMBER_DESC      = YES
+REPEAT_BRIEF           = YES
+##use defaults for abbreviation
+ABBREVIATE_BRIEF       = 
+ALWAYS_DETAILED_SEC    = YES
+INLINE_INHERITED_MEMB  = YES
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        =
+JAVADOC_AUTOBRIEF      = YES
+QT_AUTOBRIEF           = YES
+TCL_SUBST              = 
+AUTOLINK_SUPPORT       = YES
+
+##Setting extract all to yes suppresses undocumented warnings.
+EXTRACT_ALL            = NO
+EXTRACT_PACKAGE        = YES
+EXTRACT_STATIC         = YES
+
+SORT_BY_SCOPE_NAME     = YES
+SORT_BRIEF_DOCS        = YES
+SORT_MEMBER_DOCS       = YES
+
+##See below, if you would like to generate internal docs, also check EXCLUDE_SYMBOLS, as this might surpress documentation for several internal functions.
+INTERNAL_DOCS          = NO
+##The EXCLUDE_SYMBOLS = _* hides private methods to avoid warnings about them being undocumented if we do not
+##generate the internal docs
+EXCLUDE_SYMBOLS        = _*
+
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_NO_PARAMDOC       = YES
+
+INPUT                  = .
+INPUT                 += README.md
+
+FILE_PATTERNS          = *.tcl *.md
+RECURSIVE              = NO
+EXCLUDE                =
+
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+REFERENCED_BY_RELATION = YES
+
+GENERATE_ECLIPSEHELP   = NO
+## use default id org.doxygen.Project
+##ECLIPSE_DOC_ID         =
+
+#automatically add \file documentation so we get warnings about undocumented members
+FILTER_PATTERNS          = "*.tcl=./auto_file_doc.sh"
+USE_MDFILE_AS_MAINPAGE = README.md
+
+#install graphviz -- seems to be broken
+#HAVE_DOT               = YES
+
+GENERATE_LATEX         = NO
+ALPHABETICAL_INDEX     = YES
+#could not find callgraphs
+#CALL_GRAPH             = YES
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_EXTRA_STYLESHEET  = doxygenCustomizations.css

@@ -1,0 +1,2 @@
+ This folder contains modules form tcllib not available in Vivado.
+ The modules are extracted from tcllib as `is`, and the license from tcllib which is found in license.terms in this directory applies.

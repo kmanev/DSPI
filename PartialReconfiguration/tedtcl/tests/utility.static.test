@@ -1,0 +1,59 @@
+package require tcltest
+package require ted
+
+namespace eval ::ted::utility::test::static {
+	variable SETUP {}
+	variable CLEANUP {#common cleanup code}
+
+	
+# ted::utility::static
+	::tcltest::test static-multiple-access {
+		Test if static is static across function calls
+	} -setup $SETUP -body {
+		#reset all the statics
+		::ted::utility::_resetAllStaticVariables
+		
+		proc tester {} {
+			::ted::utility::static x 0
+			return [incr x]
+		}
+		
+		set resultList {}
+		
+		for {set i 0} {$i < 3} {incr i} {
+			lappend resultList [tester]
+		}
+		
+		return $resultList
+	} -cleanup $CLEANUP -result {1 2 3}
+
+	::tcltest::test static-initial-value {
+		Test initial value for static variables
+	} -setup $SETUP -body {
+		#reset all the statics
+		#can not use `package reload ted` as this will clear up the entire ted namespace, including the test with the procedure definition
+		#package reload ted
+		::ted::utility::_resetAllStaticVariables
+		
+		proc tester {{value {}}} {
+			::ted::utility::static x "The Only"
+			
+			if {$value ne {}} {
+				set x $value
+			}
+			
+			return $x
+		}
+		
+		set resultList {}
+		
+		lappend resultList [tester]
+		lappend resultList [tester 34]
+		lappend resultList [tester]
+		
+		return $resultList
+	} -cleanup $CLEANUP -result {{The Only} 34 34}
+	
+	::tcltest::cleanupTests
+}
+namespace delete ::ted::utility::test::static

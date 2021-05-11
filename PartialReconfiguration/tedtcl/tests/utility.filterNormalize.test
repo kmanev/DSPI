@@ -1,0 +1,114 @@
+package require tcltest
+package require ted
+
+namespace eval ::ted::utility::test::filterNormalize {
+	variable SETUP {}
+	variable CLEANUP {#common cleanup code}
+
+	
+# ted::utility::static
+	::tcltest::test filterNormalize-0 {
+		Test filterNormalize on Expression "0"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {0}
+	} -cleanup $CLEANUP -result {0}
+	
+	::tcltest::test filterNormalize-1 {
+		Test filterNormalize on Expression "1"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {1}
+	} -cleanup $CLEANUP -result {}
+	
+	::tcltest::test filterNormalize-comparison {
+		Test filterNormalize with comparison operators on Expression "a==1&&b!=2||c=~5*&&d!~2&&e<3&&f>4||g<=5&&h>=6&&!i"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {a==1&&b!=2||c=~5*&&d!~2&&e<3&&f>4||g<=5&&h>=6&&!i}
+	} -cleanup $CLEANUP -result {a==1&&b!=2||c=~5*&&d!~2&&e<3&&f>4||g<=5&&h>=6&&!i}
+	
+	::tcltest::test filterNormalize-logicalOperators {
+		Test filterNormalize with logical operatos on Expression "a&&b||c"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {a&&b||c}
+	} -cleanup $CLEANUP -result {a&&b||c}
+	
+	::tcltest::test filterNormalize-keepNeccessaryBrackets {
+		Test filterNormalize on keeping necessary brackets with Expression "(a||b)&&c"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {(a||b)&&c}
+	} -cleanup $CLEANUP -result {(a||b)&&c}
+	
+	::tcltest::test filterNormalize-eliminateSuperfluousBrackets {
+		Test filterNormalize on removing superfluous brackets with Expression "(a||(b&&c))"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {(a||(b&&c))}
+	} -cleanup $CLEANUP -result {a||b&&c}
+	
+	::tcltest::test filterNormalize-ZeroNegationOptimization {
+		Test filterNormalize negation optimizations on Expression "!0"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {!0}
+	} -cleanup $CLEANUP -result {}
+	
+	::tcltest::test filterNormalize-OneNegationOptimization {
+		Test filterNormalize negation optimizations on Expression "!1"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {!1}
+	} -cleanup $CLEANUP -result {0}
+	
+	::tcltest::test filterNormalize-optimizationAnd-t0 {
+		Test filterNormalize optimization on Expression "1&&a"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {1&&a}
+	} -cleanup $CLEANUP -result {a}
+	
+	::tcltest::test filterNormalize-optimizationAnd-t1 {
+		Test filterNormalize optimization on Expression "a&&1"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {a&&1}
+	} -cleanup $CLEANUP -result {a}
+	
+	::tcltest::test filterNormalize-optimizationAnd-t2 {
+		Test filterNormalize optimization on Expression "0&&a"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {0&&a}
+	} -cleanup $CLEANUP -result {0}
+	
+	::tcltest::test filterNormalize-optimizationAnd-t3 {
+		Test filterNormalize optimization on Expression "a&&0"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {a&&0}
+	} -cleanup $CLEANUP -result {0}
+	
+	::tcltest::test filterNormalize-optimizationOr-t0 {
+		Test filterNormalize optimization on Expression "1||a"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {1||a}
+	} -cleanup $CLEANUP -result {}
+	
+	::tcltest::test filterNormalize-optimizationOr-t1 {
+		Test filterNormalize optimization on Expression "a||1"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {a||1}
+	} -cleanup $CLEANUP -result {}
+	
+	::tcltest::test filterNormalize-optimizationOr-t2 {
+		Test filterNormalize optimization on Expression "0||a"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {0||a}
+	} -cleanup $CLEANUP -result {a}
+	
+	::tcltest::test filterNormalize-optimizationOr-t3 {
+		Test filterNormalize optimization on Expression "a||0"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {a||0}
+	} -cleanup $CLEANUP -result {a}
+	
+	::tcltest::test filterNormalize-ComplexExpression {
+		Test filterNormalize on Expression "(a||b)&&!c=~3||(!1&&(1||0))"
+	} -setup $SETUP -body {
+		::ted::utility::filterNormalize {(a||b)&&!c=~3||(!1&&(1||0))}
+	} -cleanup $CLEANUP -result {(a||b)&&!c=~3}
+	
+	::tcltest::cleanupTests
+}
+namespace delete ::ted::utility::test::filterNormalize

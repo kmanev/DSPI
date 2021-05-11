@@ -1,0 +1,24 @@
+package require tcltest
+package require ted
+
+namespace eval ::ted::utility::test::getSuffices {
+	variable SETUP {#common setup code}
+	variable CLEANUP {#common cleanup code}
+
+	
+# ted::utility::getSuffices
+	::tcltest::test getSuffices-emptyList {
+		Call to get suffices with empty list
+	} -setup $SETUP -body {
+		ted::utility::getSuffices {} dummy
+	} -cleanup $CLEANUP -result {}
+
+	::tcltest::test getSuffices-trivialList {
+		Call to get suffices with a test list
+	} -setup $SETUP -body {
+		ted::utility::getSuffices {dummy1 dummy2 dummy3} dummy
+	} -cleanup $CLEANUP -result [list 1 2 3]
+	
+	::tcltest::cleanupTests
+}
+namespace delete ::ted::utility::test::getSuffices

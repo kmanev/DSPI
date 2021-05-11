@@ -1,0 +1,73 @@
+package require tcltest
+package require ted
+
+namespace eval ::ted::utility::test::range {
+    variable SETUP {#common setup code}
+    variable CLEANUP {#common cleanup code}
+
+    
+# ted::utility::range
+    ::tcltest::test utility-range-0-range-positive {
+		Create 0 range with a positive step width
+    } -setup $SETUP -body {
+		ted::utility::range 0 0 1
+    } -cleanup $CLEANUP -result {}
+    
+	::tcltest::test utility-range-0-range-negative {
+		Create 0 range with a negative step width
+    } -setup $SETUP -body {
+		ted::utility::range 0 0 -1
+    } -cleanup $CLEANUP -result {}
+
+	::tcltest::test utility-range-0-step-width {
+		Create a range with step width 0, should fail.
+    } -setup $SETUP -body {
+		ted::utility::range 0 0 0
+    } -cleanup $CLEANUP -returnCodes {ERROR}  -match regexp -result {ERROR:.*}
+    #-match regexp -errorOutput {.*Step must be an integer other than 0}
+    
+    ::tcltest::test utility-range-positive-step-negative {
+		Create range with a positive range and a negative step width 
+    } -setup $SETUP -body {
+		ted::utility::range 0 3 -1
+    } -cleanup $CLEANUP -returnCodes {ERROR}  -match regexp -result {ERROR:.*}
+    
+	::tcltest::test utility-range-negative-step-postive {
+		Create 0 range with a negative range and a positive step width
+    } -setup $SETUP -body {
+		ted::utility::range 3 0 1
+    } -cleanup $CLEANUP -returnCodes {ERROR}  -match regexp -result {ERROR:.*}
+    
+    ::tcltest::test utility-range-positive {
+		Create range with a positive step width
+    } -setup $SETUP -body {
+		ted::utility::range 0 3
+    } -cleanup $CLEANUP -result {0 1 2}
+    
+    ::tcltest::test utility-range-positive-stepwidth-larger-one {
+		Create range with a positive step width larger than one
+    } -setup $SETUP -body {
+		ted::utility::range 0 3 2
+    } -cleanup $CLEANUP -result {0 2}
+    
+    ::tcltest::test utility-range-negative {
+		Create range with a negative step width
+    } -setup $SETUP -body {
+		ted::utility::range 3 0
+    } -cleanup $CLEANUP -result {3 2 1}
+    
+    ::tcltest::test utility-range-negative-stepwidth-larger-one {
+		Create range with a negative step width larger than one
+    } -setup $SETUP -body {
+		ted::utility::range 3 0 -2
+    } -cleanup $CLEANUP -result {3 1}
+
+    ::tcltest::test utility-range-negative-cross-zero {
+		Create range with a negative step width crossing zero boundary
+    } -setup $SETUP -body {
+		ted::utility::range 3 -4 -2
+    } -cleanup $CLEANUP -result {3 1 -1 -3}
+    
+    ::tcltest::cleanupTests
+}
+namespace delete ::ted::utility::test::range
