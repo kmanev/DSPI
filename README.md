@@ -1,9 +1,9 @@
 # DSPI
 Dynamic Stream Processing Interface
 
-## This repository contains the following items:
-### [TedTCL](PartialReconfiguration/tedtcl/) - a TCL library for aiding blocker generation.
-### [TedTCL Blocking Test](PartialReconfiguration/BlockerTestSuccessful/) - an example PR module generation
+### This repository contains the following items:
+  * [TedTCL](PartialReconfiguration/tedtcl/) - a TCL library for aiding blocker generation.
+  * [TedTCL Blocking Test](PartialReconfiguration/BlockerTestSuccessful/) - an example PR module generation
 ### [TedTCL Blocking Test (Overconstrained)](PartialReconfiguration/BlockerTest/) - overconstrained blocker to test whether Vivado will comply or break it.
 ### [Support modules](SupportModules/)
 ### [Module templates](TemplateModules/)
