@@ -1,9 +1,9 @@
 # DSPI
 Dynamic Stream Processing Interface
 
-This repository contains the following items:
+##This repository contains the following items:
 
-[TedTCL](PartialReconfiguration/tedtcl/) - a TCL library for aiding blocker generation.
+####[TedTCL](PartialReconfiguration/tedtcl/) - a TCL library for aiding blocker generation.
 
 [TedTCL Blocking Test](PartialReconfiguration/BlockerTestSuccessful/) - an example PR module generation
 
