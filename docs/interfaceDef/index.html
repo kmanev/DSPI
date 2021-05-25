@@ -142,10 +142,10 @@ padding-top: 56px;
 <!--
 <div class="col-xs-6 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="maindiv" style="min-width:400px;">
 -->
-<div class="col-1" style="max-width:2%;">
+<div class="col-1" style="max-width:5%;">
 
 </div>
-<div class="col-9 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="maindiv" style="min-width:1000px;max-width:70%;">
+<div class="col-9 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="maindiv" style="min-width:600px;max-width:55%;">
 
 
 
@@ -168,16 +168,16 @@ padding-top: 56px;
 <div class="container">
 <div class="col-md-8 col-md-offset-2">
 <div class="form-group">
-	<div class="input-group input-file" name="Fichier1">
+	<div class="input-group input-file">
 		<span class="input-group-btn">
-			<button class="btn btn-outline-secondary btn-choose" type="button">Choose</button>
+			<button class="btn btn-outline-secondary btn-choose btn-sm" type="button">Choose</button>
 		</span>
-		<input type="text" autocomplete="false" class="form-control" placeholder='Choose a file...'/>
+		<input type="text" autocomplete="false" class="form-control form-control-sm" placeholder='Choose a file...'/>
 		<span class="input-group-btn">
-			 <button class="btn btn-warning btn-reset" type="button">Reset</button>
+			 <button class="btn btn-warning btn-reset btn-sm" type="button">Reset</button>
 		</span>
 		<span class="input-group-btn">
-		<button type="button" id="upload" class="btn btn-primary pull-right" ><i class="fa fa-upload"></i> Open</button>
+		<button type="button" id="upload" class="btn btn-primary pull-right btn-sm" ><i class="fa fa-upload"></i> Open</button>
 		</span>
 	</div>
 </div>
@@ -215,25 +215,36 @@ function bs_input_file() {
 $(function() {
 	bs_input_file();
 });
+
+window.onload = function(){
+  $("input.fieldportname").val("");
+	$(".fieldporttype").val(-1);
+}
 </script>
-<button class="btn btn-info" id="download" type="button"><i class="fa fa-download"></i> Save</button> 
-<button class="btn btn-warning" id="draw" type="button"><i class="fa fa-microchip"></i> Draw</button> 
-<button class="btn btn-success" id="dspi" type="button"><i class="fa fa-bug"></i> Load example DSPI</button> 
+<div class="control-group input-group" style="margin-top:10px" id="headersave">
+<input readonly autocomplete="false" name="stopautofillingstupidbrowser" type="text" class="form-control form-control-sm" value="Port name" style="max-width:16%;"/>
+<select disabled="true" name="stopautofillingstupidbrowser2" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1">Port type</option></select>
+</div>
+<div class="control-group input-group" style="margin-top:10px" id="fieldssave">
+<input type="text" autocomplete="false" onload="this.value = 'asdf';console.log('test');" class="form-control form-control-sm fieldportname" value="" style="max-width:16%;"/>
+<select class="custom-select custom-select-sm fieldporttype" onload="this.value = -1;" autocomplete="false" aria-label=".custom-select-sm" style="max-width:12%;"><option value="-1" selected>Port type</option><option value="Slave">Slave/Rx</option><option value="Master">Master/Tx</option></select>
+<button class="btn btn-info btn-sm" id="download" type="button"><i class="fa fa-download"></i> Save</button> 
+</div>
+<!---<button class="btn btn-warning" id="draw" type="button"><i class="fa fa-microchip"></i> Draw</button>  -->
+<button class="btn btn-success custom-select-sm" id="dspi" type="button"><i class="fa fa-bug"></i> Load example DSPI</button> 
 
     <legend>Interface</legend>
 <fieldset id="interfacefieldset">
 
 <div class="fieldwrapper control-group input-group" style="margin-top:10px" id="headeritem">
 <input readonly type="text" class="form-control form-control-sm" value="Bus name"/>
-<input readonly type="text" class="form-control form-control-sm" value="Reverse bus"/>
-<input readonly type="text" class="form-control form-control-sm" value="LSB" style="max-width:4%;"/>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1">Border</option></select>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1">Direction</option></select>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1">Width</option></select>
+<input readonly type="text" class="form-control form-control-sm" value="LSB" style="max-width:8%;"/>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1">Direction</option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:10%;"><option value="1">Width</option></select>
 <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1">Clock Region</option></select>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1">Tile</option></select>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1">Wire(s)</option></select>
-<button class="btn btn-sm btn-danger remove btn-block" type="button" style="width:85px !important;"><i class="fa fa-remove"></i> Remove</button>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1">Tile</option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1">Wire(s)</option></select>
+<button class="btn btn-sm btn-danger remove btn-block" type="button" style="width:85px !important;"><i class="fa fa-remove"></i></button>
 </div>
 
 
@@ -242,14 +253,12 @@ $(function() {
 <fieldset id="interfaceaddfieldset">
 <div class="fieldwrapper control-group input-group" style="margin-top:10px" id="footeritem">
 <input readonly type="text" class="form-control form-control-sm" value=""/>
-<input readonly type="text" class="form-control form-control-sm" value=""/>
-<input readonly type="text" class="form-control form-control-sm" value="" style="max-width:4%;"/>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1"></option></select>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1"></option></select>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1"></option></select>
+<input readonly type="text" class="form-control form-control-sm" value="" style="max-width:8%;"/>
 <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1"></option></select>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1"></option></select>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1"></option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:10%;"><option value="1"></option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1"></option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1"></option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1"></option></select>
 <button class="btn btn-sm btn-success btn-block" id="add" type="button" style="width:85px !important;"><i class="fa fa-plus"></i> Add </button>
 </div>
 </fieldset>
@@ -257,12 +266,12 @@ $(function() {
 
 
 </div>
-<div class="col-1" style="max-width:2%;">
+<div class="col-1" style="max-width:5%;">
 
 </div>
 <div class="col-3 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="previewdiv" style="min-width:370px;max-width:20%;">
 </div>
-<div class="col-1" style="max-width:2%;">
+<div class="col-1" style="max-width:5%;">
 
 </div>
 </div>
@@ -273,9 +282,7 @@ $(function() {
 var interfaceRows = 0;
 var clockRegions = 0;
 var interfaceNames = [];
-var interfaceReverseNames = [];
 var interfaceLSBs = [];
-var interfaceBorders = [];
 var interfaceDirections = [];
 var interfaceWidths = [];
 var interfaceClockRegions = [];
@@ -284,9 +291,7 @@ var interfaceWires = [];
 function interfaceClear(){
 	interfaceRows = 0;
 	interfaceNames = [];
-	interfaceReverseNames = [];
 	interfaceLSBs = [];
-	interfaceBorders = [];
 	interfaceDirections = [];
 	interfaceWidths = [];
 	interfaceClockRegions = [];
@@ -301,13 +306,14 @@ function clearUIelements(){
 		}
 	});
 }
-var currentFileName = "Interface.csv";
 function downloadCSV() {
 	readFromUI();
+	currentFileName = $("input.fieldportname").val()+".csv";
 	//updateUtilization();
-	var text = "BusName, ReverseBusName, LSB, Border, Direction, Width, ClockRegion, Tile, LSBWire";
+	var text = "BusName, LSB, Direction, Width, ClockRegion, Tile, LSBWire, ";
+	text += $(".fieldporttype").val();
 	for(var i = 0 ; i < interfaceRows ; i++){
-		text += "\n" + interfaceNames[i] + "," + interfaceReverseNames[i] + "," + interfaceLSBs[i] + "," + interfaceBorders[i] + "," + interfaceDirections[i] + "," + interfaceWidths[i] + "," + interfaceClockRegions[i] + "," + interfaceTiles[i] + "," + interfaceWires[i];
+		text += "\n" + interfaceNames[i] + "," + interfaceLSBs[i] + "," + interfaceDirections[i] + "," + interfaceWidths[i] + "," + interfaceClockRegions[i] + "," + interfaceTiles[i] + "," + interfaceWires[i];
 	}
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -337,14 +343,17 @@ function csvToArray(text) { // https://stackoverflow.com/questions/8493195/how-c
 };
 var fr;
 function parseUploadedFile() {
+	$(".fieldporttype").val(-1);
 	//fr.result
 	var upload2DArray = csvToArray(fr.result);
-	console.log(upload2DArray);
 	clearUIelements();
 	if(upload2DArray.length > 1){
+		console.log(upload2DArray[0][upload2DArray[0].length-1]);
+		if(upload2DArray[0][upload2DArray[0].length-1].includes("Slave"))$(".fieldporttype").val("Slave");
+		else if(upload2DArray[0][upload2DArray[0].length-1].includes("Master"))$(".fieldporttype").val("Master");
 		for(var i = 1 ; i < upload2DArray.length ; i++){
-			if(upload2DArray[i].length == 9)
-				pushElementToUI(upload2DArray[i][0],upload2DArray[i][1],upload2DArray[i][2],upload2DArray[i][3],upload2DArray[i][4],upload2DArray[i][5],upload2DArray[i][6],upload2DArray[i][7],upload2DArray[i][8]);
+			if(upload2DArray[i].length == 7)
+				pushElementToUI(upload2DArray[i][0],upload2DArray[i][1],upload2DArray[i][2],upload2DArray[i][3],upload2DArray[i][4],upload2DArray[i][5],upload2DArray[i][6]);
 		}
 	}
 	drawVisualisation();
@@ -355,10 +364,8 @@ function readFromUI(){
 		//var id = "input" + $(this).attr("id").replace("field","");
 		if($(this).attr("id").includes("field")) {
 			interfaceNames.push($(this).find("input.fieldname").first().val());
-			interfaceReverseNames.push($(this).find("input.fieldreversename").first().val());
 			interfaceLSBs.push(parseInt($(this).find("input.fieldlsb").first().val()));
 			if(isNaN(interfaceLSBs[interfaceRows]))interfaceLSBs[interfaceRows] = -1;
-			interfaceBorders.push($(this).find("select.fieldborder").first().val());
 			interfaceDirections.push($(this).find("select.fielddirection").first().val());
 			interfaceWidths.push(parseInt($(this).find("select.fieldwidth").first().val()));
 			interfaceClockRegions.push(parseInt($(this).find("select.fieldclockregion").first().val()));
@@ -371,9 +378,9 @@ function readFromUI(){
 }
 function generateWireMenu(width, selected){
 	if(width <= 0){
-		return $("<select disabled=\"true\" class=\"custom-select custom-select-sm fieldwire\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"-1\">Wire(s)</option></select>");
+		return $("<select disabled=\"true\" class=\"custom-select custom-select-sm fieldwire\" aria-label=\".custom-select-sm\" style=\"max-width:12%;\"><option value=\"-1\">Wire(s)</option></select>");
 	} else if(width <= 8){
-		var html = "<select class=\"custom-select custom-select-sm fieldwire\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"-1\">Wires</option>";
+		var html = "<select class=\"custom-select custom-select-sm fieldwire\" aria-label=\".custom-select-sm\" style=\"max-width:12%;\"><option value=\"-1\">Wires</option>";
 		for(var i = 0 ; i <= 8-width ; i++){
 			if(i == selected){ html += "<option value=\""+i+"\" selected>"+i;if(width>1)html+="-"+(parseInt(i)+parseInt(width)-1);html+="</option>"}
 			else { html += "<option value=\""+i+"\">"+i;if(width>1)html+="-"+(parseInt(i)+parseInt(width)-1);html+="</option>"}
@@ -381,16 +388,22 @@ function generateWireMenu(width, selected){
 		html += "</selected>";
 		return $(html);
 	} else if(width == 32){
-		return $("<select disabled=\"true\" class=\"custom-select custom-select-sm fieldwire\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"0\">0-31</option></select>");
+		var html = "<select class=\"custom-select custom-select-sm fieldwire\" aria-label=\".custom-select-sm\" style=\"max-width:12%;\"><option value=\"-1\">Wires</option>";
+		if(selected == 0) html += "<option value=\"0\" selected>0-31</option>";
+		else html += "<option value=\"0\" selected>0-31</option>";
+		if(selected == 8) html += "<option value=\"8\" selected>8-39</option>";
+		else html += "<option value=\"8\">8-39</option>";
+		html += "</select>";
+		return $(html);
 	} else {
-		return $("<select disabled=\"true\" class=\"custom-select custom-select-sm fieldwire\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"0\">0-39</option></select>");
+		return $("<select disabled=\"true\" class=\"custom-select custom-select-sm fieldwire\" aria-label=\".custom-select-sm\" style=\"max-width:12%;\"><option value=\"0\">0-39</option></select>");
 	}
 }
 function generateTileMenu(width, selected){
 	if(width <= 0){
-		return $("<select disabled=\"true\" class=\"custom-select custom-select-sm fieldtile\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"-1\">Tile</option></select>");
+		return $("<select disabled=\"true\" class=\"custom-select custom-select-sm fieldtile\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\"><option value=\"-1\">Tile</option></select>");
 	} else if(width <= 8){
-		var html = "<select class=\"custom-select custom-select-sm fieldtile\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"-1\">CLB Tile</option>";
+		var html = "<select class=\"custom-select custom-select-sm fieldtile\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\"><option value=\"-1\">CLB Tile</option>";
 		for(var i = 0 ; i < 60 ; i++){
 			if(("C"+i) == selected) html+="<option value=\"C"+i+"\" selected>CLB Y"+i+"</option>";
 			else html+="<option value=\"C"+i+"\">CLB Y"+i+"</option>";
@@ -398,7 +411,7 @@ function generateTileMenu(width, selected){
 		html += "</select>";
 		return $(html);
 	} else {
-		var html = "<select class=\"custom-select custom-select-sm fieldtile\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"-1\">BlockRAM Tile</option>";
+		var html = "<select class=\"custom-select custom-select-sm fieldtile\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\"><option value=\"-1\">BlockRAM Tile</option>";
 		for(var i = 0 ; i < 12 ; i++){
 			if(("B"+i) == selected) html+="<option value=\"B"+i+"\" selected>BRAM Y"+i+" (CLB Y"+(i*5)+"-"+(i*5+4)+")</option>";
 			else html+="<option value=\"B"+i+"\">BRAM Y"+i+" (CLB Y"+(i*5)+"-"+(i*5+4)+")</option>";
@@ -407,31 +420,18 @@ function generateTileMenu(width, selected){
 		return $(html);
 	}
 }
-function pushElementToUI(name,reversename,lsb,border,direction,width,clockRegion,tile,wire){
+function pushElementToUI(name,lsb,direction,width,clockRegion,tile,wire){
 	var lastField = $("#interfacefieldset div:last");
 	var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
 	var fieldWrapper = $("<div class=\"fieldwrapper control-group input-group\" style=\"margin-top:10px\" id=\"field" + intId + "\">");
 	fieldWrapper.data("idx", intId);
 	var fName = $("<input type=\"text\" class=\"form-control form-control-sm fieldname\" value=\""+name+"\"/>");
-	var fReverseName = $("<input type=\"text\" class=\"form-control form-control-sm fieldreversename\" value=\""+reversename+"\"/>");
-	fReverseName.change(function() {
-		drawVisualisation();
-	});
 	if(lsb == -1)lsb = "";
-	var fLSB = $("<input type=\"text\" class=\"form-control form-control-sm fieldlsb\" value=\""+lsb+"\" style=\"max-width:4%;\"/>");
+	var fLSB = $("<input type=\"text\" class=\"form-control form-control-sm fieldlsb\" value=\""+lsb+"\" style=\"max-width:8%;\"/>");
 	fLSB.change(function() {
 		drawVisualisation();
 	});
-	var html = "<select class=\"custom-select custom-select-sm fieldborder\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"-1\">Border</option><option value=\"E\"";
-	if(border == "E") html+=" selected";
-	html += ">East</option><option value=\"W\"";
-	if(border == "W") html+=" selected";
-	html+= ">West</option></select>";
-	var fBorder = $(html);
-	fBorder.change(function() {
-		drawVisualisation();
-	});
-	html = "<select class=\"custom-select custom-select-sm fielddirection\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"-1\">Direction</option><option value=\"I\"";
+	html = "<select class=\"custom-select custom-select-sm fielddirection\" aria-label=\".custom-select-sm\" style=\"max-width:12%;\"><option value=\"-1\">Direction</option><option value=\"I\"";
 	if(direction == "I") html+=" selected";
 	html += ">Input</option><option value=\"O\"";
 	if(direction == "O") html+=" selected";
@@ -440,7 +440,7 @@ function pushElementToUI(name,reversename,lsb,border,direction,width,clockRegion
 	fDirection.change(function() {
 		drawVisualisation();
 	});
-	html = "<select class=\"custom-select custom-select-sm fieldwidth\" aria-label=\".custom-select-sm\" style=\"max-width:8%;\"><option value=\"-1\">Width</option>";
+	html = "<select class=\"custom-select custom-select-sm fieldwidth\" aria-label=\".custom-select-sm\" style=\"max-width:10%;\"><option value=\"-1\">Width</option>";
 	for(var i = 1 ; i < 11 ; i++){
 		var w = i; if(w==9)w=32;if(w==10)w=40;
 		if(w == width) html+="<option value=\""+w+"\" selected>"+w+"</option>";
@@ -486,9 +486,7 @@ function pushElementToUI(name,reversename,lsb,border,direction,width,clockRegion
 		drawVisualisation();
 	});
 	fieldWrapper.append(fName);
-	fieldWrapper.append(fReverseName);
 	fieldWrapper.append(fLSB);
-	fieldWrapper.append(fBorder);
 	fieldWrapper.append(fDirection);
 	fieldWrapper.append(fWidth);
 	fieldWrapper.append(fClockRegion);
@@ -499,9 +497,7 @@ function pushElementToUI(name,reversename,lsb,border,direction,width,clockRegion
 }
 function interfacePushLine(name,reversename,lsb,border,direction,width,clockRegion,tile,wire){
 	interfaceNames.push(name);
-	interfaceReverseNames.push(reversename);
 	interfaceLSBs.push(lsb);
-	interfaceBorders.push(border);
 	interfaceDirections.push(direction);
 	interfaceWidths.push(width);
 	interfaceClockRegions.push(clockRegion);
@@ -509,81 +505,42 @@ function interfacePushLine(name,reversename,lsb,border,direction,width,clockRegi
 	interfaceWires.push(wire);
 	interfaceRows++;
 }
-function loadDefaultDSPI(){
+function loadDefaultDSPI512(){
 	clearUIelements();
-	pushElementToUI("Stream Direction One","","","","",0,-1,"",0);
-	
-	pushElementToUI("rstnIn","rstnOut","","E","I",1,0,"C59",4);
-	
-	
-	pushElementToUI("dirOneFront_Type","dirOneBack_Type",0,"E","I",2,0,"C59",0);
-	pushElementToUI("dirOneFront_Last","dirOneBack_Last",-1,"E","I",1,0,"C58",0);
-	pushElementToUI("dirOneFront_StreamID","dirOneBack_StreamID",0,"E","I",4,0,"C57",0);
-	pushElementToUI("dirOneFront_ChunkID","dirOneBack_ChunkID",0,"E","I",5,0,"C56",0);
-	pushElementToUI("dirOneFront_ChannelID","dirOneBack_ChannelID",0,"E","I",8,0,"C54",0);
-	pushElementToUI("dirOneFront_ChannelID","dirOneBack_ChannelID",8,"E","I",2,0,"C55",0);
-	pushElementToUI("dirOneFront_State","dirOneBack_State",0,"E","I",32,0,"B9",0);
+	$("input.fieldportname").val("DSPI512");
+	$(".fieldporttype").val('Slave');
+	pushElementToUI("Type",0,"I",2,0,"C59",0);
+	pushElementToUI("Last",-1,"I",1,0,"C58",0);
+	pushElementToUI("StreamID",0,"I",4,0,"C57",0);
+	pushElementToUI("ChunkID",0,"I",5,0,"C56",0);
+	pushElementToUI("ChannelID",0,"I",8,0,"C54",0);
+	pushElementToUI("ChannelID",8,"I",2,0,"C55",0);
+	pushElementToUI("State",0,"I",32,0,"B9",0);
 	
 	
-	pushElementToUI("dirOneBack_InstructionType","dirOneFront_InstructionType",0,"W","I",3,1,"C0",0);
-	pushElementToUI("dirOneBack_InstructionStreamID","dirOneFront_InstructionStreamID",0,"W","I",4,1,"C1",0);
-	pushElementToUI("dirOneBack_InstructionChannelID","dirOneFront_InstructionChannelID",0,"W","I",8,1,"C2",0);
-	pushElementToUI("dirOneBack_InstructionChannelID","dirOneFront_InstructionChannelID",8,"W","I",2,1,"C3",0);
-	pushElementToUI("dirOneBack_InstructionParameter","dirOneFront_InstructionParameter",0,"W","I",8,1,"C4",0);
-	pushElementToUI("dirOneBack_InstructionParameter","dirOneFront_InstructionParameter",8,"W","I",8,1,"C5",0);
+	pushElementToUI("InstructionType",0,"O",3,1,"C0",0);
+	pushElementToUI("InstructionStreamID",0,"O",4,1,"C1",0);
+	pushElementToUI("InstructionChannelID",0,"O",8,1,"C2",0);
+	pushElementToUI("InstructionChannelID",8,"O",2,1,"C3",0);
+	pushElementToUI("InstructionParameter",0,"O",8,1,"C4",0);
+	pushElementToUI("InstructionParameter",8,"O",8,1,"C5",0);
 	
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",0,"E","I",32,0,"B1",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",32,"E","I",32,0,"B2",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",64,"E","I",32,0,"B3",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",96,"E","I",32,0,"B4",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",128,"E","I",32,0,"B5",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",160,"E","I",32,0,"B6",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",192,"E","I",32,0,"B7",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",224,"E","I",32,1,"B2",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",256,"E","I",32,1,"B3",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",288,"E","I",32,1,"B4",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",320,"E","I",32,1,"B5",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",352,"E","I",32,1,"B6",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",384,"E","I",32,1,"B7",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",416,"E","I",32,1,"B8",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",448,"E","I",32,1,"B9",0);
-	pushElementToUI("dirOneFront_Data","dirOneBack_Data",480,"E","I",32,1,"B10",0);
-	
-	
-	pushElementToUI("Stream Direction Two","","","","",0,-1,"",0);
-	
-	pushElementToUI("dirTwoFront_Type","dirTwoBack_Type",0,"W","I",2,0,"C59",0);
-	pushElementToUI("dirTwoFront_Last","dirTwoBack_Last",-1,"W","I",1,0,"C58",0);
-	pushElementToUI("dirTwoFront_StreamID","dirTwoBack_StreamID",0,"W","I",4,0,"C57",0);
-	pushElementToUI("dirTwoFront_ChunkID","dirTwoBack_ChunkID",0,"W","I",5,0,"C56",0);
-	pushElementToUI("dirTwoFront_ChannelID","dirTwoBack_ChannelID",0,"W","I",8,0,"C54",0);
-	pushElementToUI("dirTwoFront_ChannelID","dirTwoBack_ChannelID",8,"W","I",2,0,"C55",0);
-	pushElementToUI("dirTwoFront_State","dirTwoBack_State",0,"W","I",32,0,"B9",0);
-	
-	
-	pushElementToUI("dirTwoBack_InstructionType","dirTwoFront_InstructionType",0,"E","I",3,1,"C0",0);
-	pushElementToUI("dirTwoBack_InstructionStreamID","dirTwoFront_InstructionStreamID",0,"E","I",4,1,"C1",0);
-	pushElementToUI("dirTwoBack_InstructionChannelID","dirTwoFront_InstructionChannelID",0,"E","I",8,1,"C2",0);
-	pushElementToUI("dirTwoBack_InstructionChannelID","dirTwoFront_InstructionChannelID",8,"E","I",2,1,"C3",0);
-	pushElementToUI("dirTwoBack_InstructionParameter","dirTwoFront_InstructionParameter",0,"E","I",8,1,"C4",0);
-	pushElementToUI("dirTwoBack_InstructionParameter","dirTwoFront_InstructionParameter",8,"E","I",8,1,"C5",0);
-	
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",0,"W","I",32,0,"B1",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",32,"W","I",32,0,"B2",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",64,"W","I",32,0,"B3",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",96,"W","I",32,0,"B4",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",128,"W","I",32,0,"B5",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",160,"W","I",32,0,"B6",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",192,"W","I",32,0,"B7",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",224,"W","I",32,1,"B2",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",256,"W","I",32,1,"B3",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",288,"W","I",32,1,"B4",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",320,"W","I",32,1,"B5",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",352,"W","I",32,1,"B6",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",384,"W","I",32,1,"B7",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",416,"W","I",32,1,"B8",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",448,"W","I",32,1,"B9",0);
-	pushElementToUI("dirTwoFront_Data","dirTwoBack_Data",480,"W","I",32,1,"B10",0);
+	pushElementToUI("Data",0,"I",32,0,"B1",0);
+	pushElementToUI("Data",32,"I",32,0,"B2",0);
+	pushElementToUI("Data",64,"I",32,0,"B3",0);
+	pushElementToUI("Data",96,"I",32,0,"B4",0);
+	pushElementToUI("Data",128,"I",32,0,"B5",0);
+	pushElementToUI("Data",160,"I",32,0,"B6",0);
+	pushElementToUI("Data",192,"I",32,0,"B7",0);
+	pushElementToUI("Data",224,"I",32,1,"B2",0);
+	pushElementToUI("Data",256,"I",32,1,"B3",0);
+	pushElementToUI("Data",288,"I",32,1,"B4",0);
+	pushElementToUI("Data",320,"I",32,1,"B5",0);
+	pushElementToUI("Data",352,"I",32,1,"B6",0);
+	pushElementToUI("Data",384,"I",32,1,"B7",0);
+	pushElementToUI("Data",416,"I",32,1,"B8",0);
+	pushElementToUI("Data",448,"I",32,1,"B9",0);
+	pushElementToUI("Data",480,"I",32,1,"B10",0);
 	
 	drawVisualisation();
 }
@@ -675,10 +632,8 @@ function updateUtilization(){
 		if(wireLSBIndex >= 0 && wireLSBIndex < clockRegions*60*8){
 			if((wireLSBIndex+interfaceWidths[i]-1) >= 0 && (wireLSBIndex+interfaceWidths[i]-1) < clockRegions*60*8){
 				for(var wireIndex = wireLSBIndex ; wireIndex < wireLSBIndex+interfaceWidths[i] ; wireIndex++){
-					if(interfaceBorders[i] == "W" && interfaceDirections[i] == "O") {interfaceUtilizationWestOut[wireIndex]++; 	if(interfaceReverseNames[i]!="")interfaceUtilizationEastIn[wireIndex]++;}
-					if(interfaceBorders[i] == "W" && interfaceDirections[i] == "I") {interfaceUtilizationWestIn[wireIndex]++; 	if(interfaceReverseNames[i]!="")interfaceUtilizationEastOut[wireIndex]++;}
-					if(interfaceBorders[i] == "E" && interfaceDirections[i] == "O") {interfaceUtilizationEastOut[wireIndex]++; 	if(interfaceReverseNames[i]!="")interfaceUtilizationWestIn[wireIndex]++;}
-					if(interfaceBorders[i] == "E" && interfaceDirections[i] == "I") {interfaceUtilizationEastIn[wireIndex]++; 	if(interfaceReverseNames[i]!="")interfaceUtilizationWestOut[wireIndex]++;}
+					if(interfaceDirections[i] == "I") {interfaceUtilizationEastIn[wireIndex]++;interfaceUtilizationWestOut[wireIndex]++;}
+					if(interfaceDirections[i] == "O") {interfaceUtilizationEastOut[wireIndex]++;interfaceUtilizationWestIn[wireIndex]++;}
 				}
 			}
 		}
@@ -733,25 +688,33 @@ function drawInterfaceWires(context, fromx, fromy, tox) {
 				var wireIndex = clockRegions*60*8 - 1 - (i*60*8 + c*8 + w);
 				var color;
 				if(interfaceUtilizationWestOut[wireIndex] == 0)color = "#22a619";
-				else if(interfaceUtilizationWestOut[wireIndex] == 1)color = "#020094";
-				else color = "#ff0015";
+				else if(interfaceUtilizationWestOut[wireIndex] == 1){
+					color = "#020094";
+					if(interfaceUtilizationWestIn[wireIndex] > 0) color = "#c4a716";
+				} else color = "#ff0015";
 				canvasLine(context, color, fromx-16, y, fromx, y);
 				
 				if(interfaceUtilizationWestIn[wireIndex] == 0)color = "#22a619";
-				else if(interfaceUtilizationWestIn[wireIndex] == 1)color = "#020094";
-				else color = "#ff0015";
+				else if(interfaceUtilizationWestIn[wireIndex] == 1){
+					color = "#020094";
+					if(interfaceUtilizationWestOut[wireIndex] > 0) color = "#c4a716";
+				} else color = "#ff0015";
 				canvasLine(context, color, fromx+3, y, fromx+3+16, y);
 				
 				
 				if(interfaceUtilizationEastIn[wireIndex] == 0)color = "#22a619";
-				else if(interfaceUtilizationEastIn[wireIndex] == 1)color = "#020094";
-				else color = "#ff0015";
+				else if(interfaceUtilizationEastIn[wireIndex] == 1){
+					color = "#020094";
+					if(interfaceUtilizationEastOut[wireIndex] > 0) color = "#c4a716";
+				} else color = "#ff0015";
 				canvasLine(context, color, tox-16-3, y, tox-3, y);
 				
 				
 				if(interfaceUtilizationEastOut[wireIndex] == 0)color = "#22a619";
-				else if(interfaceUtilizationEastOut[wireIndex] == 1)color = "#020094";
-				else color = "#ff0015";
+				else if(interfaceUtilizationEastOut[wireIndex] == 1){
+					color = "#020094";
+					if(interfaceUtilizationEastIn[wireIndex] > 0) color = "#c4a716";
+				} else color = "#ff0015";
 				canvasLine(context, color, tox, y, tox+16, y);
 			}
 		}
@@ -892,16 +855,16 @@ $(document).ready(function() {
           fr = new FileReader();
           fr.onload = parseUploadedFile;
           fr.readAsText(file);
-		  currentFileName = file.name;
+		  $("input.fieldportname").val(file.name.split(".")[0]);
           //fr.readAsBinaryString(file); //as bit work with base64 for example upload to server
           //fr.readAsDataURL(file);
         }
     });
-    $("#draw").click(function() {
+/*    $("#draw").click(function() {
 		drawVisualisation();
-    });
+    });*/
     $("#dspi").click(function() {
-		loadDefaultDSPI();
+		loadDefaultDSPI512();
     });
 });
 </script>  
