@@ -525,6 +525,7 @@ place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirOneBack_ChunkID_reg[1] SLIC
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirOneBack_ChunkID_reg[2] SLICE_X18Y228/FFF
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirOneBack_ChunkID_reg[3] SLICE_X18Y228/HFF
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirOneBack_ChunkID_reg[4] SLICE_X19Y228/BFF
+place_cell design_1_i/Filter_32_4_0/inst/dafilter/rstnOut_reg SLICE_X19Y228/DFF
 
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirOneBack_ChannelID_reg[0] SLICE_X18Y230/BFF
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirOneBack_ChannelID_reg[1] SLICE_X18Y230/DFF

@@ -8,34 +8,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link id="dynamic-favicon" rel="shortcut icon" href="favicon.svg">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
     <!-- Bootstrap core CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <style>
 input, select, option{
-	background-color: #fdf5e6;
 	font-weight:bold;
 }
-input[type=button], input[type=submit]{
-	background-color: #f7d9a1;
-	color: #463006;
-	border: solid #f3c672 2px;
-	padding-left:15px;
-	padding-right:15px;
-	padding-top:2px;
-	padding-bottom:2px;
-}
 a {
-	color: #C26825;
 	font-weight: bold;
 	text-decoration: none;
 }
-h2 {
-	color: #C26825;
-}
 #menu a,#menu input, #menu button{
 	font-family: tahoma, arial;
-	color: #f8ead3;
 	font-size:13px;
 	text-shadow: 3px 3px 3px #000000;
 	font-weight: bold;
@@ -45,11 +32,6 @@ h2 {
 	font-family: Georgia, Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	line-height: 1.3em;
-}
-table + br,
-tr + br,
-td + br{
-    display: none;
 }
 </style>
 <style>
@@ -96,10 +78,14 @@ padding-top: 56px;
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
+
+
+
+
 		<div class="collapse navbar-collapse" id="navbarCollapseTop">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link text-nowrap navbar-right" href="interfaceDef/">
+					<a class="nav-link text-nowrap navbar-right" href="../interfaceDef/">
 						<svg aria-hidden="true" width="2em" height="2em" focusable="false" data-prefix="far" data-icon="image" class="fa svg-inline--fa fa-image fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
 							<path fill="currentColor" d="M2.71,22.71l2.4-2.4a3.79,3.79,0,0,0,4.6-.6L12.41,17l-1-1,2.29-2.29-1.41-1.41L10,14.59,9.41,14l2.29-2.29-1.41-1.41L8,12.59l-1-1L4.29,14.29a3.82,3.82,0,0,0-.6,4.6l-2.4,2.4Zm3-7L7,14.41,9.59,17,8.29,18.29a1.83,1.83,0,0,1-2.59-2.59Z">
 							</path>
@@ -110,7 +96,7 @@ padding-top: 56px;
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-nowrap navbar-right" href="blockGen/">
+					<a class="nav-link text-nowrap navbar-right" href="../blockGen/">
 						<svg aria-hidden="true" width="2em" height="2em" focusable="false" data-prefix="far" data-icon="image" class="fa svg-inline--fa fa-image fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
 							<path fill="currentColor" d="M29,0H3A3,3,0,0,0,0,3V29a3,3,0,0,0,3,3H29a3,3,0,0,0,3-3V3A3,3,0,0,0,29,0ZM2,3A1,1,0,0,1,3,2H15V7H2ZM22,9v6H10V9ZM2,9H8v6H2Zm0,8H15v6H2ZM8,30H3a1,1,0,0,1-1-1V25H8Zm14,0H10V25H22Zm8-1a1,1,0,0,1-1,1H24V25h6Zm0-6H17V17H30Zm0-8H24V9h6Zm0-8H17V2H29a1,1,0,0,1,1,1Z">
 							</path>
@@ -119,7 +105,7 @@ padding-top: 56px;
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-nowrap navbar-right" href="blockGen/">
+					<a class="nav-link text-nowrap navbar-right" href="#">
 						<svg aria-hidden="true" width="2em" height="2em" focusable="false" data-prefix="far" data-icon="image" class="fa svg-inline--fa fa-image fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 84">
 							<path fill="currentColor" d="M64,12c0-6.627-5.373-12-12-12c-6.627,0-12,5.373-12,12c0,4.865,2.901,9.045,7.062,10.93  c-1.137,9.738-7.42,11.705-16.479,14.537c-4.395,1.373-9.511,2.977-13.833,6.082V23.02C21.014,21.178,24,16.939,24,12  c0-6.627-5.373-12-12-12C5.373,0,0,5.373,0,12c0,4.939,2.986,9.178,7.25,11.02v37.963C2.986,62.822,0,67.061,0,72  c0,6.627,5.373,12,12,12c6.627,0,12-5.373,12-12c0-4.865-2.9-9.045-7.062-10.928c1.137-9.74,7.42-11.707,16.479-14.537  c9.22-2.881,21.628-6.762,23.172-23.447C60.938,21.285,64,17,64,12z M5.077,12c0-3.822,3.101-6.922,6.923-6.922  c3.823,0,6.923,3.1,6.923,6.922c0,3.824-3.1,6.924-6.923,6.924C8.178,18.924,5.077,15.824,5.077,12z M12,78.924  c-3.822,0-6.923-3.1-6.923-6.924c0-3.822,3.101-6.922,6.923-6.922c3.823,0,6.923,3.1,6.923,6.922  C18.923,75.824,15.823,78.924,12,78.924z M52,18.924c-3.822,0-6.923-3.1-6.923-6.924c0-3.822,3.101-6.922,6.923-6.922  c3.823,0,6.923,3.1,6.923,6.922C58.923,15.824,55.823,18.924,52,18.924z">
 							</path>
@@ -128,7 +114,7 @@ padding-top: 56px;
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-nowrap navbar-right" href="blockGen/">
+					<a class="nav-link text-nowrap navbar-right" href="#">
 						<svg aria-hidden="true" width="2em" height="2em" focusable="false" data-prefix="far" data-icon="image" class="fa svg-inline--fa fa-image fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
 							<path fill="currentColor" d="M5.977417,16.5018311H2v26h2v-24h1.9786377c0.5351563,3.9372559,4.161438,6.9963379,8.5445557,6.9963379h7.3799438v-16   h-7.3799438C10.1373291,9.4981689,6.5090942,12.5610962,5.977417,16.5018311z">
 							</path>
@@ -140,7 +126,7 @@ padding-top: 56px;
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-nowrap navbar-right" href="blockGen/">
+					<a class="nav-link text-nowrap navbar-right" href="#">
 						<svg aria-hidden="true" width="2em" height="2em" focusable="false" data-prefix="far" data-icon="image" class="fa svg-inline--fa fa-image fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
 							<path fill="currentColor" d="M38,1H1v34h4v7.414L12.414,35H17v6h17.586L43,49.414V41h6V15H38V1z M11.586,33L7,37.586V33H3V13h7v7.184   C8.839,20.598,8,21.698,8,23c0,1.654,1.346,3,3,3s3-1.346,3-3c0-1.302-0.839-2.402-2-2.816V11H3V3h33v5H23.816   C23.402,6.839,22.302,6,21,6c-1.654,0-3,1.346-3,3s1.346,3,3,3c1.302,0,2.402-0.839,2.816-2H36v5H17v18H11.586z M12,23   c0,0.552-0.448,1-1,1s-1-0.448-1-1s0.448-1,1-1S12,22.448,12,23z M22,9c0,0.552-0.448,1-1,1s-1-0.448-1-1s0.448-1,1-1   S22,8.448,22,9z M47,17v16h-6.184c-0.414-1.161-1.514-2-2.816-2c-1.654,0-3,1.346-3,3s1.346,3,3,3c1.302,0,2.402-0.839,2.816-2H47   v4h-6v5.586L35.414,39H19v-4V24h7v3.184c-1.161,0.414-2,1.514-2,2.816c0,1.654,1.346,3,3,3s3-1.346,3-3   c0-1.302-0.839-2.402-2-2.816V22h-9v-5h13v8h6.184c0.414,1.161,1.514,2,2.816,2c1.654,0,3-1.346,3-3s-1.346-3-3-3   c-1.302,0-2.402,0.839-2.816,2H34v-6h4H47z M39,34c0,0.552-0.448,1-1,1s-1-0.448-1-1s0.448-1,1-1S39,33.448,39,34z M28,30   c0,0.552-0.448,1-1,1s-1-0.448-1-1s0.448-1,1-1S28,29.448,28,30z M40,24c0-0.552,0.448-1,1-1s1,0.448,1,1s-0.448,1-1,1   S40,24.552,40,24z">
 							</path>
@@ -151,8 +137,15 @@ padding-top: 56px;
 			</ul>
 		</div>
 	</nav>
-<main role="main" class="container" style="min-width:400px;">
-<div class="my-3 p-3 bg-white rounded shadow-sm table-responsive">
+<main role="main" class="container-fluid">
+<div class="row">
+<!--
+<div class="col-xs-6 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="maindiv" style="min-width:400px;">
+-->
+<div class="col-1" style="max-width:5%;">
+
+</div>
+<div class="col-9 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="maindiv" style="min-width:600px;max-width:55%;">
 
 
 
@@ -167,55 +160,601 @@ padding-top: 56px;
 
 
 
+ 
 
 
 
+<form autocomplete="off">
+<div class="container">
+<legend>Load port definitions</legend>
+<div class="col-md-8 col-md-offset-2">
+<div class="form-group">
+	<div class="input-group input-file">
+		<span class="input-group-btn">
+			<button class="btn btn-outline-secondary btn-choose btn-sm" type="button">Choose</button>
+		</span>
+		<input type="text" autocomplete="false" class="form-control form-control-sm" placeholder='Choose a file...'/>
+		<span class="input-group-btn">
+			 <button class="btn btn-warning btn-reset btn-sm" type="button">Reset</button>
+		</span>
+		<span class="input-group-btn">
+		<button type="button" id="upload" class="btn btn-primary pull-right btn-sm" ><i class="fa fa-upload"></i> Open</button>
+		</span>
+	</div>
+</div>
+<!-- COMPONENT END -->
+</div>
+</div>
+</form>
+<script type="text/javascript">
+function bs_input_file() {
+	$(".input-file").before(
+		function() {
+			if ( ! $(this).prev().hasClass('input-ghost') ) {
+				var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0' id=\"fileinput\">");
+				element.attr("name",$(this).attr("name"));
+				element.change(function(){
+					element.next(element).find('input').val((element.val()).split('\\').pop());
+				});
+				$(this).find("button.btn-choose").click(function(){
+					element.click();
+				});
+				$(this).find("button.btn-reset").click(function(){
+					element.val(null);
+					$(this).parents(".input-file").find('input').val('');
+				});
+				$(this).find('input').css("cursor","pointer");
+				$(this).find('input').mousedown(function() {
+					$(this).parents('.input-file').prev().click();
+					return false;
+				});
+				return element;
+			}
+		}
+	);
+}
+$(function() {
+	bs_input_file();
+});
+
+window.onload = function(){
+  $("input.fieldportname").val("");
+	$(".fieldporttype").val(-1);
+}
+</script>
+<div class="control-group input-group" style="margin-top:10px" id="headersave">
+<input readonly autocomplete="false" name="stopautofillingstupidbrowser" type="text" class="form-control form-control-sm" value="Port name" style="max-width:16%;"/>
+<select disabled="true" name="stopautofillingstupidbrowser2" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1">Port type</option></select>
+</div>
+<div class="control-group input-group" style="margin-top:10px" id="fieldssave">
+<input type="text" autocomplete="false" onload="this.value = 'asdf';console.log('test');" class="form-control form-control-sm fieldportname" value="" style="max-width:16%;"/>
+<select class="custom-select custom-select-sm fieldporttype" onload="this.value = -1;" autocomplete="false" aria-label=".custom-select-sm" style="max-width:12%;"><option value="-1" selected>Port type</option><option value="Slave">Slave/Rx</option><option value="Master">Master/Tx</option></select>
+<button class="btn btn-info btn-sm" id="download" type="button"><i class="fa fa-download"></i> Save</button> 
+</div>
+<!---<button class="btn btn-warning" id="draw" type="button"><i class="fa fa-microchip"></i> Draw</button>  -->
+<button class="btn btn-success custom-select-sm" id="dspi" type="button"><i class="fa fa-bug"></i> Load example DSPI</button> 
+
+    <legend>Interface</legend>
+<fieldset id="interfacefieldset">
+
+<div class="fieldwrapper control-group input-group" style="margin-top:10px" id="headeritem">
+<input readonly type="text" class="form-control form-control-sm" value="Port prefix"/>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1">Port type</option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1">Placement</option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1">Clock Region Offset</option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1">Tile Offset</option></select>
+<button class="btn btn-sm btn-danger remove btn-block" type="button" style="width:85px !important;"><i class="fa fa-remove"></i></button>
+</div>
 
 
+</fieldset>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<fieldset id="interfaceaddfieldset">
+<div class="fieldwrapper control-group input-group" style="margin-top:10px" id="footeritem">
+<input readonly type="text" class="form-control form-control-sm" value=""/>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1"></option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1"></option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1"></option></select>
+<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1"></option></select>
+<button class="btn btn-sm btn-success btn-block" id="add" type="button" style="width:85px !important;"><i class="fa fa-plus"></i> Add </button>
+</div>
+</fieldset>
+<div id="editor"></div>
 
 
 </div>
+<div class="col-1" style="max-width:5%;">
+
+</div>
+<div class="col-3 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="previewdiv" style="min-width:370px;max-width:20%;">
+</div>
+<div class="col-1" style="max-width:5%;">
+
+</div>
+</div>
+</div>
 </main>
+
+<script type="text/javascript">
+var configurationRows = 0;
+var clockRegions = 0;
+var configurationPrefixes = [];
+var configurationPortTypes = [];
+var configurationPlacements = [];
+var configurationClockRegionOffsets = [];
+var configurationTileOffsets = [];
+function interfaceClear(){
+	configurationRows = 0;
+	configurationPrefixes = [];
+	configurationPortTypes = [];
+	configurationPlacements = [];
+	configurationClockRegionOffsets = [];
+	configurationTileOffsets = [];
+}
+function clearUIelements(){
+	$("#interfacefieldset div").each(function() {
+		//var id = "input" + $(this).attr("id").replace("field","");
+		if($(this).attr("id").includes("field")) {
+			$(this).remove();
+		}
+	});
+}
+function readFromUI(){
+	interfaceClear();
+	$("#interfacefieldset div").each(function() {
+		//var id = "input" + $(this).attr("id").replace("field","");
+		if($(this).attr("id").includes("field")) {
+			configurationPrefixes.push($(this).find("input.fieldprefix").first().val());
+			if(isNaN(configurationPrefixes[configurationRows]))configurationPrefixes[configurationRows] = -1;
+			configurationPortTypes.push(parseInt($(this).find("input.fieldporttype").first().val()));
+			configurationPlacements.push($(this).find("select.fieldplacement").first().val());
+			configurationClockRegionOffsets.push(parseInt($(this).find("select.fieldclockregionoffset").first().val()));
+			configurationTileOffsets.push(parseInt($(this).find("select.fieldtileoffset").first().val()));
+			configurationRows++;
+		}
+	});
+	
+	clockRegions = 0;
+	for(var i = 0 ; i < configurationRows ; i++)
+		if(configurationPortTypes[i] != -1)
+			if(configurationClockRegionOffsets[i] + portTypeClockRegions[configurationPortTypes[i]] > clockRegions)
+			clockRegions = configurationClockRegionOffsets[i] + portTypeClockRegions[configurationPortTypes[i]];
+}/*
+function downloadCSV() {
+	readFromUI();
+	currentFileName = $("input.fieldportname").val()+".csv";
+	//updateUtilization();
+	var text = "BusName, LSB, Direction, Width, ClockRegion, Tile, LSBWire, ";
+	text += $(".fieldporttype").val();
+	for(var i = 0 ; i < interfaceRows ; i++){
+		text += "\n" + interfaceNames[i] + "," + interfaceLSBs[i] + "," + interfaceDirections[i] + "," + interfaceWidths[i] + "," + interfaceClockRegions[i] + "," + interfaceTiles[i] + "," + interfaceWires[i];
+	}
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', currentFileName);
+
+	element.style.display = 'none';
+	document.body.appendChild(element);
+
+	element.click();
+
+	document.body.removeChild(element);
+}*/
+function csvToArray(text) { // https://stackoverflow.com/questions/8493195/how-can-i-parse-a-csv-string-with-javascript-which-contains-comma-in-data
+    let p = '', row = [''], ret = [row], i = 0, r = 0, s = !0, l;
+    for (l of text) {
+        if ('"' === l) {
+            if (s && l === p) row[i] += l;
+            s = !s;
+        } else if (',' === l && s) l = row[++i] = '';
+        else if ('\n' === l && s) {
+            if ('\r' === p) row[i] = row[i].slice(0, -1);
+            row = ret[++r] = [l = '']; i = 0;
+        } else row[i] += l;
+        p = l;
+    }
+    return ret;
+};
+var portTypeRows = 0;
+var portTypeName = [];
+var portTypeInterfaceRows = [];
+var portTypeInterfaceType = [];
+var portTypeClockRegions = []; 
+//the next arrays are 2d
+var portTypeInterfaceNames = [];
+var portTypeInterfaceLSBs = [];
+var portTypeInterfaceDirections = [];
+var portTypeInterfaceWidths = [];
+var portTypeInterfaceClockRegions = [];
+var portTypeInterfaceTiles = [];
+var portTypeInterfaceWires = [];
+var fr, frname;
+function parseUploadedFile() {
+	//fr.result
+	var upload2DArray = csvToArray(fr.result);
+	if(upload2DArray.length > 1){
+		portTypeName.push(frname);
+		portTypeInterfaceRows.push(0);
+		portTypeClockRegions.push(0);
+		portTypeInterfaceNames.push([]);
+		portTypeInterfaceLSBs.push([]);
+		portTypeInterfaceDirections.push([]);
+		portTypeInterfaceWidths.push([]);
+		portTypeInterfaceClockRegions.push([]);
+		portTypeInterfaceTiles.push([]);
+		portTypeInterfaceWires.push([]);
+		if(upload2DArray[0][upload2DArray[0].length-1].includes("Slave"))portTypeInterfaceType.push("Slave");
+		else portTypeInterfaceType.push("Master");
+		for(var i = 1 ; i < upload2DArray.length ; i++){
+			if(upload2DArray[i].length == 7){
+				portTypeInterfaceRows[portTypeRows]++;
+				portTypeInterfaceNames[portTypeRows].push(upload2DArray[i][0]);
+				portTypeInterfaceLSBs[portTypeRows].push(upload2DArray[i][1]);
+				portTypeInterfaceDirections[portTypeRows].push(upload2DArray[i][2]);
+				portTypeInterfaceWidths[portTypeRows].push(upload2DArray[i][3]);
+				portTypeInterfaceClockRegions[portTypeRows].push(upload2DArray[i][4]);
+				if(parseInt(upload2DArray[i][4]) > (portTypeClockRegions[portTypeRows]-1)) portTypeClockRegions[portTypeRows] = parseInt(upload2DArray[i][4]) + 1;
+				portTypeInterfaceTiles[portTypeRows].push(upload2DArray[i][5]);
+				portTypeInterfaceWires[portTypeRows].push(upload2DArray[i][6]);
+			}
+		}
+	}
+	portTypeRows++;
+	//drawVisualisation();
+}
+function generateTileMenu(selected){
+	var html = "<select class=\"custom-select custom-select-sm fieldtileoffset\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\"><option value=\"-1\">CLB Tile</option>";
+	for(var i = 0 ; i < 60 ; i++){
+		if(("C"+i) == selected) html+="<option value=\"C"+i+"\" selected>CLB Y"+i+"</option>";
+		else html+="<option value=\"C"+i+"\">CLB Y"+i+"</option>";
+	}
+	html += "</select>";
+	return $(html);
+}
+function generatePortTypeMenu(selected){
+	var html = "<select class=\"custom-select custom-select-sm fieldporttype\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\"><option value=\"-1\">Port type</option>";
+	for(var i = 0 ; i < portTypeRows ; i++){
+		if(portTypeName[i] == selected) html+="<option value=\""+i+"\" selected>"+portTypeName[i]+"</option>";
+		else html+="<option value=\""+i+"\">"+portTypeName[i]+"</option>";
+	}
+	html += "</select>";
+	return $(html);
+}
+/*
+var configurationPrefixes = [];
+var configurationPortTypes = [];
+var configurationPlacements = [];
+var configurationClockRegionOffsets = [];
+var configurationTileOffsets = [];*/
+function pushElementToUI(prefix,porttype,placement,clockRegionOffset,tileOffset){
+	var lastField = $("#interfacefieldset div:last");
+	var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+	var fieldWrapper = $("<div class=\"fieldwrapper control-group input-group\" style=\"margin-top:10px\" id=\"field" + intId + "\">");
+	fieldWrapper.data("idx", intId);
+	var fPrefix = $("<input type=\"text\" class=\"form-control form-control-sm fieldprefix\" value=\""+prefix+"\"/>");
+	var fPortType = generatePortTypeMenu("");
+	fPortType.change(function() {
+		drawVisualisation();
+	});
+	html = "<select class=\"custom-select custom-select-sm fieldplacement\" aria-label=\".custom-select-sm\" style=\"max-width:12%;\"><option value=\"-1\">Placement</option>";
+	html+= "<option value=\"ES\"";	if(placement == "ES") html+=" selected";	html += ">East Slave</option>";
+	html+= "<option value=\"EM\"";	if(placement == "EM") html+=" selected";	html += ">East Master</option>";
+	html+= "<option value=\"WS\"";	if(placement == "WS") html+=" selected";	html += ">West Slave</option>";
+	html+= "<option value=\"WM\"";	if(placement == "WM") html+=" selected";	html += ">West Master</option>";
+	html+= "</select>";
+	var fPlacement = $(html);
+	fPlacement.change(function() {
+		drawVisualisation();
+	});
+	html = "<select class=\"custom-select custom-select-sm fieldclockregionoffset\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\"><option value=\"-1\">Clock Region Offset</option>";
+	for(var i = 0 ; i < 8 ; i++){
+		if(i == clockRegionOffset) html+="<option value=\""+i+"\" selected>"+i+"</option>";
+		else html+="<option value=\""+i+"\">"+i+"</option>";
+	}
+	html += "</select>";
+	var fClockRegionOffset = $(html);
+	fClockRegionOffset.change(function() {
+		drawVisualisation();
+	});
+	var fTileOffset = generateTileMenu(tileOffset);
+	fTileOffset.change(function() {
+		drawVisualisation();
+	});
+	var removeButton = $("<button class=\"btn btn-sm btn-danger remove btn-block\" type=\"button\" style=\"width:85px !important;\"><i class=\"fa fa-remove\"></i> Remove</button></div>");
+	removeButton.click(function() {
+		$(this).parent().remove();
+		drawVisualisation();
+	});
+	fieldWrapper.append(fPrefix);
+	fieldWrapper.append(fPortType);
+	fieldWrapper.append(fPlacement);
+	fieldWrapper.append(fClockRegionOffset);
+	fieldWrapper.append(fTileOffset);
+	fieldWrapper.append(removeButton);
+	$("#interfacefieldset").append(fieldWrapper);
+}
+
+
+var interfaceUtilizationWestOut = [];
+var interfaceUtilizationWestIn = [];
+var interfaceUtilizationEastOut = [];
+var interfaceUtilizationEastIn = [];
+function updateUtilization(){
+	interfaceUtilizationWestOut = new Array(clockRegions*60*8).fill(0);
+	interfaceUtilizationWestIn = new Array(clockRegions*60*8).fill(0);
+	interfaceUtilizationEastOut = new Array(clockRegions*60*8).fill(0);
+	interfaceUtilizationEastIn = new Array(clockRegions*60*8).fill(0);
+	/*for(var i = 0 ; i < interfaceRows ; i++){
+		var wireLSBIndex = -1;
+		if(interfaceWidths[i] >= 0 && interfaceWires[i] >= 0){
+			if(interfaceWidths[i] <= 8){
+			var clb = interfaceTiles[i].replace("C","");
+			wireLSBIndex = interfaceClockRegions[i]*60*8 + parseInt(clb)*8+interfaceWires[i];
+			} else {
+			var bram = interfaceTiles[i].replace("B","");
+			wireLSBIndex = interfaceClockRegions[i]*60*8 + parseInt(bram)*40+interfaceWires[i];
+			}
+		}
+		if(wireLSBIndex >= 0 && wireLSBIndex < clockRegions*60*8){
+			if((wireLSBIndex+interfaceWidths[i]-1) >= 0 && (wireLSBIndex+interfaceWidths[i]-1) < clockRegions*60*8){
+				for(var wireIndex = wireLSBIndex ; wireIndex < wireLSBIndex+interfaceWidths[i] ; wireIndex++){
+					if(interfaceDirections[i] == "I") {interfaceUtilizationEastIn[wireIndex]++;interfaceUtilizationWestOut[wireIndex]++;}
+					if(interfaceDirections[i] == "O") {interfaceUtilizationEastOut[wireIndex]++;interfaceUtilizationWestIn[wireIndex]++;}
+				}
+			}
+		}
+	}*/
+}
+function canvasLine(context, color, fromx, fromy, tox, toy){
+	context.beginPath();
+	context.strokeStyle = color;
+	context.moveTo(fromx, fromy);
+	context.lineTo(tox, toy);
+	context.stroke(); 
+}
+function canvasArrow(context, color, fromx, fromy, tox, toy) {
+  var headlen = 5; // length of head in pixels
+  var dx = tox - fromx;
+  var dy = toy - fromy;
+  var angle = Math.atan2(dy, dx);
+  context.beginPath();
+  context.strokeStyle = color;
+  context.moveTo(fromx, fromy);
+  context.lineTo(tox, toy);
+  context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+  context.moveTo(tox, toy);
+  context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+  context.stroke(); 
+}
+function canvasRectangleWithBorder(context, alpha, fillColor, borderColor, borderThickness, fromx, fromy, sizex, sizey){
+	canvasRectangle(context, alpha, borderColor, fromx,fromy,sizex,sizey);
+	canvasRectangle(context, alpha, fillColor, fromx+borderThickness,fromy+borderThickness,sizex-2*borderThickness,sizey-2*borderThickness);
+}
+function canvasRectangle(context, alpha, color, fromx, fromy, sizex, sizey){
+	context.fillStyle = color;
+	context.globalAlpha = alpha;
+    context.fillRect(fromx,fromy,sizex,sizey);
+    context.globalAlpha = 1.0;
+}
+//lut 32, + 8 border
+//bram 5*32+8*8, +8 border
+function canvasBlockRamColumn(context, fromx, fromy){
+	for(var i = 0 ; i < 12 ; i++)
+		canvasRectangleWithBorder(context, 0.8, "#a30707", "#7d0707", 2, fromx, fromy + i*200, 16, 192);
+}
+function canvasCLBColumn(context, fromx, fromy){
+	for(var i = 0 ; i < 60 ; i++)
+		canvasRectangleWithBorder(context, 0.8, "#f5ed07", "#d4cd13", 2, fromx, fromy + i*40, 16, 32);
+}
+function drawInterfaceWires(context, fromx, fromy, tox) {
+	for(var i = 0 ; i < clockRegions ; i++){
+		for(var c = 0 ; c < 60 ; c++){
+			for(var w = 0 ; w < 8 ; w++){
+				var y = fromy + 8 + i*(192+11*200+32) + (c*40+4) + w*4;
+				var wireIndex = clockRegions*60*8 - 1 - (i*60*8 + c*8 + w);
+				var color;
+				if(interfaceUtilizationWestOut[wireIndex] == 0)color = "#22a619";
+				else if(interfaceUtilizationWestOut[wireIndex] == 1){
+					color = "#020094";
+					if(interfaceUtilizationWestIn[wireIndex] > 0) color = "#c4a716";
+				} else color = "#ff0015";
+				canvasLine(context, color, fromx-16, y, fromx, y);
+				
+				if(interfaceUtilizationWestIn[wireIndex] == 0)color = "#22a619";
+				else if(interfaceUtilizationWestIn[wireIndex] == 1){
+					color = "#020094";
+					if(interfaceUtilizationWestOut[wireIndex] > 0) color = "#c4a716";
+				} else color = "#ff0015";
+				canvasLine(context, color, fromx+3, y, fromx+3+16, y);
+				
+				
+				if(interfaceUtilizationEastIn[wireIndex] == 0)color = "#22a619";
+				else if(interfaceUtilizationEastIn[wireIndex] == 1){
+					color = "#020094";
+					if(interfaceUtilizationEastOut[wireIndex] > 0) color = "#c4a716";
+				} else color = "#ff0015";
+				canvasLine(context, color, tox-16-3, y, tox-3, y);
+				
+				
+				if(interfaceUtilizationEastOut[wireIndex] == 0)color = "#22a619";
+				else if(interfaceUtilizationEastOut[wireIndex] == 1){
+					color = "#020094";
+					if(interfaceUtilizationEastIn[wireIndex] > 0) color = "#c4a716";
+				} else color = "#ff0015";
+				canvasLine(context, color, tox, y, tox+16, y);
+			}
+		}
+	}
+}
+function drawModule(context, fromx, fromy, sizex, sizey){
+	//Module
+	canvasRectangleWithBorder(context, 1.0, "#d5eef0", "#a7ecf2", 3, fromx, fromy, sizex, sizey);
+	for(var i = 0 ; i < clockRegions ; i++){
+		canvasCLBColumn(context, fromx+24, i*(192+11*200+32) +fromy+8);
+		canvasBlockRamColumn(context, fromx+24+24, i*(192+11*200+32) +fromy+8);
+		canvasCLBColumn(context, fromx+24+2*24, i*(192+11*200+32) +fromy+8);
+		canvasBlockRamColumn(context, fromx+24+3*24, i*(192+11*200+32) +fromy+8);
+		canvasCLBColumn(context, fromx+24+4*24, i*(192+11*200+32) +fromy+8);
+		canvasBlockRamColumn(context, fromx+24+5*24, i*(192+11*200+32) +fromy+8);
+		canvasCLBColumn(context, fromx+24+6*24, i*(192+11*200+32) +fromy+8);
+		canvasBlockRamColumn(context, fromx+24+7*24, i*(192+11*200+32) +fromy+8);
+		canvasCLBColumn(context, fromx+24+8*24, i*(192+11*200+32) +fromy+8);
+		if(i != (clockRegions-1)){
+			canvasRectangleWithBorder(context, 0.5, "#222222", "#000000", 2, fromx+8, (i+1)*(192+11*200+32)-32 +fromy+8 +8, sizex-16, 16);
+		}
+	}
+	drawInterfaceWires(context, fromx, fromy, fromx+sizex);
+}
+function drawVisualisation(){
+	readFromUI();
+	updateUtilization();
+	/*console.log(interfaceRows);
+	console.log(interfaceNames);
+	console.log(interfaceLSBs);
+	console.log(interfaceBorders);
+	console.log(interfaceDirections);
+	console.log(interfaceWidths);
+	console.log(interfaceClockRegions);
+	console.log(interfaceTiles);
+	console.log(interfaceWires);*/
+	
+	
+	
+	$('canvas').remove();
+	if(clockRegions > 0){
+		var toppad=16;
+		var width = 350;
+		var sidepad = (width-256)/2;
+		var Canvas_height = toppad + 8 +(clockRegions)*(192+11*200) + 8 + (clockRegions-1)*(32);
+		var CanvasElement = $("<canvas width='" + width + "' height='" + Canvas_height + "'></canvas>");
+		var context = CanvasElement.get(0).getContext("2d");
+		
+		$("#previewdiv").append(CanvasElement);
+		//CanvasElement.appendTo('body');
+		context.font = "16px Arial";
+		context.lineWidth = 1;
+	//	context.fillStyle = "#ff0000"; // red
+		//context.translate( 0, 0 );
+		//context.rotate( Math.PI / 2 );
+		drawModule(context, sidepad, toppad, width-2*sidepad, Canvas_height-toppad); 
+		context.fillStyle = "#000000";
+		context.fillStyle = "#000000";
+		context.fillText("In", sidepad+8, toppad-2);
+		context.fillText("Out", sidepad-32, toppad-2);
+		
+		context.fillText("Out", width-sidepad+8, toppad-2);
+		context.fillText("In", width-sidepad-24, toppad-2);
+		canvasArrow(context, "#000000", sidepad-2, toppad+4, sidepad-18, toppad+4);
+		canvasArrow(context, "#000000", sidepad+4, toppad+4, sidepad+20, toppad+4); 
+		canvasArrow(context, "#000000", width-sidepad-4, toppad+4, width-sidepad-20, toppad+4);
+		canvasArrow(context, "#000000", width-sidepad+2, toppad+4, width-sidepad+18, toppad+4);
+		/*
+		context.fillStyle = "#000000";
+		//West Border
+		context.fillText("West Border", 64, 16);
+		context.fillText("outputs", 32, 48);
+		context.fillText("inputs", 160, 48); 
+		//context.restore();
+		
+		canvasLine(context, "#000000", 128, 32, 128, Canvas_height);
+		canvasLine(context, "#000000", 129, 32, 129, Canvas_height);
+		//East Border
+		context.fillText("East Border", 320, 16);
+		context.fillText("inputs", 288, 48);
+		context.fillText("outputs", 412, 48); 
+		//context.restore();
+		
+		canvasLine(context, "#000000", 383, 32, 383, Canvas_height);
+		canvasLine(context, "#000000", 384, 32, 384, Canvas_height); */
+	}
+}
+$(document).ready(function() {
+    $("#add").click(function() {
+		pushElementToUI("","","",-1,-1);
+    });
+    $("#preview").click(function() {
+        $("#yourform").remove();
+        var fieldSet = $("<fieldset id=\"yourform\"><legend>Your Form</legend></fieldset>");
+        $("#interfacefieldset div").each(function() {
+            var id = "input" + $(this).attr("id").replace("field","");
+            var label = $("<label for=\"" + id + "\">" + $(this).find("input.fieldname").first().val() + "</label>");
+            var input;
+            switch ($(this).find("select.fieldtype").first().val()) {
+                case "checkbox":
+                    input = $("<input type=\"checkbox\" id=\"" + id + "\" name=\"" + id + "\" />");
+                    break;
+                case "textbox":
+                    input = $("<input type=\"text\" id=\"" + id + "\" name=\"" + id + "\" />");
+                    break;
+                case "textarea":
+                    input = $("<textarea id=\"" + id + "\" name=\"" + id + "\" ></textarea>");
+                    break;    
+            }
+            fieldSet.append(label);
+            fieldSet.append(input);
+        });
+        $("body").append(fieldSet);
+    });
+    $("#download").click(function() {
+        downloadCSV();
+    });
+	
+	
+    $("#upload").click(function() {
+        if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+          alert('The File APIs are not fully supported in this browser.');
+          return;
+        }   
+      
+        var input = document.getElementById('fileinput');
+        if (!input) {
+          alert("Um, couldn't find the fileinput element.");
+        }
+        else if (!input.files) {
+          alert("This browser doesn't seem to support the `files` property of file inputs.");
+        }
+        else if (!input.files[0]) {
+          alert("Please select a file before clicking 'Load'");               
+        }
+        else {
+		  var file = input.files[0];
+          frname = file.name.split(".")[0];
+          fr = new FileReader();
+          fr.onload = parseUploadedFile;
+          fr.readAsText(file);
+		  //$("input.fieldportname").val(file.name.split(".")[0]);
+          //fr.readAsBinaryString(file); //as bit work with base64 for example upload to server
+          //fr.readAsDataURL(file);
+        }
+    });
+/*    $("#draw").click(function() {
+		drawVisualisation();
+    });*/
+    $("#dspi").click(function() {
+		loadDefaultDSPI512();
+    });
+});
+</script>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="https://github.com/kmanev/DSPI" style="pointer-events: none;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;">DSPI</a>

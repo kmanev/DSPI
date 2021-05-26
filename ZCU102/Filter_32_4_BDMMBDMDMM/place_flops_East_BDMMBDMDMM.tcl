@@ -526,7 +526,7 @@ place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirTwoBack_ChunkID_reg[1] SLIC
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirTwoBack_ChunkID_reg[2] SLICE_X31Y228/FFF
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirTwoBack_ChunkID_reg[3] SLICE_X31Y228/HFF
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirTwoBack_ChunkID_reg[4] SLICE_X32Y228/BFF
-place_cell design_1_i/Filter_32_4_0/inst/dafilter/rstnOut_reg SLICE_X32Y228/DFF
+
  
 
 place_cell design_1_i/Filter_32_4_0/inst/dafilter/dirTwoBack_ChannelID_reg[0] SLICE_X31Y230/BFF
