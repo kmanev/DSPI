@@ -213,8 +213,11 @@ function bs_input_file() {
 		}
 	);
 }
+var hiddenfileinput, shownfileinput;
 $(function() {
 	bs_input_file();
+	hiddenfileinput = $(".input-file.input-ghost");
+	shownfileinput = $(".input-file").find('input');
 });
 
 window.onload = function(){
@@ -277,6 +280,7 @@ window.onload = function(){
 
 <script type="text/javascript">
 var configurationRows = 0;
+var maxWirePosition = 0;
 var clockRegions = 0;
 var configurationPrefixes = [];
 var configurationPortTypes = [];
@@ -301,24 +305,33 @@ function clearUIelements(){
 }
 function readFromUI(){
 	interfaceClear();
+	maxWirePosition = 0;
 	$("#interfacefieldset div").each(function() {
 		//var id = "input" + $(this).attr("id").replace("field","");
 		if($(this).attr("id").includes("field")) {
 			configurationPrefixes.push($(this).find("input.fieldprefix").first().val());
-			if(isNaN(configurationPrefixes[configurationRows]))configurationPrefixes[configurationRows] = -1;
-			configurationPortTypes.push(parseInt($(this).find("input.fieldporttype").first().val()));
+			configurationPortTypes.push(parseInt($(this).find("select.fieldporttype").first().val()));
 			configurationPlacements.push($(this).find("select.fieldplacement").first().val());
 			configurationClockRegionOffsets.push(parseInt($(this).find("select.fieldclockregionoffset").first().val()));
 			configurationTileOffsets.push(parseInt($(this).find("select.fieldtileoffset").first().val()));
+			var wireOffset = portTypeMaxWireOffset[configurationRows];
+			wireOffset += configurationClockRegionOffsets[configurationRows]*480;
+			wireOffset += configurationTileOffsets[configurationRows]*8;
+			if(wireOffset > maxWirePosition) maxWirePosition = wireOffset;
 			configurationRows++;
 		}
 	});
-	
+	clockRegions = Math.floor((maxWirePosition-1)/480)+1;
+	console.log(maxWirePosition);
+	console.log(clockRegions);
+	/*
 	clockRegions = 0;
 	for(var i = 0 ; i < configurationRows ; i++)
 		if(configurationPortTypes[i] != -1)
 			if(configurationClockRegionOffsets[i] + portTypeClockRegions[configurationPortTypes[i]] > clockRegions)
 			clockRegions = configurationClockRegionOffsets[i] + portTypeClockRegions[configurationPortTypes[i]];
+			
+			*/
 }/*
 function downloadCSV() {
 	readFromUI();
@@ -360,6 +373,7 @@ var portTypeName = [];
 var portTypeInterfaceRows = [];
 var portTypeInterfaceType = [];
 var portTypeClockRegions = []; 
+var portTypeMaxWireOffset = []; 
 //the next arrays are 2d
 var portTypeInterfaceNames = [];
 var portTypeInterfaceLSBs = [];
@@ -376,6 +390,7 @@ function parseUploadedFile() {
 		portTypeName.push(frname);
 		portTypeInterfaceRows.push(0);
 		portTypeClockRegions.push(0);
+		portTypeMaxWireOffset.push(0);
 		portTypeInterfaceNames.push([]);
 		portTypeInterfaceLSBs.push([]);
 		portTypeInterfaceDirections.push([]);
@@ -389,24 +404,38 @@ function parseUploadedFile() {
 			if(upload2DArray[i].length == 7){
 				portTypeInterfaceRows[portTypeRows]++;
 				portTypeInterfaceNames[portTypeRows].push(upload2DArray[i][0]);
-				portTypeInterfaceLSBs[portTypeRows].push(upload2DArray[i][1]);
+				portTypeInterfaceLSBs[portTypeRows].push(parseInt(upload2DArray[i][1]));
 				portTypeInterfaceDirections[portTypeRows].push(upload2DArray[i][2]);
-				portTypeInterfaceWidths[portTypeRows].push(upload2DArray[i][3]);
-				portTypeInterfaceClockRegions[portTypeRows].push(upload2DArray[i][4]);
+				portTypeInterfaceWidths[portTypeRows].push(parseInt(upload2DArray[i][3]));
+				portTypeInterfaceClockRegions[portTypeRows].push(parseInt(upload2DArray[i][4]));
 				if(parseInt(upload2DArray[i][4]) > (portTypeClockRegions[portTypeRows]-1)) portTypeClockRegions[portTypeRows] = parseInt(upload2DArray[i][4]) + 1;
 				portTypeInterfaceTiles[portTypeRows].push(upload2DArray[i][5]);
-				portTypeInterfaceWires[portTypeRows].push(upload2DArray[i][6]);
+				portTypeInterfaceWires[portTypeRows].push(parseInt(upload2DArray[i][6]));
+				var wireOffset = parseInt(upload2DArray[i][4])*480 + parseInt(upload2DArray[i][3]) + parseInt(upload2DArray[i][6]);
+				var clb = parseInt(upload2DArray[i][5].replace("C",""));
+				var bram = parseInt(upload2DArray[i][5].replace("B",""));
+				if(!isNaN(clb)) wireOffset += clb*8;
+				if(!isNaN(bram)) wireOffset += bram*40;
+				if(wireOffset > portTypeMaxWireOffset[portTypeRows]) portTypeMaxWireOffset[portTypeRows] = wireOffset;
 			}
 		}
 	}
+	//add the new option to all existing items
+	$("#interfacefieldset div").each(function() {
+		if($(this).attr("id").includes("field")) {
+			$(this).find("select.fieldporttype").first().append(new Option(portTypeName[portTypeRows], portTypeRows));
+		}
+	});
 	portTypeRows++;
 	//drawVisualisation();
 }
 function generateTileMenu(selected){
-	var html = "<select class=\"custom-select custom-select-sm fieldtileoffset\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\"><option value=\"-1\">CLB Tile</option>";
-	for(var i = 0 ; i < 60 ; i++){
-		if(("C"+i) == selected) html+="<option value=\"C"+i+"\" selected>CLB Y"+i+"</option>";
-		else html+="<option value=\"C"+i+"\">CLB Y"+i+"</option>";
+	var html = "<select class=\"custom-select custom-select-sm fieldtileoffset\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\">";
+	if(0 == selected) html+="<option value=\"0\" selected>No CLB Offset</option>";
+	else html+="<option value=\"0\">No CLB Offset</option>";
+	for(var i = 1 ; i < 60 ; i++){
+		if(i == selected) html+="<option value=\""+i+"\" selected>Offset by "+i+" CLB</option>";
+		else html+="<option value=\""+i+"\">Offset by "+i+" CLB</option>";
 	}
 	html += "</select>";
 	return $(html);
@@ -446,10 +475,12 @@ function pushElementToUI(prefix,porttype,placement,clockRegionOffset,tileOffset)
 	fPlacement.change(function() {
 		drawVisualisation();
 	});
-	html = "<select class=\"custom-select custom-select-sm fieldclockregionoffset\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\"><option value=\"-1\">Clock Region Offset</option>";
-	for(var i = 0 ; i < 8 ; i++){
-		if(i == clockRegionOffset) html+="<option value=\""+i+"\" selected>"+i+"</option>";
-		else html+="<option value=\""+i+"\">"+i+"</option>";
+	html = "<select class=\"custom-select custom-select-sm fieldclockregionoffset\" aria-label=\".custom-select-sm\" style=\"max-width:16%;\">";
+	if(0 == clockRegionOffset) html+="<option value=\""+0+"\" selected>No Region Offset</option>";
+	else html+="<option value=\""+0+"\">No Region Offset</option>";
+	for(var i = 1 ; i < 8 ; i++){
+		if(i == clockRegionOffset) html+="<option value=\""+i+"\" selected>Offset by "+i+"</option>";
+		else html+="<option value=\""+i+"\">Offset by "+i+"</option>";
 	}
 	html += "</select>";
 	var fClockRegionOffset = $(html);
@@ -726,6 +757,8 @@ $(document).ready(function() {
           //fr.readAsBinaryString(file); //as bit work with base64 for example upload to server
           //fr.readAsDataURL(file);
         }
+		hiddenfileinput.val(null);
+		shownfileinput.val("");
     });
 /*    $("#draw").click(function() {
 		drawVisualisation();
