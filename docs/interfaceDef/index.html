@@ -226,8 +226,8 @@ window.onload = function(){
 <select disabled="true" name="stopautofillingstupidbrowser2" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1">Port type</option></select>
 </div>
 <div class="control-group input-group" style="margin-top:10px" id="fieldssave">
-<input type="text" autocomplete="false" onload="this.value = 'asdf';console.log('test');" class="form-control form-control-sm fieldportname" value="" style="max-width:16%;"/>
-<select class="custom-select custom-select-sm fieldporttype" onload="this.value = -1;" autocomplete="false" aria-label=".custom-select-sm" style="max-width:12%;"><option value="-1" selected>Port type</option><option value="Slave">Slave/Rx</option><option value="Master">Master/Tx</option></select>
+<input type="text" autocomplete="false" class="form-control form-control-sm fieldportname" value="" style="max-width:16%;"/>
+<select class="custom-select custom-select-sm fieldporttype" autocomplete="false" aria-label=".custom-select-sm" style="max-width:12%;"><option value="-1" selected>Port type</option><option value="Slave">Slave/Rx</option><option value="Master">Master/Tx</option></select>
 <button class="btn btn-info btn-sm" id="download" type="button"><i class="fa fa-download"></i> Save</button> 
 </div>
 <!---<button class="btn btn-warning" id="draw" type="button"><i class="fa fa-microchip"></i> Draw</button>  -->
@@ -279,6 +279,7 @@ window.onload = function(){
 </main>
 
 <script type="text/javascript">
+//Author Kristiyan Manev, kristi.manev@gmail.com. Contact if any issues.
 var interfaceRows = 0;
 var clockRegions = 0;
 var interfaceNames = [];
