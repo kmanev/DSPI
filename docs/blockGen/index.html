@@ -256,7 +256,7 @@ window.onload = function(){
 <div class="fieldwrapper control-group input-group" style="margin-top:10px" id="headeritem">
 <input readonly type="text" class="form-control form-control-sm" value="Port name prefix"/>
 <input readonly type="text" class="form-control form-control-sm" value="Port name suffix"/>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1">Clock</option></select>
+<!-- <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1">Clock</option></select> -->
 <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1">Port type</option></select>
 <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1">Placement</option></select>
 <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1">Clock Region Offset</option></select>
@@ -271,7 +271,7 @@ window.onload = function(){
 <div class="fieldwrapper control-group input-group" style="margin-top:10px" id="footeritem">
 <input readonly type="text" class="form-control form-control-sm" value=""/>
 <input readonly type="text" class="form-control form-control-sm" value=""/>
-<select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1"></option></select>
+<!-- <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:8%;"><option value="1"></option></select> -->
 <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1"></option></select>
 <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:12%;"><option value="1"></option></select>
 <select disabled="true" class="custom-select custom-select-sm" aria-label=".custom-select-sm" style="max-width:16%;"><option value="1"></option></select>
@@ -280,7 +280,7 @@ window.onload = function(){
 </div>
 </fieldset>
 
-<legend>Clocking</legend>
+<legend>Clocking (Note: Only blocking for clk implemented at the moment)</legend>
 <div class="container-fluid" style="margin-top: 50px;">
 	<div class="row">
 		<div class="col-3">
@@ -441,7 +441,16 @@ window.onload = function(){
 	<div class="col">
 	</div>
 	<div class="col">
-	<button class="btn btn-info btn-sm" id="downloadHDL" type="button"><i class="fa fa-download"></i> Save</button> 
+	<button class="btn btn-info btn-sm" id="downloadHDLverilog" type="button" style="width:125px !important;"><i class="fa fa-download"></i> Save (Verilog)</button> 
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+	</div>
+	<div class="col">
+	</div>
+	<div class="col">
+	<button disabled="true" class="btn btn-info btn-sm" id="downloadHDLvhdl" type="button" style="width:125px !important;"><i class="fa fa-download"></i> Save (VHDL)</button> 
 	</div>
 </div>
 </div>
@@ -471,6 +480,7 @@ var maxWirePosition = 0;
 var clockRegions = 0;
 var configurationPrefixes = [];
 var configurationSuffixes = [];
+var configurationClockSources = [];
 var configurationPortTypes = [];
 var configurationPlacements = [];
 var configurationClockRegionOffsets = [];
@@ -479,6 +489,7 @@ function interfaceClear(){
 	configurationRows = 0;
 	configurationPrefixes = [];
 	configurationSuffixes = [];
+	configurationClockSources = [];
 	configurationPortTypes = [];
 	configurationPlacements = [];
 	configurationClockRegionOffsets = [];
@@ -500,6 +511,7 @@ function readFromUI(){
 		if($(this).attr("id").includes("field")) {
 			configurationPrefixes.push($(this).find("input.fieldprefix").first().val());
 			configurationSuffixes.push($(this).find("input.fieldsuffix").first().val());
+//			configurationClockSources.push($(this).find("select.fieldclock").first().val());
 			configurationPortTypes.push(parseInt($(this).find("select.fieldporttype").first().val()));
 			configurationPlacements.push($(this).find("select.fieldplacement").first().val());
 			configurationClockRegionOffsets.push(parseInt($(this).find("select.fieldclockregionoffset").first().val()));
@@ -664,7 +676,7 @@ function pushElementToUI(prefix,suffix,porttype,placement,clockRegionOffset,tile
 	});
 	fieldWrapper.append(fPrefix);
 	fieldWrapper.append(fSuffix);
-	fieldWrapper.append(fClock);
+//	fieldWrapper.append(fClock);
 	fieldWrapper.append(fPortType);
 	fieldWrapper.append(fPlacement);
 	fieldWrapper.append(fClockRegionOffset);
@@ -681,6 +693,45 @@ var finalInterfaceWireDirection = [];
 //2D
 var finalInterfaceWireBusIndex = [];
 var finalInterfaceWireGlobalWireOffset = [];
+//phys, 1D, bus names
+var physInterfaceEastInName = [];
+var physInterfaceEastOutName = [];
+var physInterfaceWestInName = [];
+var physInterfaceWestOutName = [];
+
+var physInterfaceEastInIndex = [];
+var physInterfaceEastOutIndex = [];
+var physInterfaceWestInIndex = [];
+var physInterfaceWestOutIndex = [];
+function assignPhysical(){
+	physInterfaceEastInName = new Array(clockRegions*60*8).fill(-1);
+	physInterfaceEastOutName = new Array(clockRegions*60*8).fill(-1);
+	physInterfaceWestInName = new Array(clockRegions*60*8).fill(-1);
+	physInterfaceWestOutName = new Array(clockRegions*60*8).fill(-1);
+	physInterfaceEastInIndex = new Array(clockRegions*60*8).fill(-1);
+	physInterfaceEastOutIndex = new Array(clockRegions*60*8).fill(-1);
+	physInterfaceWestInIndex = new Array(clockRegions*60*8).fill(-1);
+	physInterfaceWestOutIndex = new Array(clockRegions*60*8).fill(-1);
+	for(var i = 0 ; i < finalInterfaceWireNames.length ; i++) { // bus ID
+		var dir = finalInterfaceWireDirection[i];
+		var side = finalInterfaceWireSide[i];
+		for(var j = 0 ; j < finalInterfaceWireGlobalWireOffset[i] ; j++) {//wire ID from the bus
+			if(dir == "I" && side == "E") {
+				physInterfaceEastInName[finalInterfaceWireGlobalWireOffset[i][j]] = finalInterfaceWireNames[i];
+				physInterfaceEastInIndex[finalInterfaceWireGlobalWireOffset[i][j]] = finalInterfaceWireBusIndex[i][j];
+			} else if(dir == "O" && side == "E"){
+				physInterfaceEastOutName[finalInterfaceWireGlobalWireOffset[i][j]] = finalInterfaceWireNames[i];
+				physInterfaceEastOutIndex[finalInterfaceWireGlobalWireOffset[i][j]] = finalInterfaceWireBusIndex[i][j];
+			} else if(dir == "I" && side == "W"){
+				physInterfaceWestInName[finalInterfaceWireGlobalWireOffset[i][j]] = finalInterfaceWireNames[i];
+				physInterfaceWestInIndex[finalInterfaceWireGlobalWireOffset[i][j]] = finalInterfaceWireBusIndex[i][j];
+			} else if(dir == "O" && side == "W"){
+				physInterfaceWestOutName[finalInterfaceWireGlobalWireOffset[i][j]] = finalInterfaceWireNames[i];
+				physInterfaceWestOutIndex[finalInterfaceWireGlobalWireOffset[i][j]] = finalInterfaceWireBusIndex[i][j];
+			}
+		}
+	}
+}
 function calcPortFinalWires(){
 	finalInterfaceWireNames = [];
 	finalInterfaceWireBusIndex = [];
@@ -734,6 +785,7 @@ function calcPortFinalWires(){
 			}
 		}
 	}
+	assignPhysical();
 }
 
 var interfaceUtilizationWestOut = [];
@@ -758,14 +810,58 @@ function updateUtilization(){
 	}
 }
 var prFileName = "prTopWithUniqueTopName";
-function generateTopPRclocks(){
-"BUFG BUFG_inst (.O(O), .I(I));"
-
-
+var prTopInstanceName = "topAcceleratorInstance";
+var clkNames = [];
+var clkPeriods = [];
+var clkLeafBottom = [];
+var clkLeafTop = [];
+function updateTopPRclocks(){
+clkNames = [];
+clkPeriods = [];
+clkLeafBottom = [];
+clkLeafTop = [];
+//for now just do clk at {0,3}
+clkNames.push("clk");
+clkPeriods.push($(".periodclk_1").val());
+clkLeafBottom.push(0);
+clkLeafTop.push(3);
 }
+	var configWiresEastInPipName = new Array ("EE2_W", "EE2_W", "EE2_W", "EE2_W", "WW2_W", "WW2_W", "WW2_W", "WW2_W");
+	var configWiresEastInPipIndex = new Array ("1", "2", "5", "6", "1", "2", "5", "6");
+	var configWiresEastOutPipName = new Array ("EE2_E", "EE2_E", "EE2_E", "EE2_E", "WW2_E", "WW2_E", "WW2_E", "WW2_E");
+	var configWiresEastOutPipIndex = new Array ("1", "2", "5", "6", "1", "2", "5", "6");
+	var configWiresWestOutPipName = new Array ("EE2_W", "EE2_W", "EE2_W", "EE2_W", "WW2_W", "WW2_W", "WW2_W", "WW2_W");
+	var configWiresWestOutPipIndex = new Array ("1", "2", "5", "6", "1", "2", "5", "6");
+	var configWiresWestInPipName = new Array ("EE2_E", "EE2_E", "EE2_E", "EE2_E", "WW2_E", "WW2_E", "WW2_E", "WW2_E");
+	var configWiresWestInPipIndex = new Array ("1", "2", "5", "6", "1", "2", "5", "6");
+	
+
+function assignHDPARTPINS(){//usable wires EE2E1 EE2E2 EE2E4 EE2E5 EE2E6 WW2E1 WW2E2 WW2E4 WW2E5 WW2E6 EE2W1 EE2W2 EE2W4 EE2W5 EE2W6 WW2W1 WW2W2 WW2W4 WW2W5 WW2W6
+	var tclScript;
+	for(var i = 0 ; i < physInterfaceEastInName.length ; i++){
+		var tileHeight = Math.floor(i/8);
+		var subTileIndex = i%8;
+		if(physInterfaceEastInName[i] != -1){
+			tclScript += `set_property HD.PARTPIN_LOCS [get_tiles -quiet -filter "TYPE=INT && GRID_POINT_X==${int_east_in_grid} && INT_TILE_Y==[expr {$int_south_in_inttile - `+tileHeight+`}]"]/`+configWiresEastInPipName[subTileIndex]+`_BEG`+configWiresEastInPipIndex[subTileIndex]+` [get_pins `+prTopInstanceName+`/`+physInterfaceEastInName[i];
+			if(physInterfaceEastInIndex[i] == -1){
+				tclScript += `];\r\n`;
+			} else {
+				tclScript += `[`+physInterfaceEastInIndex[i]+`]];\r\n`;
+			}
+		}
+	}
+	//set_property HD.PARTPIN_LOCS INT_X12Y187/WW2_W_BEG2 [get_pins */WestConnection_0/dirOneBack_Data[17]];  
+	
+}
+var moduleRTL = "wire clk\r\n";
+moduleRTL += "BUFG BUFG_clk (.O(clk), .I(1'b1));\r\n";
 function generateTopPR(){
 
 	var moduleRTL = "(* keep_hierarchy = \"yes\" *)module "+prFileName+"();\r\n";
+	moduleRTL += "//define clocks\r\n";
+	for(var i = 0 ; i < clkNames.length ; i++){
+		moduleRTL += "wire " + clkNames[i] + ";// "+clkPeriods[i]+"ns clock\r\n";
+	}
 	moduleRTL += "//define module connections\r\n";
 	for(var i = 0 ; i < finalInterfaceWireNames.length ; i++){
 		moduleRTL += "wire ";
@@ -775,8 +871,15 @@ function generateTopPR(){
 		else  moduleRTL += "Accelerator output";
 		moduleRTL += "\r\n";
 	}
-	moduleRTL += $(".topaccelname").val()+" topAcceleratorInstance(";
+	moduleRTL += "//Accelerator instance\r\n";
+	moduleRTL += $(".topaccelname").val()+" "+prTopInstanceName+"(";
 	var firstConn = 1;
+	for(var i = 0 ; i < clkNames.length ; i++){
+		if(firstConn)moduleRTL += "\r\n\t";
+		else moduleRTL += ",\r\n\t";
+		firstConn = 0;
+		moduleRTL += "."+clkNames[i]+"("+clkNames[i]+")";
+	}
 	for(var i = 0 ; i < finalInterfaceWireNames.length ; i++){
 		if(firstConn)moduleRTL += "\r\n\t";
 		else moduleRTL += ",\r\n\t";
@@ -792,6 +895,12 @@ function generateTopPR(){
 function generateTemplateTop(){
 	var moduleRTL = "module "+$(".topaccelname").val()+"(";
 	var firstConn = 1;
+	for(var i = 0 ; i < clkNames.length ; i++){
+		if(firstConn)moduleRTL += "\r\n\t";
+		else moduleRTL += ",\r\n\t";
+		firstConn = 0;
+		moduleRTL += "input " + clkNames[i] + "/* "+clkPeriods[i]+"ns clock */";
+	}
 	for(var i = 0 ; i < finalInterfaceWireNames.length ; i++){
 		if(firstConn)moduleRTL += "\r\n\t";
 		else moduleRTL += ",\r\n\t";
@@ -808,15 +917,64 @@ function generateTemplateTop(){
 	moduleRTL += "endmodule\r\n";
 	return moduleRTL;
 }
+function solidBlockBoundingBox(){
+return `
+
+set blockerEast $int_west_out_grid_fullblock
+set blockerWest $int_east_out_grid_fullblock
+set blockerNorth $int_north_in_grid
+set blockerSouth $int_south_in_grid
+if {$int_north_out_grid ne ""} {
+	set blockerNorth $int_north_out_grid
+}
+if {$int_south_out_grid ne ""} {
+	set blockerSouth $int_south_out_grid
+}
+#west solid blocker
+ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==${blockerWest} && GRID_POINT_Y>=${blockerNorth} && GRID_POINT_Y<=${blockerSouth}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+#east solid blocker
+ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==${blockerEast} && GRID_POINT_Y>=${blockerNorth} && GRID_POINT_Y<=${blockerSouth}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+#north solid blocker
+if {$int_north_out_grid ne ""} {
+	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==${blockerNorth} && GRID_POINT_X>${blockerEast} && GRID_POINT_X<${blockerWest}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+}
+#south solid blocker
+if {$int_south_out_grid ne ""} {
+	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==${blockerSouth} && GRID_POINT_X>${blockerEast} && GRID_POINT_X<${blockerWest}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+}
+
+`;
+}
 function generateTCLScript(){
-	var tclScript = "lappend auto_path "+$(".tedtclpath").val()+"\r\n";
-	tclScript += "package require ted\r\n";
+	var tclScript;
+	if($(".tedtclpath").val() != "") {
+		tclScript = "lappend auto_path "+$(".tedtclpath").val()+"\r\n";
+		tclScript += "package require ted\r\n";
+	}
 	tclScript += "opt_design\r\n";
-	//{SLICE_X46Y140:SLICE_X65Y173 DSP48E2_X9Y56:DSP48E2_X12Y67 RAMB18_X6Y56:RAMB18_X8Y67 RAMB36_X6Y28:RAMB36_X8Y33} pblock example
 	
+	tclScript += `
+TODO include the pblock TCL script
+`;
+
+
+/*
+//block clocks
+tclScript += `set nodesToBlock {}
+#block all clock generators except for clk0 and clk10 
+set clockIndicesToBlock [lsort -dictionary [struct::set difference [::ted::utility::range 32] {0 10}]] 
+set clkTiles [get_tiles -filter {TYPE == RCLK_INT_L && GRID_POINT_X>97 && GRID_POINT_X<162 && GRID_POINT_Y == 217}]
+foreach clkTile $clkTiles {
+	foreach i $clockIndicesToBlock {
+			lappend nodesToBlock "\${clkTile}/RCLK_INT_L.CLK_LEAF_SITES_${i}\_CLK_IN->>CLK_LEAF_SITES_${i}\_CLK_LEAF"
+	}
+}
+ted::routing::blockNodes [ted::routing::getNetVCC] $nodesToBlock`;*/
+
 	return tclScript;
 }
-function generateHDL(){
+function generateHDLverilog(){
+updateTopPRclocks();
 /*
 //1D
 var finalInterfaceWireNames = [];
@@ -1029,8 +1187,8 @@ $(document).ready(function() {
         });
         $("body").append(fieldSet);
     });
-    $("#downloadHDL").click(function() {
-        generateHDL();
+    $("#downloadHDLverilog").click(function() {
+        generateHDLverilog();
     });
 	
 	
