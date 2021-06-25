@@ -1534,19 +1534,29 @@ var finalInterfaceWireDirection = [];
 function generateTimingConstraints(){
 	var tclScript = "#define clock timing\r\n";
 	clkNames.forEach((element, index) => {
-		tclScript += `create_clock -period `+clkPeriods[index]+` [get_ports `+prTopInstanceName+`/`+clkNames[index]+`]\r\n`;
+		tclScript += `create_clock -period `+clkPeriods[index]+` [get_nets `+clkNames[index]+`]\r\n`;
 	});
 	
 	finalInterfaceWireNames.forEach((element, index) => {
 		var maxPeriod = clkPeriods[finalClockSources[index]]/2.5;
 		var minPeriod = clkPeriods[finalClockSources[index]]/10;
-		for(var i = 0 ; i < finalInterfaceWireBusMSB[index] ; i++){
+		if(finalInterfaceWireBusMSB[index] == -1) {
 			if(finalInterfaceWireDirection[index] == "I"){
-				tclScript += `set_max_delay -from [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
-				tclScript += `set_min_delay -from [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+minPeriod.toFixed(2)+`\r\n`;
+				tclScript += `set_max_delay -from [get_cells FDRE_inst_`+element+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
+				tclScript += `set_min_delay -from [get_cells FDRE_inst_`+element+`] -datapath_only `+minPeriod.toFixed(2)+`\r\n`;
 			} else { //"O"
-				tclScript += `set_max_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
-				tclScript += `set_min_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+minPeriod.toFixed(2)+`\r\n`;
+				tclScript += `set_max_delay -to [get_cells FDRE_inst_`+element+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
+				tclScript += `set_min_delay -to [get_cells FDRE_inst_`+element+`] -datapath_only `+minPeriod.toFixed(2)+`\r\n`;
+			}
+		} else {
+			for(var i = 0 ; i <= finalInterfaceWireBusMSB[index] ; i++){
+				if(finalInterfaceWireDirection[index] == "I"){
+					tclScript += `set_max_delay -from [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
+					tclScript += `set_min_delay -from [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+minPeriod.toFixed(2)+`\r\n`;
+				} else { //"O"
+					tclScript += `set_max_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
+					tclScript += `set_min_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+minPeriod.toFixed(2)+`\r\n`;
+				}
 			}
 		}
 	});
