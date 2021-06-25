@@ -911,6 +911,11 @@ function setupWiresAndTunnels(){
 	// WW2_E5 -> EE2_E5
 	// WW2_E6 -> no backward path
 	
+	//&& NAME!~*INT_NODE_GLOBAL_0_INT_OUT1  -- for clock leafs 0 and 3
+	//control wires for CLBs
+	//&& NAME!~*CTRL_E0 && NAME!~*CTRL_E2 && NAME!~*CTRL_E4 && NAME!~*CTRL_E5 && NAME!~*CTRL_E6 && NAME!~*CTRL_E7 
+	//&& NAME!~*CTRL_W0 && NAME!~*CTRL_W2 && NAME!~*CTRL_W4 && NAME!~*CTRL_W5 && NAME!~*CTRL_W6 && NAME!~*CTRL_W7
+
 	// WW2_W1 -> EE_W1
 	// WW2_W2 -> no backward path
 	// west wires: E1, E2, E5, E6, W1, W2, W5, W6
@@ -987,11 +992,12 @@ function generateTopPR(){
 			}
 			if(finalInterfaceWireDirection[i] == "I") {
 				moduleRTL += `(* mark_debug = "true", keep = "true" *)wire wire_`+tmpname+";\r\n";
-				moduleRTL += `(* mark_debug = "true", keep = "true" *)wire dummy_wire_`+tmpname+";\r\n";
+				//moduleRTL += `(* mark_debug = "true", keep = "true" *)wire dummy_wire_`+tmpname+";\r\n";
 				
 				moduleRTL += `(* mark_debug = "true", keep = "true" *)LUT6 #(.INIT(64'hA5A5A5A55A5A5A5A)) LUT6_inst_`+tmpname+" (\r\n";
 				moduleRTL += ".O(wire_"+tmpname+"),   // 1-bit output: LUT\r\n";
-				moduleRTL += ".I0(dummy_wire_"+tmpname+"), // 1-bit input: LUT\r\n";
+				//moduleRTL += ".I0(dummy_wire_"+tmpname+"), // 1-bit input: LUT\r\n";
+				moduleRTL += ".I0(1'b1), // 1-bit input: LUT\r\n";
 				moduleRTL += ".I1(1'b1), // 1-bit input: LUT\r\n";
 				moduleRTL += ".I2(1'b1), // 1-bit input: LUT\r\n";
 				moduleRTL += ".I3(1'b1), // 1-bit input: LUT\r\n";
@@ -1116,10 +1122,8 @@ for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 				tmpname += "_" + physInterfaceEastOutIndex[i+j];
 			}
 			if(configWiresEastFlopSide[j] == "L"){//left slice
-				tclScript += `place_cell LUT6_inst_`+tmpname+` "SLICE_X\${slice_east_out_flops2_l}Y\${slice_y_count}/`+configWiresEastLUT[j]+`"\r\n`;
 				tclScript += `place_cell FDRE_inst_`+tmpname+` "SLICE_X\${slice_east_out_flops2_l}Y\${slice_y_count}/`+configWiresEastFlop[j]+`"\r\n`;
 			} else {//right slice
-				tclScript += `place_cell LUT6_inst_`+tmpname+` "SLICE_X\${slice_east_out_flops2_r}Y\${slice_y_count}/`+configWiresEastLUT[j]+`"\r\n`;
 				tclScript += `place_cell FDRE_inst_`+tmpname+` "SLICE_X\${slice_east_out_flops2_r}Y\${slice_y_count}/`+configWiresEastFlop[j]+`"\r\n`;
 			}
 		}
@@ -1130,10 +1134,8 @@ for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 				tmpname += "_" + physInterfaceWestOutIndex[i+j];
 			}
 			if(configWiresWestFlopSide[j] == "L"){//left slice
-				tclScript += `place_cell LUT6_inst_`+tmpname+` "SLICE_X\${slice_west_out_flops2_l}Y\${slice_y_count}/`+configWiresWestLUT[j]+`"\r\n`;
 				tclScript += `place_cell FDRE_inst_`+tmpname+` "SLICE_X\${slice_west_out_flops2_l}Y\${slice_y_count}/`+configWiresWestFlop[j]+`"\r\n`;
 			} else {//right slice
-				tclScript += `place_cell LUT6_inst_`+tmpname+` "SLICE_X\${slice_west_out_flops2_r}Y\${slice_y_count}/`+configWiresWestLUT[j]+`"\r\n`;
 				tclScript += `place_cell FDRE_inst_`+tmpname+` "SLICE_X\${slice_west_out_flops2_r}Y\${slice_y_count}/`+configWiresWestFlop[j]+`"\r\n`;
 			}
 		}
@@ -1229,7 +1231,7 @@ for(var j = 0 ; j < 8 ; j++){
 	if(physInterfaceEastOutName[i+j] != ""){ tclScript += physInterfaceEastOutName[i+j];if(physInterfaceEastOutIndex[i+j] != -1)tclScript += "["+ physInterfaceEastOutIndex[i+j]+"]";tclScript += ", ";}
 }
 tclScript += `
-	set pips_filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"
+	set pips_filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1 && NAME!~*CTRL_E0 && NAME!~*CTRL_E2 && NAME!~*CTRL_E4 && NAME!~*CTRL_E5 && NAME!~*CTRL_E6 && NAME!~*CTRL_E7 && NAME!~*CTRL_W0 && NAME!~*CTRL_W2 && NAME!~*CTRL_W4 && NAME!~*CTRL_W5 && NAME!~*CTRL_W6 && NAME!~*CTRL_W7"
 `;
 
 //East flops1
@@ -1352,7 +1354,7 @@ for(var j = 0 ; j < 8 ; j++){
 	if(physInterfaceWestOutName[i+j] != ""){ tclScript += physInterfaceWestOutName[i+j];if(physInterfaceWestOutIndex[i+j] != -1)tclScript += "["+ physInterfaceWestOutIndex[i+j]+"]";tclScript += ", ";}
 }
 tclScript += `
-	set pips_filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"
+	set pips_filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1 && NAME!~*CTRL_E0 && NAME!~*CTRL_E2 && NAME!~*CTRL_E4 && NAME!~*CTRL_E5 && NAME!~*CTRL_E6 && NAME!~*CTRL_E7 && NAME!~*CTRL_W0 && NAME!~*CTRL_W2 && NAME!~*CTRL_W4 && NAME!~*CTRL_W5 && NAME!~*CTRL_W6 && NAME!~*CTRL_W7"
 `;
 
 //West flops1
@@ -1523,15 +1525,39 @@ function generateBitstream(){
 	`;
 	return tclScript;
 }
+/*
+var finalInterfaceWireNames = [];
+var finalInterfaceWireBusMSB = [];
+var finalClockSources = [];
+var finalInterfaceWireDirection = [];
+*/
+function generateTimingConstraints(){
+	var tclScript = "#define clock timing\r\n";
+	clkNames.forEach((element, index) => {
+		tclScript += `create_clock -period `+clkPeriods[index]+` [get_ports `+prTopInstanceName+`/`+clkNames[index]+`]\r\n`;
+	});
+	
+	finalInterfaceWireNames.forEach((element, index) => {
+		var maxPeriod = clkPeriods[finalClockSources[index]]/2.5;
+		var minPeriod = clkPeriods[finalClockSources[index]]/10;
+		for(var i = 0 ; i < finalInterfaceWireBusMSB[index] ; i++){
+			if(finalInterfaceWireDirection[index] == "I"){
+				tclScript += `set_max_delay -from [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
+				tclScript += `set_min_delay -from [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+minPeriod.toFixed(2)+`\r\n`;
+			} else { //"O"
+				tclScript += `set_max_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
+				tclScript += `set_min_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+minPeriod.toFixed(2)+`\r\n`;
+			}
+		}
+	});
+	
+	return tclScript;
+}
 function generateTCLScript(){
 	var tclScript = "";
-	if($(".tedtclpath").val() != "") {
-		tclScript += "lappend auto_path "+$(".tedtclpath").val()+"\r\n";
-		tclScript += "package require ted\r\n";
-	}
-	tclScript += "opt_design\r\n";
 	
 	tclScript += loadTopTCLscript();
+	tclScript += generateTimingConstraints();
 	tclScript += generateBlockersTunnelsWest();
 	tclScript += generateBlockersTunnelsEast();
 	tclScript += solidBlockBoundingBox();
@@ -1587,7 +1613,16 @@ tclScript += `
 #	
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 `;
+
+if($(".tedtclpath").val() != "") {
+	tclScript += "lappend auto_path "+$(".tedtclpath").val()+"\r\n";
+	tclScript += "package require ted\r\n";
+}
+
 tclScript += `
+
+opt_design
+
 set rects {}
 foreach pb [get_pblocks *] {
 	foreach range [get_property DERIVED_RANGES [get_pblock $pb]] {
@@ -1597,14 +1632,7 @@ foreach pb [get_pblocks *] {
 		set topLeftTile     [get_tiles -of_objects [get_sites $topLeft]]
 		set bottomRightTile [get_tiles -of_objects [get_sites $bottomRight]]
 		
-		lappend rects [                                                                       \
-				::ted::rect::rectify [ dict create                                    \
-					left   [get_property GRID_POINT_X $topLeftTile]     \
-					bottom [get_property GRID_POINT_Y $bottomRightTile] \
-					top    [get_property GRID_POINT_Y $topLeftTile]     \
-					right  [get_property GRID_POINT_X $bottomRightTile] \
-				] \
-			]
+		lappend rects [::ted::rect::rectify [ dict create left [get_property GRID_POINT_X $topLeftTile] bottom [get_property GRID_POINT_Y $bottomRightTile] top [get_property GRID_POINT_Y $topLeftTile] right  [get_property GRID_POINT_X $bottomRightTile] ] ]
 	}
 }
 set boundingBox [lindex $rects 0]
