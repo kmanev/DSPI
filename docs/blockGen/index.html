@@ -1495,8 +1495,8 @@ function verifyPipPlacement(){
 	var tclScript = `
 #verify interface routings
 proc checkWire {net tile pin} {
-set pips_string [get_pips -of_objects [get_nets ${net}]]
-	if {! [regexp "${tile}\[^ \]*${pin}" ${pips_string}]} {
+set pips_string [get_pips -of_objects [get_nets \${net}]]
+	if {! [regexp "\${tile}\[^ \]*\${pin}" \${pips_string}]} {
 		error "Something went wrong! An interface wire ($net) has not been placed correctly on $tile/$pin. It instead routes through path: $pips_string"
 	}
 }
