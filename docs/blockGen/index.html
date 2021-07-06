@@ -1492,8 +1492,54 @@ function constrainInterfaceTiming(){
 	return tclScript;
 }
 function verifyPipPlacement(){
-	var tclScript = "";
+	var tclScript = `
+#verify interface routings
+proc checkWire {net tile pin} {
+set pips_string [get_pips -of_objects [get_nets ${net}]]
+	if {! [regexp "${tile}\[^ \]*${pin}" ${pips_string}]} {
+		error "Something went wrong! An interface wire ($net) has not been placed correctly on $tile/$pin. It instead routes through path: $pips_string"
+	}
+}
+set slice_y_count $int_south_in_inttile
+`;
+		var tmpname;
+for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
+	for(var j = 0 ; j < 8 ; j++){
+		if(physInterfaceEastInName[i+j] != ""){
+			tmpname = physInterfaceEastInName[i+j];
+			if(physInterfaceEastInIndex[i+j] != -1){
+				tmpname += "[" + physInterfaceEastInIndex[i+j]+"]";
+			}
+			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_east_in_grid}"] `+configWiresWestPipName[j]+`_END`+configWiresWestPipIndex[j]+`\r\n`;
+		}
+		
+		if(physInterfaceEastOutName[i+j] != ""){
+			tmpname = physInterfaceEastOutName[i+j];
+			if(physInterfaceEastOutIndex[i+j] != -1){
+				tmpname += "[" + physInterfaceEastOutIndex[i+j]+"]";
+			}
+			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_east_in_grid}"] `+configWiresEastPipName[j]+`_BEG`+configWiresEastPipIndex[j]+`\r\n`;
+		}
+		
+		if(physInterfaceWestOutName[i+j] != ""){
+			tmpname = physInterfaceWestOutName[i+j];
+			if(physInterfaceWestOutIndex[i+j] != -1){
+				tmpname += "[" + physInterfaceWestOutIndex[i+j]+"]";
+			}
+			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_west_in_grid}"] `+configWiresWestPipName[j]+`_BEG`+configWiresWestPipIndex[j]+`\r\n`;
+		}
+		
+		if(physInterfaceWestInName[i+j] != ""){
+			tmpname = physInterfaceWestInName[i+j];
+			if(physInterfaceWestInIndex[i+j] != -1){
+				tmpname += "[" + physInterfaceWestInIndex[i+j]+"]";
+			}
+			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_west_in_grid}"] `+configWiresEastPipName[j]+`_END`+configWiresEastPipIndex[j]+`\r\n`;
+		}
+	}
 	
+	tclScript += "set slice_y_count [expr {$slice_y_count - 1}]\r\n";
+}
 	return tclScript;
 }
 function generateTCLScriptToFinishUpImplementation(){
@@ -1575,7 +1621,6 @@ function generateTCLScript(){
 	tclScript += generateClockBlockers();
 	tclScript += placeExternalFlopsAndLuts();
 	tclScript += tieWiresToPips();
-	tclScript += constrainInterfaceTiming();
 	tclScript += generateTCLScriptToFinishUpImplementation();
 	tclScript += verifyPipPlacement();
 	tclScript += generateBitstream();
