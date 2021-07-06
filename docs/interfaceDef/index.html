@@ -743,29 +743,6 @@ $(document).ready(function() {
     $("#add").click(function() {
 		pushElementToUI("","","",-1,-1,-1,-1,-1,-1);
     });
-    $("#preview").click(function() {
-        $("#yourform").remove();
-        var fieldSet = $("<fieldset id=\"yourform\"><legend>Your Form</legend></fieldset>");
-        $("#interfacefieldset div").each(function() {
-            var id = "input" + $(this).attr("id").replace("field","");
-            var label = $("<label for=\"" + id + "\">" + $(this).find("input.fieldname").first().val() + "</label>");
-            var input;
-            switch ($(this).find("select.fieldtype").first().val()) {
-                case "checkbox":
-                    input = $("<input type=\"checkbox\" id=\"" + id + "\" name=\"" + id + "\" />");
-                    break;
-                case "textbox":
-                    input = $("<input type=\"text\" id=\"" + id + "\" name=\"" + id + "\" />");
-                    break;
-                case "textarea":
-                    input = $("<textarea id=\"" + id + "\" name=\"" + id + "\" ></textarea>");
-                    break;    
-            }
-            fieldSet.append(label);
-            fieldSet.append(input);
-        });
-        $("body").append(fieldSet);
-    });
     $("#download").click(function() {
         downloadCSV();
     });

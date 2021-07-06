@@ -249,6 +249,7 @@ window.onload = function(){
 	$(".fieldporttype").val(-1);
 }
 </script>
+<button class="btn btn-success custom-select-sm" id="dspi" type="button"><i class="fa fa-bug"></i> Load example DSPI</button> 
 
 <legend>Interface</legend>
 <fieldset id="interfacefieldset">
@@ -648,7 +649,7 @@ function pushElementToUI(prefix,suffix,porttype,placement,clockRegionOffset,tile
 	fClock.change(function() {
 		drawVisualisation();
 	});
-	var fPortType = generatePortTypeMenu("");
+	var fPortType = generatePortTypeMenu(porttype);
 	fPortType.change(function() {
 		drawVisualisation();
 	});
@@ -2040,32 +2041,12 @@ function drawVisualisation(){
 		canvasLine(context, "#000000", 384, 32, 384, Canvas_height); */
 	}
 }
+function loadDefaultDSPI512(){
+
+}
 $(document).ready(function() {
     $("#add").click(function() {
 		pushElementToUI("","","","",-1,-1);
-    });
-    $("#preview").click(function() {
-        $("#yourform").remove();
-        var fieldSet = $("<fieldset id=\"yourform\"><legend>Your Form</legend></fieldset>");
-        $("#interfacefieldset div").each(function() {
-            var id = "input" + $(this).attr("id").replace("field","");
-            var label = $("<label for=\"" + id + "\">" + $(this).find("input.fieldname").first().val() + "</label>");
-            var input;
-            switch ($(this).find("select.fieldtype").first().val()) {
-                case "checkbox":
-                    input = $("<input type=\"checkbox\" id=\"" + id + "\" name=\"" + id + "\" />");
-                    break;
-                case "textbox":
-                    input = $("<input type=\"text\" id=\"" + id + "\" name=\"" + id + "\" />");
-                    break;
-                case "textarea":
-                    input = $("<textarea id=\"" + id + "\" name=\"" + id + "\" ></textarea>");
-                    break;    
-            }
-            fieldSet.append(label);
-            fieldSet.append(input);
-        });
-        $("body").append(fieldSet);
     });
     $("#downloadHDLverilog").click(function() {
         generateHDLverilog();
@@ -2100,6 +2081,14 @@ $(document).ready(function() {
         }
 		hiddenfileinput.val(null);
 		shownfileinput.val("");
+    });
+    $("#dspi").click(function() {
+		pushElementToUI("dirOneFront_","","DSPI512","ES",-1,-1);
+		pushElementToUI("dirOneBack_","","DSPI512","WM",-1,-1);
+		pushElementToUI("dirTwoFront_","","DSPI512","WS",-1,-1);
+		pushElementToUI("dirTwoBack_","","DSPI512","EM",-1,-1);
+		pushElementToUI("","In","Reset","ES",-1,-1);
+		pushElementToUI("","Out","Reset","WM",-1,-1);
     });
 });
 </script>  
