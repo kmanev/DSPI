@@ -1545,7 +1545,7 @@ function generateTimingConstraints(){
 				tclScript += `set_max_delay -from [get_cells FDRE_inst_`+element+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
 				tclScript += `set_min_delay -from [get_cells FDRE_inst_`+element+`] `+minPeriod.toFixed(2)+`\r\n`;
 			} else { //"O"
-				tclScript += `set_max_delay -to [get_cells FDRE_inst_`+element+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
+				tclScript += `set_max_delay -to [get_cells FDRE_inst_`+element+`] `+maxPeriod.toFixed(2)+`\r\n`;
 				tclScript += `set_min_delay -to [get_cells FDRE_inst_`+element+`] `+minPeriod.toFixed(2)+`\r\n`;
 			}
 		} else {
@@ -1554,7 +1554,7 @@ function generateTimingConstraints(){
 					tclScript += `set_max_delay -from [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
 					tclScript += `set_min_delay -from [get_cells FDRE_inst_`+element+`_`+i+`] `+minPeriod.toFixed(2)+`\r\n`;
 				} else { //"O"
-					tclScript += `set_max_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] -datapath_only `+maxPeriod.toFixed(2)+`\r\n`;
+					tclScript += `set_max_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] `+maxPeriod.toFixed(2)+`\r\n`;
 					tclScript += `set_min_delay -to [get_cells FDRE_inst_`+element+`_`+i+`] `+minPeriod.toFixed(2)+`\r\n`;
 				}
 			}
