@@ -1504,13 +1504,17 @@ set slice_y_count $int_south_in_inttile
 `;
 		var tmpname;
 for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
+	tclScript += `
+set east_int_tile [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_east_in_grid}"]
+set west_int_tile [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_west_in_grid}"]
+`;
 	for(var j = 0 ; j < 8 ; j++){
 		if(physInterfaceEastInName[i+j] != ""){
 			tmpname = physInterfaceEastInName[i+j];
 			if(physInterfaceEastInIndex[i+j] != -1){
 				tmpname += "[" + physInterfaceEastInIndex[i+j]+"]";
 			}
-			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_east_in_grid}"] `+configWiresWestPipName[j]+`_END`+configWiresWestPipIndex[j]+`\r\n`;
+			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` $east_int_tile `+configWiresWestPipName[j]+`_END`+configWiresWestPipIndex[j]+`\r\n`;
 		}
 		
 		if(physInterfaceEastOutName[i+j] != ""){
@@ -1518,7 +1522,7 @@ for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 			if(physInterfaceEastOutIndex[i+j] != -1){
 				tmpname += "[" + physInterfaceEastOutIndex[i+j]+"]";
 			}
-			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_east_in_grid}"] `+configWiresEastPipName[j]+`_BEG`+configWiresEastPipIndex[j]+`\r\n`;
+			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` $east_int_tile `+configWiresEastPipName[j]+`_BEG`+configWiresEastPipIndex[j]+`\r\n`;
 		}
 		
 		if(physInterfaceWestOutName[i+j] != ""){
@@ -1526,7 +1530,7 @@ for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 			if(physInterfaceWestOutIndex[i+j] != -1){
 				tmpname += "[" + physInterfaceWestOutIndex[i+j]+"]";
 			}
-			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_west_in_grid}"] `+configWiresWestPipName[j]+`_BEG`+configWiresWestPipIndex[j]+`\r\n`;
+			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` $west_int_tile `+configWiresWestPipName[j]+`_BEG`+configWiresWestPipIndex[j]+`\r\n`;
 		}
 		
 		if(physInterfaceWestInName[i+j] != ""){
@@ -1534,7 +1538,7 @@ for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 			if(physInterfaceWestInIndex[i+j] != -1){
 				tmpname += "[" + physInterfaceWestInIndex[i+j]+"]";
 			}
-			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_west_in_grid}"] `+configWiresEastPipName[j]+`_END`+configWiresEastPipIndex[j]+`\r\n`;
+			tclScript += `checkWire ` + prTopInstanceName + `/` + tmpname + ` $west_int_tile `+configWiresEastPipName[j]+`_END`+configWiresEastPipIndex[j]+`\r\n`;
 		}
 	}
 	
