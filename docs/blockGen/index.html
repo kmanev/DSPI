@@ -1552,15 +1552,21 @@ function generateTCLScriptToFinishUpImplementation(){
 	write_checkpoint ./dcp_step1_placedblocker -force
 	place_design
 	write_checkpoint ./dcp_step2_placeddesign -force
-	
+	`;
+	tclScript += "#Route interface busses first, because tools will struggle otherwise\r\n";
+	for(var i = 0 ; i < finalInterfaceWireNames.length ; i++){
+		tclScript += "route_design -nets [get_nets " + finalInterfaceWireNames[i] + "*]\r\n";
+	}
+	tclScript += `
+	write_checkpoint ./dcp_step3_routedinterface -force
 	route_design -preserve
-	write_checkpoint ./dcp_step3_routeddesign -force
+	write_checkpoint ./dcp_step4_routeddesign -force
 
 	set_property is_route_fixed 1 [ted::routing::getNetGND]
 	set_property is_route_fixed 0 [ted::routing::getNetVCC]
 	route_design    -unroute -physical_nets
 	route_design  -physical_nets
-	write_checkpoint ./dcp_step4_final -force
+	write_checkpoint ./dcp_step5_final -force
 	
 	`;
 	return tclScript;
