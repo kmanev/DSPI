@@ -1553,12 +1553,16 @@ function generateTCLScriptToFinishUpImplementation(){
 	place_design
 	write_checkpoint ./dcp_step2_placeddesign -force
 	`;
+	/*
 	tclScript += "#Route interface busses first, because tools will struggle otherwise\r\n";
 	for(var i = 0 ; i < finalInterfaceWireNames.length ; i++){
 		tclScript += "route_design -nets [get_nets " + finalInterfaceWireNames[i] + "*]\r\n";
 	}
 	tclScript += `
 	write_checkpoint ./dcp_step3_routedinterface -force
+	`;
+	*/
+	tclScript += `
 	route_design -preserve
 	write_checkpoint ./dcp_step4_routeddesign -force
 
