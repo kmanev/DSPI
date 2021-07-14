@@ -978,7 +978,10 @@ function generateTopPR(){
 	
 	//generate dummy bufg
 	clkNames.forEach((element, index) => {
-		moduleRTL += `(* mark_debug = "true", keep = "true" *)BUFG BUFG_`+clkNames[index]+` (.O(`+clkNames[index]+`), .I(1'b1));\r\n`;
+		moduleRTL += `
+		(* mark_debug = "true", keep = "true" *)wire `+clkNames[index]+`_dummy_wire;
+		(* mark_debug = "true", keep = "true" *)BUFG BUFG_`+clkNames[index]+` (.O(`+clkNames[index]+`), .I(`+clkNames[index]+`_dummy_wire));
+		`;
 	});
 	
 	
