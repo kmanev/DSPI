@@ -979,9 +979,16 @@ function generateTopPR(){
 	//generate dummy bufg
 	clkNames.forEach((element, index) => {
 		moduleRTL += `
-		(* mark_debug = "true", keep = "true" *)wire `+clkNames[index]+`_dummy_wire;
-		(* mark_debug = "true", keep = "true" *)BUFG BUFG_`+clkNames[index]+` (.O(`+clkNames[index]+`), .I(`+clkNames[index]+`_dummy_wire));
-		`;
+(* mark_debug = "true", keep = "true" *)wire `+clkNames[index]+`_dummy_wire_1;
+(* mark_debug = "true", keep = "true" *)wire `+clkNames[index]+`_dummy_wire_2;
+(* mark_debug = "true", keep = "true" *)FDRE FDRE_inst_`+clkNames[index]+`_dummy (
+.Q(`+clkNames[index]+`_dummy_wire_2),   // 1-bit output: Data
+.C(`+clkNames[index]+`),   // 1-bit input: Clock
+.CE(1'b1), // 1-bit input: Clock enable
+.D(`+clkNames[index]+`_dummy_wire_1),   // 1-bit input: Data
+.R(1'b0));    // 1-bit input: Synchronous reset
+(* mark_debug = "true", keep = "true" *)BUFG BUFG_inst_`+clkNames[index]+` (.O(`+clkNames[index]+`), .I(`+clkNames[index]+`_dummy_wire_2));
+`;
 	});
 	
 	
@@ -1179,13 +1186,16 @@ function tieWiresToPips(){
 	tclScript += "set slice_y_count $int_south_in_inttile\r\n";
 	var tmpname;
 for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
+	tclScript += `set eastTile [get_tiles -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_east_in_grid}"]
+set westTile [get_tiles -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_west_in_grid}"]
+`;
 	for(var j = 0 ; j < 8 ; j++){
 		if(physInterfaceEastInName[i+j] != ""){
 			tmpname = physInterfaceEastInName[i+j];
 			if(physInterfaceEastInIndex[i+j] != -1){
 				tmpname += "[" + physInterfaceEastInIndex[i+j]+"]";
 			}
-			tclScript += `set_property HD.PARTPIN_LOCS [get_tiles -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_east_in_grid}"]/`+configWiresWestPipName[j]+`_END`+configWiresWestPipIndex[j]+` [get_pins `+prTopInstanceName+`/`+tmpname+`]\r\n`;
+			tclScript += `set_property HD.PARTPIN_LOCS \${eastTile}/`+configWiresWestPipName[j]+`_END`+configWiresWestPipIndex[j]+` [get_pins `+prTopInstanceName+`/`+tmpname+`]\r\n`;
 		}
 		
 		if(physInterfaceEastOutName[i+j] != ""){
@@ -1193,7 +1203,7 @@ for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 			if(physInterfaceEastOutIndex[i+j] != -1){
 				tmpname += "[" + physInterfaceEastOutIndex[i+j]+"]";
 			}
-			tclScript += `set_property HD.PARTPIN_LOCS [get_tiles -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_east_in_grid}"]/`+configWiresEastPipName[j]+`_BEG`+configWiresEastPipIndex[j]+` [get_pins `+prTopInstanceName+`/`+tmpname+`]\r\n`;
+			tclScript += `set_property HD.PARTPIN_LOCS \${eastTile}/`+configWiresEastPipName[j]+`_BEG`+configWiresEastPipIndex[j]+` [get_pins `+prTopInstanceName+`/`+tmpname+`]\r\n`;
 		}
 		
 		if(physInterfaceWestOutName[i+j] != ""){
@@ -1201,7 +1211,7 @@ for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 			if(physInterfaceWestOutIndex[i+j] != -1){
 				tmpname += "[" + physInterfaceWestOutIndex[i+j]+"]";
 			}
-			tclScript += `set_property HD.PARTPIN_LOCS [get_tiles -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_west_in_grid}"]/`+configWiresWestPipName[j]+`_BEG`+configWiresWestPipIndex[j]+` [get_pins `+prTopInstanceName+`/`+tmpname+`]\r\n`;
+			tclScript += `set_property HD.PARTPIN_LOCS \${westTile}/`+configWiresWestPipName[j]+`_BEG`+configWiresWestPipIndex[j]+` [get_pins `+prTopInstanceName+`/`+tmpname+`]\r\n`;
 		}
 		
 		if(physInterfaceWestInName[i+j] != ""){
@@ -1209,7 +1219,7 @@ for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 			if(physInterfaceWestInIndex[i+j] != -1){
 				tmpname += "[" + physInterfaceWestInIndex[i+j]+"]";
 			}
-			tclScript += `set_property HD.PARTPIN_LOCS [get_tiles -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count} && GRID_POINT_X==\${int_west_in_grid}"]/`+configWiresEastPipName[j]+`_END`+configWiresEastPipIndex[j]+` [get_pins `+prTopInstanceName+`/`+tmpname+`]\r\n`;
+			tclScript += `set_property HD.PARTPIN_LOCS \${westTile}/`+configWiresEastPipName[j]+`_END`+configWiresEastPipIndex[j]+` [get_pins `+prTopInstanceName+`/`+tmpname+`]\r\n`;
 		}
 	}
 	
@@ -1631,7 +1641,6 @@ function generateTCLScript(){
 	var tclScript = "";
 	
 	tclScript += loadTopTCLscript();
-	tclScript += generateTimingConstraints();
 	tclScript += generateBlockersTunnelsWest();
 	tclScript += generateBlockersTunnelsEast();
 	tclScript += solidBlockBoundingBox();
@@ -1642,6 +1651,13 @@ function generateTCLScript(){
 	tclScript += verifyPipPlacement();
 	tclScript += generateBitstream();
 
+	return tclScript;
+}
+function generateTCLConstraintScript(){
+	var tclScript = "";
+
+	tclScript += generateTimingConstraints();
+	
 	return tclScript;
 }
 function generateHDLverilog(){
@@ -1658,10 +1674,11 @@ var finalInterfaceWireGlobalWireOffset = [];*/
 	
 var zip = new JSZip();
 // Add an top-level, arbitrary text file with contents
-var topsynthfile = zip.folder("GlobalTopFile");
-topsynthfile.file(prFileName+".v", generateTopPR());
+var includes = zip.folder("include");
+includes.file(prFileName+".v", generateTopPR());
+includes.file(prFileName+".xdc", generateTCLConstraintScript());
 
-var templateAccelerator = zip.folder("TemplateAcceleratorTopFile");
+var templateAccelerator = zip.folder("template");
 templateAccelerator.file($(".topaccelname").val()+".v", generateTemplateTop());
 var prScript = zip.folder("prScript");
 prScript.file("buildModule.tcl", generateTCLScript());
