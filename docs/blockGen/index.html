@@ -1662,6 +1662,8 @@ function generateTCLConstraintScript(){
 	return tclScript;
 }
 function generateHDLverilog(){
+		$("#downloadHDLverilog").prop('disabled', true);
+		$("#downloadHDLverilog").html('<i class="fa fa-hourglass-half"></i> Save (Verilog)');
 setupWiresAndTunnels();
 updateTopPRclocks();
 /*
@@ -1688,6 +1690,8 @@ zip.generateAsync({type:"blob"})
 .then(function(content) {
     // Force down of the Zip file
     saveAs(content, "pr.zip");
+		$("#downloadHDLverilog").prop('disabled', false);
+		$("#downloadHDLverilog").html('<i class="fa fa-download"></i> Save (Verilog)');
 });
 
 }
