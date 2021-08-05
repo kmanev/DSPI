@@ -1846,25 +1846,27 @@ for {set x $tstx} {$x>0} {incr x -1} {
     if {$slice_west_out_flops1_l ne "" && $slice_west_out_flops1_r ne "" && $slice_west_out_flops2_l ne "" && $slice_west_out_flops2_r ne ""} {
         break
     }
-	set tstgrid [get_property GRID_POINT_X [get_tiles -of [get_sites SLICE_X\${x}Y\${tsty}]]]
-	if {[get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==[expr {$tstgrid - 1}] && GRID_POINT_Y==$slice_vertical_slice_grid"] ne ""} {
-		#This is SLICE on the right of an interconnect
-		if {$slice_west_out_flops1_r eq ""} {
-			set slice_west_out_flops1_r $x
-			set slice_west_out_flops1_r_grid $tstgrid
-		} elseif {$slice_west_out_flops2_r eq ""} {
-			set slice_west_out_flops2_r $x
-			set slice_west_out_flops2_r_grid $tstgrid
+	set tstgrid [get_property -quiet GRID_POINT_X [get_tiles -quiet -of [get_sites -quiet SLICE_X\${x}Y\${tsty}]]]
+	if {$tstgrid ne ""} {
+		if {[get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==[expr {$tstgrid - 1}] && GRID_POINT_Y==$slice_vertical_slice_grid"] ne ""} {
+			#This is SLICE on the right of an interconnect
+			if {$slice_west_out_flops1_r eq ""} {
+				set slice_west_out_flops1_r $x
+				set slice_west_out_flops1_r_grid $tstgrid
+			} elseif {$slice_west_out_flops2_r eq ""} {
+				set slice_west_out_flops2_r $x
+				set slice_west_out_flops2_r_grid $tstgrid
+			}
 		}
-	}
-	if {[get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==[expr {$tstgrid + 1}] && GRID_POINT_Y==$slice_vertical_slice_grid"] ne ""} {
-		#This is SLICE on the left of an interconnect
-		if {$slice_west_out_flops1_l eq ""} {
-			set slice_west_out_flops1_l $x
-			set slice_west_out_flops1_l_grid $tstgrid
-		} elseif {$slice_west_out_flops2_l eq ""} {
-			set slice_west_out_flops2_l $x
-			set slice_west_out_flops2_l_grid $tstgrid
+		if {[get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==[expr {$tstgrid + 1}] && GRID_POINT_Y==$slice_vertical_slice_grid"] ne ""} {
+			#This is SLICE on the left of an interconnect
+			if {$slice_west_out_flops1_l eq ""} {
+				set slice_west_out_flops1_l $x
+				set slice_west_out_flops1_l_grid $tstgrid
+			} elseif {$slice_west_out_flops2_l eq ""} {
+				set slice_west_out_flops2_l $x
+				set slice_west_out_flops2_l_grid $tstgrid
+			}
 		}
 	}
 }
@@ -1915,25 +1917,27 @@ for {set x $tstx} {$x>0} {incr x} {
     if {$slice_east_out_flops1_l ne "" && $slice_east_out_flops1_r ne "" && $slice_east_out_flops2_l ne "" && $slice_east_out_flops2_r ne ""} {
         break
     }
-	set tstgrid [get_property GRID_POINT_X [get_tiles -of [get_sites SLICE_X\${x}Y\${tsty}]]]
-	if {[get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==[expr {$tstgrid - 1}] && GRID_POINT_Y==$slice_vertical_slice_grid"] ne ""} {
-		#This is SLICE on the right of an interconnect
-		if {$slice_east_out_flops1_r eq ""} {
-			set slice_east_out_flops1_r $x
-			set slice_east_out_flops1_r_grid $tstgrid
-		} elseif {$slice_east_out_flops2_r eq ""} {
-			set slice_east_out_flops2_r $x
-			set slice_east_out_flops2_r_grid $tstgrid
+	set tstgrid [get_property -quiet GRID_POINT_X [get_tiles -quiet -of [get_sites -quiet SLICE_X\${x}Y\${tsty}]]]
+	if {$tstgrid ne ""} {
+		if {[get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==[expr {$tstgrid - 1}] && GRID_POINT_Y==$slice_vertical_slice_grid"] ne ""} {
+			#This is SLICE on the right of an interconnect
+			if {$slice_east_out_flops1_r eq ""} {
+				set slice_east_out_flops1_r $x
+				set slice_east_out_flops1_r_grid $tstgrid
+			} elseif {$slice_east_out_flops2_r eq ""} {
+				set slice_east_out_flops2_r $x
+				set slice_east_out_flops2_r_grid $tstgrid
+			}
 		}
-	}
-	if {[get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==[expr {$tstgrid + 1}] && GRID_POINT_Y==$slice_vertical_slice_grid"] ne ""} {
-		#This is SLICE on the left of an interconnect
-		if {$slice_east_out_flops1_l eq ""} {
-			set slice_east_out_flops1_l $x
-			set slice_east_out_flops1_l_grid $tstgrid
-		} elseif {$slice_east_out_flops2_l eq ""} {
-			set slice_east_out_flops2_l $x
-			set slice_east_out_flops2_l_grid $tstgrid
+		if {[get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==[expr {$tstgrid + 1}] && GRID_POINT_Y==$slice_vertical_slice_grid"] ne ""} {
+			#This is SLICE on the left of an interconnect
+			if {$slice_east_out_flops1_l eq ""} {
+				set slice_east_out_flops1_l $x
+				set slice_east_out_flops1_l_grid $tstgrid
+			} elseif {$slice_east_out_flops2_l eq ""} {
+				set slice_east_out_flops2_l $x
+				set slice_east_out_flops2_l_grid $tstgrid
+			}
 		}
 	}
 }
