@@ -231,7 +231,8 @@ window.onload = function(){
 <button class="btn btn-info btn-sm" id="download" type="button"><i class="fa fa-download"></i> Save</button> 
 </div>
 <!---<button class="btn btn-warning" id="draw" type="button"><i class="fa fa-microchip"></i> Draw</button>  -->
-<button class="btn btn-success custom-select-sm" id="dspi" type="button"><i class="fa fa-bug"></i> Load example DSPI</button> 
+<button class="btn btn-success custom-select-sm" id="dspi512" type="button"><i class="fa fa-bug"></i> Load example DSPI512</button>
+<button class="btn btn-success custom-select-sm" id="dspi1024" type="button"><i class="fa fa-bug"></i> Load example DSPI1024</button> 
 
     <legend>Interface</legend>
 <fieldset id="interfacefieldset">
@@ -544,6 +545,63 @@ function loadDefaultDSPI512(){
 	pushElementToUI("Data",480,"I",32,1,"B10",0);
 	
 	drawVisualisation();
+}function loadDefaultDSPI1024(){
+	clearUIelements();
+	$("input.fieldportname").val("DSPI1024");
+	$(".fieldporttype").val('Slave');
+	pushElementToUI("Type",0,"I",2,1,"C59",0);
+	pushElementToUI("Last",-1,"I",1,1,"C58",0);
+	pushElementToUI("StreamID",0,"I",4,1,"C57",0);
+	pushElementToUI("ChunkID",0,"I",5,1,"C56",0);
+	pushElementToUI("ChannelID",0,"I",8,1,"C54",0);
+	pushElementToUI("ChannelID",8,"I",2,1,"C55",0);
+	pushElementToUI("State",0,"I",32,1,"B9",0);
+	
+	
+	pushElementToUI("InstructionType",0,"O",3,2,"C0",0);
+	pushElementToUI("InstructionStreamID",0,"O",4,2,"C1",0);
+	pushElementToUI("InstructionChannelID",0,"O",8,2,"C2",0);
+	pushElementToUI("InstructionChannelID",8,"O",2,2,"C3",0);
+	pushElementToUI("InstructionParameter",0,"O",8,2,"C4",0);
+	pushElementToUI("InstructionParameter",8,"O",8,2,"C5",0);
+	
+	pushElementToUI("Data",32*0,"I",32,0,"B2",0);
+	pushElementToUI("Data",32*1,"I",32,0,"B3",0);
+	pushElementToUI("Data",32*2,"I",32,0,"B4",0);
+	pushElementToUI("Data",32*3,"I",32,0,"B5",0);
+	pushElementToUI("Data",32*4,"I",32,0,"B6",0);
+	pushElementToUI("Data",32*5,"I",32,0,"B7",0);
+	pushElementToUI("Data",32*6,"I",32,0,"B8",0);
+	pushElementToUI("Data",32*7,"I",32,0,"B9",0);
+	
+	pushElementToUI("Data",32*8,"I",32,1,"B0",0);
+	pushElementToUI("Data",32*9,"I",32,1,"B1",0);
+	pushElementToUI("Data",32*10,"I",32,1,"B2",0);
+	pushElementToUI("Data",32*11,"I",32,1,"B3",0);
+	pushElementToUI("Data",32*12,"I",32,1,"B4",0);
+	pushElementToUI("Data",32*13,"I",32,1,"B5",0);
+	pushElementToUI("Data",32*14,"I",32,1,"B6",0);
+	pushElementToUI("Data",32*15,"I",32,1,"B7",0);
+	
+	pushElementToUI("Data",32*16,"I",32,2,"B4",0);
+	pushElementToUI("Data",32*17,"I",32,2,"B5",0);
+	pushElementToUI("Data",32*18,"I",32,2,"B6",0);
+	pushElementToUI("Data",32*19,"I",32,2,"B7",0);
+	pushElementToUI("Data",32*20,"I",32,2,"B8",0);
+	pushElementToUI("Data",32*21,"I",32,2,"B9",0);
+	pushElementToUI("Data",32*22,"I",32,2,"B10",0);
+	pushElementToUI("Data",32*23,"I",32,2,"B11",0);
+	
+	pushElementToUI("Data",32*24,"I",32,3,"B2",0);
+	pushElementToUI("Data",32*25,"I",32,3,"B3",0);
+	pushElementToUI("Data",32*26,"I",32,3,"B4",0);
+	pushElementToUI("Data",32*27,"I",32,3,"B5",0);
+	pushElementToUI("Data",32*28,"I",32,3,"B6",0);
+	pushElementToUI("Data",32*29,"I",32,3,"B7",0);
+	pushElementToUI("Data",32*30,"I",32,3,"B8",0);
+	pushElementToUI("Data",32*31,"I",32,3,"B9",0);
+	
+	drawVisualisation();
 }
 var interfaceUtilizationWestOut = [];
 var interfaceUtilizationWestIn = [];
@@ -777,8 +835,11 @@ $(document).ready(function() {
 /*    $("#draw").click(function() {
 		drawVisualisation();
     });*/
-    $("#dspi").click(function() {
+    $("#dspi512").click(function() {
 		loadDefaultDSPI512();
+    });
+    $("#dspi1024").click(function() {
+		loadDefaultDSPI1024();
     });
 });
 </script>  
