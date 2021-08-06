@@ -1240,7 +1240,8 @@ set tileVerticalGridCount $int_south_in_grid
 `;
 	for(var i = 0 ; i < physInterfaceEastInName.length ; i+=8){
 tclScript += `
-foreach tsttile_x $ints_to_block {#`;
+foreach tsttile_x $ints_to_block {
+#`;
 for(var j = 0 ; j < 8 ; j++){
 	if(physInterfaceEastInName[i+j] != ""){ tclScript += physInterfaceEastInName[i+j];if(physInterfaceEastInIndex[i+j] != -1)tclScript += "["+ physInterfaceEastInIndex[i+j]+"]";tclScript += ", ";}
 	if(physInterfaceEastOutName[i+j] != ""){ tclScript += physInterfaceEastOutName[i+j];if(physInterfaceEastOutIndex[i+j] != -1)tclScript += "["+ physInterfaceEastOutIndex[i+j]+"]";tclScript += ", ";}
@@ -1340,9 +1341,8 @@ for(var j = 0 ; j < 8 ; j++){
 tclScript += `"
 	}
 ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -of_objects [get_tiles -filter "TYPE==INT && GRID_POINT_X==$tsttile_x && GRID_POINT_Y==$tileVerticalGridCount"] -filter "$pips_filter"]
-`;
-tclScript += `
-} # blocker progress: `+(Math.floor(physInterfaceWestInName.length/8)+Math.floor(i/8))+` / `+Math.floor(physInterfaceWestInName.length/4)+`
+ # blocker progress: `+(Math.floor(physInterfaceWestInName.length/8)+Math.floor(i/8))+` / `+Math.floor(physInterfaceWestInName.length/4)+`
+}
 set tileVerticalGridCount [get_property -max GRID_POINT_Y [get_tiles -filter "TYPE==INT && GRID_POINT_X==$int_west_out_grid_fullblock && GRID_POINT_Y<$tileVerticalGridCount"]]
 `;	
 	
@@ -1363,7 +1363,8 @@ set tileVerticalGridCount $int_south_in_grid
 `;
 	for(var i = 0 ; i < physInterfaceWestInName.length ; i+=8){
 tclScript += `
-foreach tsttile_x $ints_to_block {#`;
+foreach tsttile_x $ints_to_block {
+#`;
 for(var j = 0 ; j < 8 ; j++){
 	if(physInterfaceWestInName[i+j] != ""){ tclScript += physInterfaceWestInName[i+j];if(physInterfaceWestInIndex[i+j] != -1)tclScript += "["+ physInterfaceWestInIndex[i+j]+"]";tclScript += ", ";}
 	if(physInterfaceWestOutName[i+j] != ""){ tclScript += physInterfaceWestOutName[i+j];if(physInterfaceWestOutIndex[i+j] != -1)tclScript += "["+ physInterfaceWestOutIndex[i+j]+"]";tclScript += ", ";}
@@ -1463,9 +1464,8 @@ for(var j = 0 ; j < 8 ; j++){
 tclScript += `"
 	}
 ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -of_objects [get_tiles -filter "TYPE==INT && GRID_POINT_X==$tsttile_x && GRID_POINT_Y==$tileVerticalGridCount"] -filter "$pips_filter"]
-`;
-tclScript += `
-} # blocker progress: `+Math.floor(i/8)+` / `+Math.floor(physInterfaceWestInName.length/4)+`
+ # blocker progress: `+Math.floor(i/8)+` / `+Math.floor(physInterfaceWestInName.length/4)+`
+}
 set tileVerticalGridCount [get_property -max GRID_POINT_Y [get_tiles -filter "TYPE==INT && GRID_POINT_X==$int_west_out_grid_fullblock && GRID_POINT_Y<$tileVerticalGridCount"]]
 `;	
 	
