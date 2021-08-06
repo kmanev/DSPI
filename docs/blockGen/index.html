@@ -1036,7 +1036,7 @@ function generateTopPR(){
 	
 	moduleRTL += "endmodule\r\n";
 	return moduleRTL;
-}	
+}
 function generateTemplateTop(){
 	var moduleRTL = "module "+$(".topaccelname").val()+"(";
 	var firstConn = 1;
@@ -1342,7 +1342,7 @@ tclScript += `"
 ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -of_objects [get_tiles -filter "TYPE==INT && GRID_POINT_X==$tsttile_x && GRID_POINT_Y==$tileVerticalGridCount"] -filter "$pips_filter"]
 `;
 tclScript += `
-}
+} # blocker progress: `+(Math.floor(physInterfaceWestInName.length/8)+Math.floor(i/8))+` / `+Math.floor(physInterfaceWestInName.length/4)+`
 set tileVerticalGridCount [get_property -max GRID_POINT_Y [get_tiles -filter "TYPE==INT && GRID_POINT_X==$int_west_out_grid_fullblock && GRID_POINT_Y<$tileVerticalGridCount"]]
 `;	
 	
@@ -1465,7 +1465,7 @@ tclScript += `"
 ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -of_objects [get_tiles -filter "TYPE==INT && GRID_POINT_X==$tsttile_x && GRID_POINT_Y==$tileVerticalGridCount"] -filter "$pips_filter"]
 `;
 tclScript += `
-}
+} # blocker progress: `+Math.floor(i/8)+` / `+Math.floor(physInterfaceWestInName.length/4)+`
 set tileVerticalGridCount [get_property -max GRID_POINT_Y [get_tiles -filter "TYPE==INT && GRID_POINT_X==$int_west_out_grid_fullblock && GRID_POINT_Y<$tileVerticalGridCount"]]
 `;	
 	
@@ -1642,8 +1642,8 @@ function generateTCLScript(){
 	var tclScript = "";
 	
 	tclScript += loadTopTCLscript();
-	tclScript += generateBlockersTunnelsWest();
-	tclScript += generateBlockersTunnelsEast();
+	tclScript += generateBlockersTunnelsWest(); //first west !
+	tclScript += generateBlockersTunnelsEast(); // then east !
 	tclScript += solidBlockBoundingBox();
 	tclScript += generateClockBlockers();
 	tclScript += placeExternalFlopsAndLuts();
@@ -2132,6 +2132,9 @@ function drawVisualisation(){
 $(document).ready(function() {
     $("#add").click(function() {
 		pushElementToUI("","","","",-1,-1);
+    });
+	$("#downloadHDLvhdl").click(function() {
+        //generateHDLvhdl(); //copy of verilog functions to generate vhdl instead
     });
     $("#downloadHDLverilog").click(function() {
         generateHDLverilog();
