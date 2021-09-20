@@ -230,10 +230,10 @@ window.onload = function(){
 <select class="custom-select custom-select-sm fieldporttype" autocomplete="false" aria-label=".custom-select-sm" style="max-width:12%;"><option value="-1" selected>Port type</option><option value="Slave">Slave/Rx</option><option value="Master">Master/Tx</option></select>
 <button class="btn btn-info btn-sm" id="download" type="button"><i class="fa fa-download"></i> Save</button> 
 </div>
-<!---<button class="btn btn-warning" id="draw" type="button"><i class="fa fa-microchip"></i> Draw</button>  -->
-<button class="btn btn-success custom-select-sm" id="dspi512cr2" type="button"><i class="fa fa-bug"></i> Load example DSPI512 @ 2 clock regions</button>
-<button class="btn btn-success custom-select-sm" id="dspi1024cr4" type="button"><i class="fa fa-bug"></i> Load example DSPI1024 @ 4 clock regions</button> 
-<button class="btn btn-success custom-select-sm" id="dspi1024cr5" type="button"><i class="fa fa-bug"></i> Load example DSPI1024 @ 5 clock regions</button> 
+<!---<button class="btn btn-warning" id="draw" type="button"><i class="fa fa-microchip"></i> Draw</button>  -->  <br>
+<button class="btn btn-success custom-select-sm" id="dspi512cr2" type="button"><i class="fa fa-bug"></i> Load example DSPI512 @ 2 clock regions</button> <br>  <br>
+<button class="btn btn-success custom-select-sm" id="dspi1024cr4" type="button"><i class="fa fa-bug"></i> Load example DSPI1024 @ 4 clock regions</button> <br>   <br>
+<button class="btn btn-success custom-select-sm" id="dspi1024cr5" type="button"><i class="fa fa-bug"></i> Load example DSPI1024 @ 5 clock regions</button>  <br>  <br>
 
     <legend>Interface</legend>
 <fieldset id="interfacefieldset">
@@ -605,7 +605,7 @@ function loadDefaultDSPI1024cr4(){
 	
 	drawVisualisation();
 }
-function loadDefaultDSPI1024cr4(){
+function loadDefaultDSPI1024cr5(){
 	clearUIelements();
 	$("input.fieldportname").val("DSPI1024CR5");
 	$(".fieldporttype").val('Slave');
@@ -615,15 +615,15 @@ function loadDefaultDSPI1024cr4(){
 	pushElementToUI("ChunkID",0,"I",5,2,"C30",0);
 	pushElementToUI("ChannelID",0,"I",8,2,"C34",0);
 	pushElementToUI("ChannelID",8,"I",2,2,"C35",0);
-	pushElementToUI("State",0,"I",32,2,"B7",0);
+	pushElementToUI("State",0,"I",32,2,"B8",0);
 	
 	
-	pushElementToUI("InstructionType",0,"O",3,2,"C0",0);
-	pushElementToUI("InstructionStreamID",0,"O",4,2,"C1",0);
-	pushElementToUI("InstructionChannelID",0,"O",8,2,"C2",0);
-	pushElementToUI("InstructionChannelID",8,"O",2,2,"C3",0);
-	pushElementToUI("InstructionParameter",0,"O",8,2,"C4",0);
-	pushElementToUI("InstructionParameter",8,"O",8,2,"C5",0);
+	pushElementToUI("InstructionType",0,"O",3,2,"C23",0);
+	pushElementToUI("InstructionStreamID",0,"O",4,2,"C24",0);
+	pushElementToUI("InstructionChannelID",0,"O",8,2,"C25",0);
+	pushElementToUI("InstructionChannelID",8,"O",2,2,"C26",0);
+	pushElementToUI("InstructionParameter",0,"O",8,2,"C27",0);
+	pushElementToUI("InstructionParameter",8,"O",8,2,"C28",0);
 	
 	pushElementToUI("Data",32*0,"I",32,0,"B4",0);
 	pushElementToUI("Data",32*1,"I",32,0,"B5",0);
