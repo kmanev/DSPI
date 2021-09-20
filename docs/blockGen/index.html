@@ -248,9 +248,10 @@ window.onload = function(){
   $("input.fieldportname").val("");
 	$(".fieldporttype").val(-1);
 }
-</script>
-<button class="btn btn-success custom-select-sm" id="dspi512" type="button"><i class="fa fa-bug"></i> Load example DSPI512</button> 
-<button class="btn btn-success custom-select-sm" id="dspi1024" type="button"><i class="fa fa-bug"></i> Load example DSPI1024</button> 
+</script><br>
+<button class="btn btn-success custom-select-sm" id="dspi512cr2" type="button"><i class="fa fa-bug"></i> Load example DSPI512 @ 2 clock regions (Need DSPI512CR2, ResetCR2)</button> <br><br>
+<button class="btn btn-success custom-select-sm" id="dspi1024cr4" type="button"><i class="fa fa-bug"></i> Load example DSPI1024 @ 4 clock regions (Need DSPI1024CR4, ResetCR4)</button> <br><br>
+<button class="btn btn-success custom-select-sm" id="dspi1024cr5" type="button"><i class="fa fa-bug"></i> Load example DSPI1024 @ 5 clock regions (Need DSPI1024CR5, ResetCR5)</button> <br><br>
 
 <legend>Interface</legend>
 <fieldset id="interfacefieldset">
@@ -2170,22 +2171,31 @@ $(document).ready(function() {
 		hiddenfileinput.val(null);
 		shownfileinput.val("");
     });
-    $("#dspi512").click(function() {
-		pushElementToUI("dirOneFront_","","DSPI512","ES",-1,-1);
-		pushElementToUI("dirOneBack_","","DSPI512","WM",-1,-1);
-		pushElementToUI("dirTwoFront_","","DSPI512","WS",-1,-1);
-		pushElementToUI("dirTwoBack_","","DSPI512","EM",-1,-1);
-		pushElementToUI("","In","Reset","ES",-1,-1);
-		pushElementToUI("","Out","Reset","WM",-1,-1);
+    $("#dspi512cr2").click(function() {
+		pushElementToUI("dirOneFront_","","DSPI512CR2","ES",-1,-1);
+		pushElementToUI("dirOneBack_","","DSPI512CR2","WM",-1,-1);
+		pushElementToUI("dirTwoFront_","","DSPI512CR2","WS",-1,-1);
+		pushElementToUI("dirTwoBack_","","DSPI512CR2","EM",-1,-1);
+		pushElementToUI("","In","ResetCR2","ES",-1,-1);
+		pushElementToUI("","Out","ResetCR2","WM",-1,-1);
 		drawVisualisation();
     });
-    $("#dspi1024").click(function() {
-		pushElementToUI("dirOneFront_","","DSPI1024","ES",-1,-1);
-		pushElementToUI("dirOneBack_","","DSPI1024","WM",-1,-1);
-		pushElementToUI("dirTwoFront_","","DSPI1024","WS",-1,-1);
-		pushElementToUI("dirTwoBack_","","DSPI1024","EM",-1,-1);
-		pushElementToUI("","In","Reset","ES",-1,-1);
-		pushElementToUI("","Out","Reset","WM",-1,-1);
+    $("#dspi1024cr4").click(function() {
+		pushElementToUI("dirOneFront_","","DSPI1024CR4","ES",-1,-1);
+		pushElementToUI("dirOneBack_","","DSPI1024CR4","WM",-1,-1);
+		pushElementToUI("dirTwoFront_","","DSPI1024CR4","WS",-1,-1);
+		pushElementToUI("dirTwoBack_","","DSPI1024CR4","EM",-1,-1);
+		pushElementToUI("","In","ResetCR4","ES",-1,-1);
+		pushElementToUI("","Out","ResetCR4","WM",-1,-1);
+		drawVisualisation();
+    });
+    $("#dspi1024cr5").click(function() {
+		pushElementToUI("dirOneFront_","","DSPI1024CR5","ES",-1,-1);
+		pushElementToUI("dirOneBack_","","DSPI1024CR5","WM",-1,-1);
+		pushElementToUI("dirTwoFront_","","DSPI1024CR5","WS",-1,-1);
+		pushElementToUI("dirTwoBack_","","DSPI1024CR5","EM",-1,-1);
+		pushElementToUI("","In","ResetCR5","ES",-1,-1);
+		pushElementToUI("","Out","ResetCR5","WM",-1,-1);
 		drawVisualisation();
     });
 });
