@@ -162,14 +162,39 @@ function calcSubstrings(str){
 			}
 		}
 	}
-	var retHTML = "Substrings are:<br><table border=1><tr><td rowspan=2>&nbsp;&nbsp;&nbsp;&nbsp;Substring&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan=2>&nbsp;&nbsp;Occurances&nbsp;&nbsp;</td></tr><tr><td>&nbsp;&nbsp;Total&nbsp;&nbsp;</td><td>&nbsp;&nbsp;No overlap&nbsp;&nbsp;</td></tr>";
-	
-	Object.entries(substringOccurances).sort((a,b)=>b[1]-a[1]).forEach(entry => {
+	var substringNoOverlapOccurances = new Object();
+	Object.entries(substringOccurances).forEach(entry => {
 		//count occurances if all placed:
 		if(entry[1]>1){
 			var cnt = 0;
 			for(ind = 0 ; (ind = str.indexOf(entry[0],ind))>=0 ; ind+=entry[0].length)cnt++;
-			retHTML += "<tr><td>" + entry[0] + "</td><td>x" + entry[1] + "</td><td>x"+cnt+"</td></tr>";
+			substringNoOverlapOccurances[entry[0]] = cnt;
+		}
+	});
+	var substringUniqueOccurances = new Object();
+	//remove substrings with same # of occurances
+	Object.entries(substringOccurances).sort((a,b)=>b[0].length-a[0].length).forEach(entry => {
+		//only largest substring
+		console.log(entry[0], entry[1]);
+		if(entry[1]>1){
+			var noLargerSubstring = 1;
+			Object.entries(substringUniqueOccurances).forEach(uEntry => {
+				if(uEntry[0].indexOf(entry[0]) != -1){
+					if((entry[1] == uEntry[1]) && (substringNoOverlapOccurances[entry[0]] == substringNoOverlapOccurances[uEntry[0]]))
+						noLargerSubstring = 0;
+				}
+			});
+			if(noLargerSubstring)
+				substringUniqueOccurances[entry[0]] = entry[1];
+		}
+	});
+	
+	var retHTML = "Substrings are:<br><table border=1><tr><td rowspan=2>&nbsp;&nbsp;&nbsp;&nbsp;Substring&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan=2>&nbsp;&nbsp;Occurances&nbsp;&nbsp;</td></tr><tr><td>&nbsp;&nbsp;Total&nbsp;&nbsp;</td><td>&nbsp;&nbsp;No overlap&nbsp;&nbsp;</td></tr>";
+	
+	Object.entries(substringUniqueOccurances).sort((a,b)=>b[1]-a[1]).forEach(entry => {
+		//count occurances if all placed:
+		if(entry[1]>1){
+			retHTML += "<tr><td>" + entry[0] + "</td><td>x" + entry[1] + "</td><td>x"+substringNoOverlapOccurances[entry[0]]+"</td></tr>";
 		}
 	});
 	retHTML += "</table>";
