@@ -21,18 +21,6 @@ a {
 	font-weight: bold;
 	text-decoration: none;
 }
-#menu a,#menu input, #menu button{
-	font-family: tahoma, arial;
-	font-size:13px;
-	text-shadow: 3px 3px 3px #000000;
-	font-weight: bold;
-	text-decoration: none;
-}
-#mainBody{
-	font-family: Georgia, Arial, Helvetica, sans-serif;
-	font-size: 1em;
-	line-height: 1.3em;
-}
 </style>
 <style>
 html,
@@ -85,7 +73,7 @@ padding-top: 56px;
 		<div class="collapse navbar-collapse" id="navbarCollapseTop">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link text-nowrap navbar-right" href="interfaceDef/">
+					<a class="nav-link text-nowrap navbar-right" href="../interfaceDef/">
 						<svg aria-hidden="true" width="2em" height="2em" focusable="false" data-prefix="far" data-icon="image" class="fa svg-inline--fa fa-image fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
 							<path fill="currentColor" d="M2.71,22.71l2.4-2.4a3.79,3.79,0,0,0,4.6-.6L12.41,17l-1-1,2.29-2.29-1.41-1.41L10,14.59,9.41,14l2.29-2.29-1.41-1.41L8,12.59l-1-1L4.29,14.29a3.82,3.82,0,0,0-.6,4.6l-2.4,2.4Zm3-7L7,14.41,9.59,17,8.29,18.29a1.83,1.83,0,0,1-2.59-2.59Z">
 							</path>
@@ -96,7 +84,7 @@ padding-top: 56px;
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-nowrap navbar-right" href="blockGen/">
+					<a class="nav-link text-nowrap navbar-right" href="../blockGen/">
 						<svg aria-hidden="true" width="2em" height="2em" focusable="false" data-prefix="far" data-icon="image" class="fa svg-inline--fa fa-image fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
 							<path fill="currentColor" d="M29,0H3A3,3,0,0,0,0,3V29a3,3,0,0,0,3,3H29a3,3,0,0,0,3-3V3A3,3,0,0,0,29,0ZM2,3A1,1,0,0,1,3,2H15V7H2ZM22,9v6H10V9ZM2,9H8v6H2Zm0,8H15v6H2ZM8,30H3a1,1,0,0,1-1-1V25H8Zm14,0H10V25H22Zm8-1a1,1,0,0,1-1,1H24V25h6Zm0-6H17V17H30Zm0-8H24V9h6Zm0-8H17V2H29a1,1,0,0,1,1,1Z">
 							</path>
@@ -137,70 +125,82 @@ padding-top: 56px;
 		</div>
 	</nav>
 <main role="main" class="container-fluid">
-<div class="my-3 p-3 bg-white rounded shadow-sm table-responsive">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="row">
+<!--
+<div class="col-xs-6 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="maindiv" style="min-width:400px;">
+-->
+<div class="col-1" style="max-width:5%;">
 
 </div>
-</main>
+<div class="col-9 my-3 p-3 bg-white rounded shadow-sm table-responsive" id="maindiv" style="min-width:600px;max-width:55%;">
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" class="form-control form-control-sm string" value="ResourceString" />
+<button class="btn btn-success custom-select-sm" id="search" type="button"><i class="fa fa-bug"></i> Search</button> <br><br>
+<div id="results">
+</div>
+<script type="text/javascript">
+//Author Kristiyan Manev, kristi.manev@gmail.com. Contact if any issues.
+function calcSubstrings(str){
+	var substringOccurances = new Object();
+	for(i = 0 ; i < str.length ; i++){
+		for(j = 1 ; j <= (str.length-i) ; j++){
+			var substring = str.substr(i,j);
+			if(substring in substringOccurances){
+				substringOccurances[substring]++;
+			} else {
+				substringOccurances[substring] = 1;
+			}
+		}
+	}
+	var retHTML = "Substrings are:<br><table border=1><tr><td rowspan=2>&nbsp;&nbsp;&nbsp;&nbsp;Substring&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan=2>&nbsp;&nbsp;Occurances&nbsp;&nbsp;</td></tr><tr><td>&nbsp;&nbsp;Total&nbsp;&nbsp;</td><td>&nbsp;&nbsp;No overlap&nbsp;&nbsp;</td></tr>";
+	
+	Object.entries(substringOccurances).sort((a,b)=>b[1]-a[1]).forEach(entry => {
+		//count occurances if all placed:
+		if(entry[1]>1){
+			var cnt = 0;
+			for(ind = 0 ; (ind = str.indexOf(entry[0],ind))>=0 ; ind+=entry[0].length)cnt++;
+			retHTML += "<tr><td>" + entry[0] + "</td><td>x" + entry[1] + "</td><td>x"+cnt+"</td></tr>";
+		}
+	});
+	retHTML += "</table>";
+	return retHTML;
+}
+$(document).ready(function() {
+    $("#search").click(function() {
+		document.getElementById("results").innerHTML = calcSubstrings($(".string").val());
+    });
+});
+</script>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="https://github.com/kmanev/DSPI" style="pointer-events: none;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;">DSPI</a>
