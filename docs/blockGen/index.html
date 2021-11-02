@@ -1065,8 +1065,8 @@ function generateTemplateTop(){
 function solidBlockBoundingBox(){
 return `
 
-set blockerEast $int_west_out_grid_fullblock
-set blockerWest $int_east_out_grid_fullblock
+set blockerEast $int_east_out_grid_fullblock
+set blockerWest $int_west_out_grid_fullblock
 set blockerNorth $int_north_in_grid
 set blockerSouth $int_south_in_grid
 if {$int_north_out_grid ne ""} {
@@ -1081,11 +1081,11 @@ ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_obj
 ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==\${blockerEast} && GRID_POINT_Y>=\${blockerNorth} && GRID_POINT_Y<=\${blockerSouth}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
 #north solid blocker
 if {$int_north_out_grid ne ""} {
-	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==\${blockerNorth} && GRID_POINT_X>\${blockerEast} && GRID_POINT_X<\${blockerWest}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==\${blockerNorth} && GRID_POINT_X>\${blockerWest} && GRID_POINT_X<\${blockerEast}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
 }
 #south solid blocker
 if {$int_south_out_grid ne ""} {
-	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==\${blockerSouth} && GRID_POINT_X>\${blockerEast} && GRID_POINT_X<\${blockerWest}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==\${blockerSouth} && GRID_POINT_X>\${blockerWest} && GRID_POINT_X<\${blockerEast}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
 }
 
 `;
