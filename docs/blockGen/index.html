@@ -1508,10 +1508,16 @@ function constrainInterfaceTiming(){
 function verifyPipPlacement(){
 	var tclScript = `
 #verify interface routings
+set wiresChecked 0
+set wiresFailed 0
 proc checkWire {net tile pin} {
+global wiresChecked
+global wiresFailed
+set wiresChecked [expr {$wiresChecked + 1}]
 set pips_string [get_pips -of_objects [get_nets \${net}]]
 	if {! [regexp "\${tile}\\[^ \\]*\${pin}" \${pips_string}]} {
-		error "Something went wrong! An interface wire ($net) has not been placed correctly on $tile/$pin. It instead routes through path: $pips_string"
+		set wiresFailed [expr {$wiresFailed + 1}]
+		puts "Something went wrong! An interface wire ($net) has not been placed correctly on $tile/$pin. It instead routes through path: $pips_string"
 	}
 }
 set slice_y_count $int_south_in_inttile
@@ -1558,6 +1564,12 @@ set west_int_tile [get_tiles  -filter "TYPE==INT && INT_TILE_Y==\${slice_y_count
 	
 	tclScript += "set slice_y_count [expr {$slice_y_count - 1}]\r\n";
 }
+	tclScript += `
+	
+	if {$wiresFailed ne 0} {
+		error "There was a misplaced wire. Please check logs."
+	}
+	`;
 	return tclScript;
 }
 function generateTCLScriptToFinishUpImplementation(){
