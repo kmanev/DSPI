@@ -1520,6 +1520,7 @@ set pips_string [get_pips -of_objects [get_nets \${net}]]
 		puts "Something went wrong! An interface wire ($net) has not been placed correctly on $tile/$pin. It instead routes through path: $pips_string"
 	}
 }
+set_param tcl.collectionResultDisplayLimit 0
 set slice_y_count $int_south_in_inttile
 `;
 		var tmpname;
