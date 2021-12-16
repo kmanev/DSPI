@@ -1076,16 +1076,16 @@ if {$int_south_out_grid ne ""} {
 	set blockerSouth $int_south_out_grid
 }
 #west solid blocker
-ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==\${blockerWest} && GRID_POINT_Y>=\${blockerNorth} && GRID_POINT_Y<=\${blockerSouth}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==\${blockerWest} && GRID_POINT_Y>=\${blockerNorth} && GRID_POINT_Y<=\${blockerSouth}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*CTRL* && NAME!~*IMUX* && NAME!~*IMUX* && NAME!~*BYPASS* && NAME!~*MUX && NAME!~*_O && NAME!~*AQ && NAME!~*AQ2 && NAME!~*BQ && NAME!~*BQ2 && NAME!~*CQ && NAME!~*CQ2 && NAME!~*DQ && NAME!~*DQ2 && NAME!~*EQ && NAME!~*EQ2 && NAME!~*FQ && NAME!~*FQ2 && NAME!~*GQ && NAME!~*GQ2 && NAME!~*HQ && NAME!~*HQ2 && NAME!~*COUT && NAME!~*CIN* && NAME!~*BOUNCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1*"]
 #east solid blocker
-ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==\${blockerEast} && GRID_POINT_Y>=\${blockerNorth} && GRID_POINT_Y<=\${blockerSouth}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_X==\${blockerEast} && GRID_POINT_Y>=\${blockerNorth} && GRID_POINT_Y<=\${blockerSouth}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*CTRL* && NAME!~*IMUX* && NAME!~*IMUX* && NAME!~*BYPASS* && NAME!~*MUX && NAME!~*_O && NAME!~*AQ && NAME!~*AQ2 && NAME!~*BQ && NAME!~*BQ2 && NAME!~*CQ && NAME!~*CQ2 && NAME!~*DQ && NAME!~*DQ2 && NAME!~*EQ && NAME!~*EQ2 && NAME!~*FQ && NAME!~*FQ2 && NAME!~*GQ && NAME!~*GQ2 && NAME!~*HQ && NAME!~*HQ2 && NAME!~*COUT && NAME!~*CIN* && NAME!~*BOUNCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1*"]
 #north solid blocker
 if {$int_north_out_grid ne ""} {
-	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==\${blockerNorth} && GRID_POINT_X>\${blockerWest} && GRID_POINT_X<\${blockerEast}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==\${blockerNorth} && GRID_POINT_X>\${blockerWest} && GRID_POINT_X<\${blockerEast}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*CTRL* && NAME!~*IMUX* && NAME!~*IMUX* && NAME!~*BYPASS* && NAME!~*MUX && NAME!~*_O && NAME!~*AQ && NAME!~*AQ2 && NAME!~*BQ && NAME!~*BQ2 && NAME!~*CQ && NAME!~*CQ2 && NAME!~*DQ && NAME!~*DQ2 && NAME!~*EQ && NAME!~*EQ2 && NAME!~*FQ && NAME!~*FQ2 && NAME!~*GQ && NAME!~*GQ2 && NAME!~*HQ && NAME!~*HQ2 && NAME!~*COUT && NAME!~*CIN* && NAME!~*BOUNCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1*"]
 }
 #south solid blocker
 if {$int_south_out_grid ne ""} {
-	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==\${blockerSouth} && GRID_POINT_X>\${blockerWest} && GRID_POINT_X<\${blockerEast}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE*"]
+	ted::routing::blockFreeNodes [ted::routing::getNetVCC] [get_nodes -quiet -of_objects [get_tiles -quiet -filter "TYPE==INT && GRID_POINT_Y==\${blockerSouth} && GRID_POINT_X>\${blockerWest} && GRID_POINT_X<\${blockerEast}"] -filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*CTRL* && NAME!~*IMUX* && NAME!~*IMUX* && NAME!~*BYPASS* && NAME!~*MUX && NAME!~*_O && NAME!~*AQ && NAME!~*AQ2 && NAME!~*BQ && NAME!~*BQ2 && NAME!~*CQ && NAME!~*CQ2 && NAME!~*DQ && NAME!~*DQ2 && NAME!~*EQ && NAME!~*EQ2 && NAME!~*FQ && NAME!~*FQ2 && NAME!~*GQ && NAME!~*GQ2 && NAME!~*HQ && NAME!~*HQ2 && NAME!~*COUT && NAME!~*CIN* && NAME!~*BOUNCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1*"]
 }
 
 `;
@@ -1247,7 +1247,7 @@ for(var j = 0 ; j < 8 ; j++){
 	if(physInterfaceEastOutName[i+j] != ""){ tclScript += physInterfaceEastOutName[i+j];if(physInterfaceEastOutIndex[i+j] != -1)tclScript += "["+ physInterfaceEastOutIndex[i+j]+"]";tclScript += ", ";}
 }
 tclScript += `
-	set pips_filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1 && NAME!~*CTRL_E0 && NAME!~*CTRL_E2 && NAME!~*CTRL_E4 && NAME!~*CTRL_E5 && NAME!~*CTRL_E6 && NAME!~*CTRL_E7 && NAME!~*CTRL_W0 && NAME!~*CTRL_W2 && NAME!~*CTRL_W4 && NAME!~*CTRL_W5 && NAME!~*CTRL_W6 && NAME!~*CTRL_W7"
+	set pips_filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1 && NAME!~*CTRL* && NAME!~*IMUX* && NAME!~*IMUX* && NAME!~*BYPASS* && NAME!~*MUX && NAME!~*_O && NAME!~*AQ && NAME!~*AQ2 && NAME!~*BQ && NAME!~*BQ2 && NAME!~*CQ && NAME!~*CQ2 && NAME!~*DQ && NAME!~*DQ2 && NAME!~*EQ && NAME!~*EQ2 && NAME!~*FQ && NAME!~*FQ2 && NAME!~*GQ && NAME!~*GQ2 && NAME!~*HQ && NAME!~*HQ2 && NAME!~*COUT && NAME!~*CIN* && NAME!~*BOUNCE*" 
 `;
 
 //East flops1
@@ -1370,7 +1370,7 @@ for(var j = 0 ; j < 8 ; j++){
 	if(physInterfaceWestOutName[i+j] != ""){ tclScript += physInterfaceWestOutName[i+j];if(physInterfaceWestOutIndex[i+j] != -1)tclScript += "["+ physInterfaceWestOutIndex[i+j]+"]";tclScript += ", ";}
 }
 tclScript += `
-	set pips_filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*INT_NODE_GLOBAL_0_INT_OUT1 && NAME!~*CTRL_E0 && NAME!~*CTRL_E2 && NAME!~*CTRL_E4 && NAME!~*CTRL_E5 && NAME!~*CTRL_E6 && NAME!~*CTRL_E7 && NAME!~*CTRL_W0 && NAME!~*CTRL_W2 && NAME!~*CTRL_W4 && NAME!~*CTRL_W5 && NAME!~*CTRL_W6 && NAME!~*CTRL_W7"
+	set pips_filter "!IS_VCC && !IS_GND && NAME!~*/LIOB_MONITOR* && NAME!~*CLK* && NAME!~*BUFCE* && NAME!~*CTRL* && NAME!~*IMUX* && NAME!~*IMUX* && NAME!~*BYPASS* && NAME!~*MUX && NAME!~*_O && NAME!~*AQ && NAME!~*AQ2 && NAME!~*BQ && NAME!~*BQ2 && NAME!~*CQ && NAME!~*CQ2 && NAME!~*DQ && NAME!~*DQ2 && NAME!~*EQ && NAME!~*EQ2 && NAME!~*FQ && NAME!~*FQ2 && NAME!~*GQ && NAME!~*GQ2 && NAME!~*HQ && NAME!~*HQ2 && NAME!~*COUT && NAME!~*CIN* && NAME!~*BOUNCE*" 
 `;
 
 //West flops1
