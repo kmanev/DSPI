@@ -35,7 +35,8 @@ module ModuleExampleDualDirectionTop #(
 	parameter integer WIDTH_NUM_32B_FIELDS = $clog2(NUM_32B_FIELDS)
 )(
 	input clk,
-	input rstn,
+	input rstnIn,
+	output reg rstnOut,
 	
 //DIRECTION ONE
 	//FORWARD INTERFACE DATA
@@ -99,6 +100,11 @@ module ModuleExampleDualDirectionTop #(
     output reg 	[CHANNEL_ID_WIDTH-1:0] 				dirTwoFront_InstructionChannelID,
     output reg 	[INSTRUCTION_PARAMETER_WIDTH-1:0] 	dirTwoFront_InstructionParameter
 );
+	wire rstn;
+	assign rstn = rstnOut;
+	always @ (posedge clk) begin
+		rstnOut <= rstnIn;
+	end
 	wire controlTypePacketValid = dirOneFront_Type[1];
 	wire dataTypePacketValid = dirOneFront_Type[0];
 	

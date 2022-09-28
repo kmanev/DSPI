@@ -35,7 +35,8 @@ module ModuleExampleSingleDirectionTop #(
 	parameter integer WIDTH_NUM_32B_FIELDS = $clog2(NUM_32B_FIELDS)
 )(
 	input clk,
-	input rstn,
+	input rstnIn,
+	output reg rstnOut,
 	
 //DIRECTION ONE
 	//FORWARD INTERFACE DATA
@@ -69,6 +70,11 @@ module ModuleExampleSingleDirectionTop #(
     output reg 	[INSTRUCTION_PARAMETER_WIDTH-1:0] 	Front_InstructionParameter
 	
 );
+	wire rstn;
+	assign rstn = rstnOut;
+	always @ (posedge clk) begin
+		rstnOut <= rstnIn;
+	end
 	wire controlTypePacketValid = Front_Type[1];
 	wire dataTypePacketValid = Front_Type[0];
 	
